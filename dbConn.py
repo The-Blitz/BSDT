@@ -1,3 +1,4 @@
+# coding=utf-8
 import MySQLdb;
 
 def senseSearch(text): # text = word or phrase you're looking for
@@ -20,7 +21,7 @@ def searchSubjectivity(text): # text = sense ID
 	return subj,obj;
 	
 
-#aux=senseSearch("sueño"); 17 rows
+#aux=senseSearch("sueño"); #17 rows
 #print (aux[16][2]);
 #subj, obj= searchSubjectivity(aux[16][2]);
 #print ("subjectivity = " + str(subj) + " objectivity = " +str(obj));
