@@ -40,17 +40,24 @@ def procText (text):
 	ls = mf.analyze(ls);
 	ls = tg.analyze(ls);
 	ls = sen.analyze(ls);
-
+	
+	words=[]	
+	lemmas=[]
+	tags=[]
 	for s in ls :
 		ws = s.get_words();
 		for w in ws :
-			print(w.get_form()+" "+w.get_lemma()+" "+w.get_tag());
-	print ("");
+			words.append(w.get_form())
+			lemmas.append(w.get_lemma())
+			tags.append(w.get_tag())
+			#print(w.get_form()+" "+w.get_lemma()+" "+w.get_tag());
+	#print ("");
 
 	sp.close_session(sid);
+	return words,lemmas,tags;
 
-
-procText("Vería esa película una_y_otra_vez")
-
+#procText("Esto es bastante estupido")
+#words,lemmas,tags=procText("Vería esa película una_y_otra_vez")
+#print (words,lemmas,tags)
 
 
