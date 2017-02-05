@@ -34,7 +34,7 @@ def procSentence(text):
     return result
    
 
-sentence = ["Vería" , "esa" , "película" , "una" , "y" , "otra" , "vez"]
+#sentence = ["Vería" , "esa" , "película" , "una" , "y" , "otra" , "vez"]
 #sentence  = ["dime" , "si" , "te", "sientes" , "cansada"]
-result=procSentence(sentence)
-print (result)
+#result=procSentence(sentence)
+#print (result)

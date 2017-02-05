@@ -15,9 +15,9 @@ def searchSubjectivity(text): # text = sense ID
 	cursor.execute("SELECT * FROM `subjectivity` where id='" + text +"'")
 	ans=cursor.fetchall()
 	db.close()
-	#	posScore + negScore
-	subj=ans[0][1] + ans[0][2];
-	obj = 1 - subj;
+    # table ( id , subj ,obj )
+	subj=ans[0][1]
+	obj =ans[0][2]
 	return subj,obj;
 	
 
