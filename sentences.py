@@ -10,6 +10,8 @@ def verif(cont, text):
 		else:
 			senses= dbc.senseSearch(auxSense+"_" +text[i])	
 		if( (len(senses)==0 ) or (i>cont and senses[0][0][len(auxSense)] != "_" )  ):
+			if(i==cont):	#unchecked words
+				return (text[i],i+1)
 			#checking words and phrases
 			return auxSense,i
 		if(auxSense==""):
@@ -22,19 +24,21 @@ def verif(cont, text):
 def procSentence(text):
     sz= len(text)
     vis= np.zeros(sz)
-    result=[];
+    result="";
     for i in range(sz):
     	if vis[i]!=0:
     		continue
+    	if i>0:	result= result+" "	
     	word,counter = verif(i,text)
     	for j in range(i,counter):
     		vis[j]=1
-    	if word :
-    		result.append(word)
+    	result= result+word
     return result
    
 
-#sentence = ["Vería" , "esa" , "película" , "una" , "y" , "otra" , "vez"]
+#sentence = ["Vería" , "esa" , "película" , "una" , "y" , "otra" , "vez" , "sin" , "parar"]
 #sentence  = ["dime" , "si" , "te", "sientes" , "cansada"]
 #result=procSentence(sentence)
 #print (result)
+
+
