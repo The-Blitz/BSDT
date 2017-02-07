@@ -1,6 +1,8 @@
 # coding=utf-8
+import re
 import dbConn as dbc;
 import numpy as np;
+from html.parser import HTMLParser
 
 def verif(cont, text):
 	auxSense=""
@@ -34,8 +36,38 @@ def procSentence(text):
     		vis[j]=1
     	result= result+word
     return result
-   
 
+# clean html tags   
+class MLStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.strict = False
+        self.convert_charrefs= True
+        self.fed = []
+    def handle_data(self, d):
+        self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()    
+# clean html tags   
+
+def cleanSentence(text):
+	text=strip_tags(text)
+	text=text.replace("'" ,"")
+	text=text.replace("& ;#8203;&#8203;" ,"") #just1
+	#lin=text.split(' ')	
+	print(text)
+	#print (lin)
+	
+def readFile(fileName): 
+	with open(fileName,'r') as f:
+		for line in f:
+			cleanSentence(line)
+    			
 #sentence = ["Vería" , "esa" , "película" , "una" , "y" , "otra" , "vez" , "sin" , "parar"]
 #sentence  = ["dime" , "si" , "te", "sientes" , "cansada"]
 #result=procSentence(sentence)
