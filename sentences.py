@@ -71,6 +71,7 @@ def cleanSentence(text):
 	text=text.replace("( . . . )" ,".")#split in sentences
 	text=text.replace('\ufeff' ,"") #just1 in utf-8
 	text=text.replace("& ;#8203;&#8203;" ,"") #just1
+	text=text.strip()#end of line
 	return text
 	
 def readFile(fileName,encode): 
@@ -79,10 +80,15 @@ def readFile(fileName,encode):
 		for line in f:
 			lines.append(cleanSentence(line))
 	return lines	
-    			
-#sentence = ["Vería" , "esa" , "película" , "una" , "y" , "otra" , "vez" , "sin" , "parar"]
-#sentence  = ["dime" , "si" , "te", "sientes" , "cansada"]
-#result=procSentence(sentence)
-#print (result)
+    						
+
+def splitSentence(sentence):
+	sentences = [s for s in sentence.split(".") if s] # get all sentences for each opinion
+	ans = []
+	for i in range (len(sentences)): # get each word for every sentence
+		words = [s for s in sentences[i].split(" ") if s]
+		ans.append(words)
+	return ans
+
 
 

@@ -1,0 +1,25 @@
+#sentences
+#sentence = ["Vería" , "esa" , "película" , "una" , "y" , "otra" , "vez" , "sin" , "parar"]
+#sentence  = ["dime" , "si" , "te", "sientes" , "cansada"]
+#result=procSentence(sentence)
+#print (result)
+
+#dbConn
+#aux=senseSearch("sueño"); #17 rows
+#print (aux[16][2]);
+#subj, obj= searchSubjectivity(aux[16][2]);
+#print ("subjectivity = " + str(subj) + " objectivity = " +str(obj));
+
+
+#main
+#sentence = ["Vería" , "esa" , "película" ,"de" , "baja", "estofa", "una" , "y" , "otra" , "vez" , "sin" , "parar"]
+
+#result=s.procSentence(sentence)
+#words,lemmas,tags=fu.procText(result)
+#print (words,lemmas,tags)
+
+
+#freeling
+#procText("Esto es bastante estupido")
+#words,lemmas,tags=procText("Vería esa película una_y_otra_vez")
+#print (words,lemmas,tags)

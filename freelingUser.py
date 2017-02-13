@@ -65,8 +65,6 @@ def analyze(text):
 	sp.close_session(sid);
 	return ls;
 	
-#procText("Esto es bastante estupido")
-#words,lemmas,tags=procText("Vería esa película una_y_otra_vez")
-#print (words,lemmas,tags)
+
 
 

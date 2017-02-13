@@ -2,25 +2,32 @@
 import sentences as s;
 import freelingUser as fu;
 
-
 #falta split (para más oraciones y tokenizar cada una)
-sentence = ["Vería" , "esa" , "película" ,"de" , "baja", "estofa", "una" , "y" , "otra" , "vez" , "sin" , "parar"]
+def procTextFile (filename):
+	ans = []
+	for i in range(len(filename)):
+		sentence = s.splitSentence(filename[i])
+		result = []
+		for j in range (len (sentence)):
+			aux = s.procSentence(sentence[j])
+			words,lemmas,tags=fu.procText(aux)
+			result.append( (words,lemmas,tags) )
+		print(result)	
+		ans.append(result)	
+	
+	
+def main():
+	fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
+	objFile = s.readFile(fileName,'latin-1')
+	fileName = 'Corpus/spanish_subjectives_filmaffinity_2500'
+	subjFile  =s.readFile(fileName,'utf-8')
+	
+	objSentences  = procTextFile(objFile)
+	subjSentences = procTextFile(subjFile)
 
-result=s.procSentence(sentence)
-words,lemmas,tags=fu.procText(result)
-print (words,lemmas,tags)
+
+if __name__ == "__main__":
+    
+    main()
 
 
-fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
-objFile = s.readFile(fileName,'latin-1')
-fileName = 'Corpus/spanish_subjectives_filmaffinity_2500'
-subjFile  =s.readFile(fileName,'utf-8')
-
-
-#for i in range(len(subjFile)):
-#	aux = fu.procText(subjFile[i])
-#	print (aux)
-
-#aux = fu.procText(subjFile[0])
-#print (aux)
-#print (s.procSentence(aux[0]))
