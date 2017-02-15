@@ -47,6 +47,34 @@ def procSentence(text):
     	result= result+word
     return result
 
+def sentenceSenses(sentences, wordSets):
+	ans = []
+	for i in range(len(sentences)): # all the opinions
+		#print (wordSets[i])
+		result = []
+		for j in range (len (sentences[i])): # words in a single sentence
+			sentence = []
+			words  = sentences[i][j][0]
+			lemmas = sentences[i][j][1]
+			tags   = sentences[i][j][2]
+			for k in range (len (lemmas) ):
+				senses = []
+				if (lemmas[k] in wordSets[i]): # the words is an adjective or an adverb or a noun or a verb
+					offset = dbc.offsetSearch(lemmas[k], tags[k][0])
+					if(len(offset)):
+						for l in range (len(offset)):
+							gloss  = dbc.glossSearch(offset[l][0])
+							senses.append(gloss[0][0]) # single tuple with 1 element
+					else:
+						senses.append('-')	#sense not found
+				else:
+					senses.append('-')	#sense not found
+				sentence.append(senses)
+			result.append(sentence)		 
+		ans.append(result)
+	return ans		
+				
+
 # clean html tags   
 class MLStripper(HTMLParser):
     def __init__(self):
@@ -69,7 +97,7 @@ def cleanSentence(text):
 	text=strip_tags(text)
 	text=text.replace("'" ,"")
 	text=text.replace("( . . . )" ,".")#split in sentences
-	text=text.replace('\ufeff' ,"") #just1 in utf-8
+	text=text.replace('\ufeff' ,"") #just 1 in utf-8
 	text=text.replace("& ;#8203;&#8203;" ,"") #just1
 	text=text.strip()#end of line
 	return text

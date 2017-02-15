@@ -9,7 +9,9 @@
 #print (aux[16][2]);
 #subj, obj= searchSubjectivity(aux[16][2]);
 #print ("subjectivity = " + str(subj) + " objectivity = " +str(obj));
-
+#aux=offsetSearch("sueño",'N');
+#for i in range(len(aux)):
+#	print (glossSearch(aux[i][0]));
 
 #main
 #sentence = ["Vería" , "esa" , "película" ,"de" , "baja", "estofa", "una" , "y" , "otra" , "vez" , "sin" , "parar"]

@@ -4,7 +4,7 @@ import freelingUser as fu;
 
 def procTextFile (filename):
 	ans = []
-	words = [] # adjectives, adverbs, nouns and verbs	
+	validWords = [] # adjectives, adverbs, nouns and verbs	
 	for i in range(len(filename)):
 		sentence = s.splitSentence(filename[i])
 		result = []
@@ -16,18 +16,18 @@ def procTextFile (filename):
 			for k in range ( len (tags) ):
 				if(tags[k][0]=='A' or tags[k][0]=='N' or tags[k][0]=='R' or tags[k][0]=='V'):
 					#print(words[k],lemmas[k])
-					validTags.add(lemmas[k])
+					validTags.add(lemmas[k])			
 		#print(result)
-		#print(validTags)	
+		#print(validTags)
+		validWords.append(validTags)
 		ans.append(result)
-		words.append(validTags)	
-	return ans,words
+	return ans,validWords
 	
 	
 	
 def main():
-	fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
-	#fileName  = 'Corpus/objTest.txt'
+	#fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
+	fileName  = 'Corpus/objTest.txt'
 	objFile = s.readFile(fileName,'utf-8')
 	#fileName = 'Corpus/spanish_subjectives_filmaffinity_2500'
 	fileName  = 'Corpus/subjTest.txt'
@@ -35,8 +35,10 @@ def main():
 	
 	objSentences,objWords  = procTextFile(objFile)
 	subjSentences,subjWords = procTextFile(subjFile)
-
-
+	print (s.sentenceSenses (objSentences,objWords))
+	print (s.sentenceSenses (subjSentences,subjWords))
+	
+	
 if __name__ == "__main__":
     
     main()
