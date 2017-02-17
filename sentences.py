@@ -59,17 +59,28 @@ def sentenceSenses(sentences, wordSets):
 			tags   = sentences[i][j][2]
 			for k in range (len (lemmas) ):
 				senses = []
+				synonyms= []
 				if (lemmas[k] in wordSets[i]): # the words is an adjective or an adverb or a noun or a verb
 					offset = dbc.offsetSearch(lemmas[k], tags[k][0])
 					if(len(offset)):
 						for l in range (len(offset)):
 							gloss  = dbc.glossSearch(offset[l][0])
 							senses.append(gloss[0][0]) # single tuple with 1 element
+							
+							syno   = dbc.synonymSearch(offset[l][0])
+							if(len (syno) == 1) : synonyms.append('-')
+							else:
+								auxiSyno = []
+								for m in range (len (syno)):
+									if(syno[m][0] != lemmas[k]): auxiSyno.append(syno[m][0])
+								synonyms.append(auxiSyno)
 					else:
 						senses.append('-')	#sense not found
+						synonyms.append('-')
 				else:
 					senses.append('-')	#sense not found
-				sentence.append(senses)
+					synonyms.append('-')
+				sentence.append((lemmas[k],synonyms,senses))
 			result.append(sentence)		 
 		ans.append(result)
 	return ans		

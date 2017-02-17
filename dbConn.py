@@ -17,6 +17,14 @@ def offsetSearch(lemma , tag) : # the id or offset related to the wordnet
 	 db.close()
 	 return ans;
 	 
+def synonymSearch(offset):
+	 db = MySQLdb.connect("localhost","root","admin","mcr30" )
+	 cursor= db.cursor()
+	 cursor.execute("SELECT word FROM `wei_spa-30_variant` where upper(offset) like upper('" + offset +"')"  )
+	 ans=cursor.fetchall()
+	 db.close()
+	 return ans;	 
+	 
 def glossSearch (offset) : # the meaning of the sense you're looking for	
 	 db = MySQLdb.connect("localhost","root","admin","mcr30" )
 	 cursor= db.cursor()
@@ -35,4 +43,3 @@ def searchSubjectivity(text): # text = sense ID
 	subj=ans[0][1]
 	obj =ans[0][2]
 	return subj,obj;
-	
