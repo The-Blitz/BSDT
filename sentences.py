@@ -60,15 +60,23 @@ def sentenceSenses(sentences, wordSets):
 			for k in range (len (lemmas) ):
 				senses = []
 				synonyms= []
+				auxOffset= []
+				auxOntology = []
 				if (lemmas[k] in wordSets[i]): # the words is an adjective or an adverb or a noun or a verb
 					offset = dbc.offsetSearch(lemmas[k], tags[k][0])
 					if(len(offset)):
 						for l in range (len(offset)):
+							auxOffset.append(offset[l][0])
+							ontology = (dbc.ontologySearch(offset[l][0]))
+							if (len(ontology)): # if there is an ontology
+								auxOntology.append(ontology[0][0])
+							else:
+								auxOntology.append('-')	
 							gloss  = dbc.glossSearch(offset[l][0])
 							senses.append(gloss[0][0]) # single tuple with 1 element
 							
 							syno   = dbc.synonymSearch(offset[l][0])
-							if(len (syno) == 1) : synonyms.append('-')
+							if(len (syno) == 1) : synonyms.append('-') #the same
 							else:
 								auxiSyno = []
 								for m in range (len (syno)):
@@ -77,10 +85,14 @@ def sentenceSenses(sentences, wordSets):
 					else:
 						senses.append('-')	#sense not found
 						synonyms.append('-')
+						auxOffset.append('-')
+						auxOntology.append('-')
 				else:
 					senses.append('-')	#sense not found
 					synonyms.append('-')
-				sentence.append((lemmas[k],synonyms,senses))
+					auxOffset.append('-')
+					auxOntology.append('-')
+				sentence.append((lemmas[k],auxOffset,auxOntology,synonyms,senses))
 			result.append(sentence)		 
 		ans.append(result)
 	return ans		

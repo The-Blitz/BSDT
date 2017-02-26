@@ -32,7 +32,16 @@ def glossSearch (offset) : # the meaning of the sense you're looking for
 	 ans=cursor.fetchall()
 	 db.close()
 	 return ans;
-
+	 
+def ontologySearch(offset): # change format to ili-30
+	 auxOffset = 'ili' + offset[3:]
+	 db = MySQLdb.connect("localhost","root","admin","mcr30" )
+	 cursor= db.cursor()
+	 cursor.execute("SELECT SUMO FROM `wei_ili_to_sumo` where upper(iliOffset) like upper('" + auxOffset +"')"  )
+	 ans=cursor.fetchall()
+	 db.close()
+	 return ans;
+	
 def searchSubjectivity(text): # text = sense ID
 	db = MySQLdb.connect("localhost","root","admin","mcr30" )
 	cursor= db.cursor()
@@ -43,3 +52,4 @@ def searchSubjectivity(text): # text = sense ID
 	subj=ans[0][1]
 	obj =ans[0][2]
 	return subj,obj;
+	
