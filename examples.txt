@@ -25,3 +25,4 @@
 #procText("Esto es bastante estupido")
 #words,lemmas,tags=procText("Vería esa película una_y_otra_vez")
 #print (words,lemmas,tags)
+#print (dependencyParser("Vería esa película una_y_otra_vez"))

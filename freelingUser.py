@@ -36,7 +36,11 @@ def initFreeling():
 	tg=freeling.hmm_tagger(DATA+LANG+"/tagger.dat",True,2);
 	sen=freeling.senses(DATA+LANG+"/senses.dat");
 
-	return (tk,sp,mf,tg,sen)
+	# create dependency parser
+	parser= freeling.chart_parser(DATA+LANG+"/chunker/grammar-chunk.dat");
+	#dep=freeling.dep_txala(DATA+LANG+"/dep_txala/dependences.dat", parser.get_start_symbol());
+	dep=freeling.dep_treeler(DATA+LANG+"/dep_treeler/dependences.dat");
+	return (tk,sp,mf,tg,sen,parser,dep)
 
 def procText (text):
 	ls= analyze(text)
@@ -55,16 +59,69 @@ def procText (text):
 	return words,lemmas,tags;
 
 def analyze(text):
-	tk,sp,mf,tg,sen = initFreeling()
+	tk,sp,mf,tg,sen,parser,dep = initFreeling()
 	sid=sp.open_session();
 	l = tk.tokenize(text);
 	ls = sp.split(sid,l,True);
 	ls = mf.analyze(ls);
 	ls = tg.analyze(ls);
 	ls = sen.analyze(ls);
+	ls = parser.analyze(ls);
+	ls = dep.analyze(ls);
 	sp.close_session(sid);
 	return ls;
+
+## ------------  output a parse tree ------------
+def getDepTree(dtree, depth):
+	depT = []
+	aux  = [] #save the related nodes
+	node = dtree.begin()
+
+	info = node.get_info();
+	link = info.get_link();
+	linfo = link.get_info();
+
+	w = node.get_info().get_word();
+	nch = node.num_children();
 	
+	if (nch > 0) :
+		for i in range(nch) :
+			d = node.nth_child_ref(i);
+			if (not d.begin().get_info().is_chunk()) :
+				aux.append( getDepTree(d, depth+1) );
+
+		ch = {};
+		for i in range(nch) :
+			d = node.nth_child_ref(i);
+			if (d.begin().get_info().is_chunk()) :
+				ch[d.begin().get_info().get_chunk_ord()] = d;
+
+		for i in sorted(ch.keys()):
+			aux.append( getDepTree(ch[i], depth + 1) );
+			
+		depT.append((info.get_label() , w.get_form() , aux ));
+	else:
+		depT.append((info.get_label() , w.get_form() , [] ));
+	
+	return depT
 
 
+def dependencyParser(text):
+	ls= analyze(text)
+	relations = [] # relations in predicates
+	for s in ls:
+		pred = s.get_predicates()
+		for p in pred:
+			posVerb = p.get_position() # predicate's main verb (nucleus in spanish)
+			for a in p:
+				pos = a.get_position()
+				relations.append((s[posVerb].get_form(), s[pos].get_form() , a.get_role()))
+				#print (s[posVerb].get_form(), s[pos].get_form() , a.get_role())
+				
+	for s in ls:
+		dp = s.get_dep_tree()
+		depTree = getDepTree(dp, 0)
+		#print (depTree)
+		
+	return relations, depTree
 
