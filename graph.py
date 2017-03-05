@@ -50,5 +50,26 @@ class Graph:
 
     def __iter__(self):
         return iter(self.vertList.values())
-        
+
+
+def dijkstra(graph, start):
+	S = set()
+
+	delta = dict.fromkeys(graph.getVertices(), 9999999)
+	previous = dict.fromkeys(graph.getVertices(), None)
+  
+	delta[start] = 0
+ 
+	while len(S) != graph.numVertices:
+		
+		vertex= min((set(delta.keys()) - S), key=delta.get)
+		v = graph.getVertex(vertex)
+		for w in v.getConnections():
+			new_path = delta[v.getId()] + v.getWeight(w)
+			if new_path < delta[w.getId()]:
+				delta[w.getId()] = new_path
+				previous[w.getId()] = v.getId()
+		S.add(v.getId())	
+	return (delta, previous)
+
               
