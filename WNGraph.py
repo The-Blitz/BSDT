@@ -30,12 +30,17 @@ def generateGraph():
 	return gr
 
 
-#for v in gr:
-#	f = open("Distances/"+v.getId()+'.txt','w')
-#	for w in v.getConnections():
-#		f.write("( %s , %s )" % (w.getId(),v.getWeight(w)))
-#	f.close()
+gr = generateGraph()
 
+fileV = open('vertList.txt','r')
+
+for v in fileV:
+	v = v[:len(v)-1] # remove '\n'
+	f = open("Distances/"+v+'.txt','w')
+	delta, previous = g.dijkstra(gr, v)
+	for key,value in delta.items():
+		f.write("%s %s\n" % (key,value))
+	f.close()
 
 
 
