@@ -1,6 +1,9 @@
 # coding=utf-8
-import sentences as s;
-import freelingUser as fu;
+import sentences as s
+import freelingUser as fu
+import graph as g
+from queue import *
+
 
 def procTextFile (filename):
 	ans = []
@@ -27,7 +30,26 @@ def procTextFile (filename):
 		ans.append(result)
 	return ans,validWords,fullSent
 	
-	
+def createSenseGraph(sentences):
+	graphs = [] 
+	for ls in sentences:
+		senseGraph = g.Graph() #graph per opinion
+		for se in ls:
+			# senseGraph = g.Graph()  #graph per sentece
+			rel, depT = fu.dependencyParser(se);
+			q = Queue()
+			q.put(depT[0])
+			senseGraph.addEdge(depT[0][1] , '-')
+			senseGraph.addEdge('-' , depT[0][1])
+			while (not q.empty()):
+				top = q.get()
+				for word in top[2]:
+					senseGraph.addEdge(top[1] , word[0][1])
+					senseGraph.addEdge(word[0][1], top[1])
+					q.put(word[0])
+		graphs.append(senseGraph)				
+							
+	return graphs;			
 	
 def main():
 	#fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
@@ -39,14 +61,26 @@ def main():
 	
 	objWords,objWordSet,objSentences  = procTextFile(objFile)
 	subjWords,subjWordSet,subjSentences = procTextFile(subjFile)
-	#print (s.sentenceSenses (objWords,objWordSet))
-	#print (s.sentenceSenses (subjWords,subjWordSet))
-	for ls in objSentences:
-		for se in ls: 
-			print (se,fu.dependencyParser(se))
-	for ls in subjSentences:
-		for se in ls: 
-			print (se,fu.dependencyParser(se))
+	
+	#objProcSentence =  s.sentenceSenses (objWords,objWordSet)
+	#subjProcSentence = s.sentenceSenses (subjWords,subjWordSet)
+
+	objGraphs  = createSenseGraph(objSentences)	
+	subjGraphs = createSenseGraph(subjSentences)		
+	
+	cont=1
+	for g in objGraphs:
+		for v in g:
+			for w in v.getConnections():
+				print("(%d %s , %s , %s )" % (cont,v.getId(), w.getId(),v.getWeight(w)))
+		cont+=1		
+		
+	cont=1		
+	for g in subjGraphs:
+		for v in g:
+			for w in v.getConnections():
+				print("(%d %s , %s , %s )" % (cont,v.getId(), w.getId(),v.getWeight(w)))	
+		cont+=1					
 	
 if __name__ == "__main__":
     
