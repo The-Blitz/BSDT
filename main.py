@@ -44,24 +44,43 @@ def createSenseGraph(sentences , procSentences):
 	
 	cont=0
 	
-	graphs = [] 
+	graphs = [] # '-' connect sentences , '*' replaces sentence root
 	
 	for ls in sentences:
 		di = dicts[cont]
 		senseGraph = g.Graph() #graph per opinion
 		for se in ls:
 			# senseGraph = g.Graph()  #graph per sentece
-			rel, depT = fu.dependencyParser(se);
+			rel, depT = fu.dependencyParser(se)
 			q = Queue()
 			q.put(depT[0])
-			senseGraph.addEdge(depT[0][1] , '-')
-			senseGraph.addEdge('-' , depT[0][1])
+						
+			auxRoot = depT[0][1] ## dependency parser root
+			
+			if(auxRoot in di):
+				for sense in di[auxRoot]:
+					if(sense != '-' and sense != None):
+						senseGraph.addEdge(sense , '-')
+						senseGraph.addEdge('-' , sense)
+			else:
+				senseGraph.addEdge('*' , '-')
+				senseGraph.addEdge('-' , '*')		
+			
 			while (not q.empty()):
 				top = q.get()
+				
 				for word in top[2]:
 					if(word[0][1] in di and top[1] in di):
-						senseGraph.addEdge(top[1] , word[0][1])
-						senseGraph.addEdge(word[0][1], top[1])
+						for sense1 in di[ top[1] ]:
+							for sense2 in di[ word[0][1] ]:
+								if((sense1 != '-' and sense1 != None) and (sense2 != '-' and sense2 != None)):
+									senseGraph.addEdge(sense1 , sense2)
+									senseGraph.addEdge(sense2 , sense1)
+					elif (auxRoot== top[1] and not(top[1] in di) and word[0][1] in di):
+						for sense2 in di[ word[0][1] ]:
+							if(sense2 != '-' and sense2 != None):
+								senseGraph.addEdge('*' , sense2)
+								senseGraph.addEdge(sense2 , '*')			
 					q.put(word[0])
 		cont+=1			
 		graphs.append(senseGraph)
