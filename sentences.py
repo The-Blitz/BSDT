@@ -62,7 +62,7 @@ def sentenceSenses(sentences, wordSets):
 				synonyms= []
 				auxOffset= []
 				auxOntology = []
-				if (lemmas[k] in wordSets[i]): # the words is an adjective or an adverb or a noun or a verb
+				if (lemmas[k] in wordSets[i]): # the word is an adjective or an adverb or a noun or a verb
 					offset = dbc.offsetSearch(lemmas[k], tags[k][0])
 					if(len(offset)):
 						for l in range (len(offset)):
@@ -92,7 +92,7 @@ def sentenceSenses(sentences, wordSets):
 					synonyms.append('-')
 					auxOffset.append('-')
 					auxOntology.append('-')
-				sentence.append((lemmas[k],auxOffset,auxOntology,synonyms,senses))
+				sentence.append(((words[k],lemmas[k],tags[k]),auxOffset,auxOntology,synonyms,senses))
 			result.append(sentence)		 
 		ans.append(result)
 	return ans		
