@@ -65,9 +65,16 @@ map<string,int> dijkstra(map< string , map <string ,int >  >  graph , string sta
 	return distances;
 }
 
-int main () {
+int main (int argc, char *argv[]) {
+	int cont=1;
+	int lim1 =atoi(argv[1]);
+	int lim2 =atoi(argv[2]);
 	map< string , map <string ,int >  >   graph = read();
 	for (map< string , map <string ,int >  >::iterator it1=graph.begin(); it1!=graph.end();it1++){
+		cont++;
+		if(cont<lim1) continue;
+		if(cont>lim2) break;
+		cout<<it1->first<<endl;
 		map <string ,int >  aux = dijkstra (graph, it1->first);
 		fstream file ;
 		string filename= "Distances/"+it1->first+".txt";
