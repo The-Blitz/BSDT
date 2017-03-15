@@ -1,3 +1,5 @@
+import os.path
+
 class Vertex:
     def __init__(self,key):
         self.id = key
@@ -71,5 +73,23 @@ def dijkstra(graph, start):
 				previous[w.getId()] = v.getId()
 		S.add(v.getId())	
 	return (delta, previous)
+
+def getDistance(start, end):
+
+	if(start == end ): 
+		return 2 ; # error same vertex
+	fileName  = 'Distances/' + start + '.txt'	
+	if (os.path.exists(fileName)):
+		#print("fileName exists")
+		with open(fileName,'r',encoding='utf-8') as f:
+			for line in f:
+				line = line.split(' ')
+				adja = line[0]
+				dist = int (line[1])
+				if (adja == end):
+					ans = 1.0 / dist
+					return ans
+	return -1 # error not found
+				
 
               
