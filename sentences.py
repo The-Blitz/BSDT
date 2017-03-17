@@ -122,6 +122,7 @@ def cleanSentence(text):
 	text=text.replace("( . . . )" ,".")#split in sentences
 	text=text.replace('\ufeff' ,"") #just 1 in utf-8
 	text=text.replace("& ;#8203;&#8203;" ,"") #just1
+	text=''.join([i if ord(i) < 256 else ' ' for i in text]) # removing not utf-8 characters
 	text=text.strip()#end of line
 	return text
 	

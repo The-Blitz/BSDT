@@ -2,6 +2,7 @@
 import sentences as s
 import freelingUser as fu
 import graph as g
+import pandas as pd
 from queue import *
 
 
@@ -88,6 +89,49 @@ def createSenseGraph(sentences , procSentences):
 					
 	return graphs;			
 	
+def generateExcelCorpus(objSent,subjSent):
+	numlist   = []
+	wordlist  = []
+	lemmalist = []
+	taglist   = []
+	senselist = []
+	
+	for i in range(len(objSent)):
+		for j in range (len (objSent[i])): 
+			for k in range (len (objSent[i][j]) ):
+				words = objSent[i][j][k][0]
+				senses= objSent[i][j][k][1]
+			
+				numlist.append(str(i+1) + " obj")
+				wordlist.append(words[0])
+				lemmalist.append(words[1])
+				taglist.append(words[2])
+				if(len(senses)==1 and senses[0]=='-') :
+					senselist.append("-")
+				else:
+					senselist.append(" ")	
+				
+	for i in range(len(subjSent)):
+		for j in range (len (subjSent[i])): 
+			words  = subjSent[i][j]
+			for k in range (len (subjSent[i][j]) ):
+				words = subjSent[i][j][k][0]
+				senses= subjSent[i][j][k][1]
+			
+				numlist.append(str(i+1) + " subj")
+				wordlist.append(words[0])
+				lemmalist.append(words[1])
+				taglist.append(words[2])
+				if(len(senses)==1 and senses[0]=='-') :
+					senselist.append("-")
+				else:
+					senselist.append(" ")
+					
+	df = pd.DataFrame({'sentence': numlist, 'word': wordlist , 'lemma': lemmalist  , 'tag': taglist  , 'sense': senselist })
+	df = df[['sentence', 'word','lemma','tag','sense']]
+	df.to_excel('corpusExcel2.xlsx', sheet_name='sheet1', index=False)				
+	
+	
 def main():
 	#fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
 	fileName  = 'Corpus/objTest.txt'
@@ -97,11 +141,14 @@ def main():
 	subjFile  =s.readFile(fileName,'utf-8')
 	
 	objWords,objWordSet,objSentences  = procTextFile(objFile)
-	subjWords,subjWordSet,subjSentences = procTextFile(subjFile)
-	
+	subjWords,subjWordSet,subjSentences = procTextFile(subjFile)		
+				
 	objProcSentences =  s.sentenceSenses (objWords,objWordSet)
 	subjProcSentences = s.sentenceSenses (subjWords,subjWordSet)
 
+	generateExcelCorpus(objProcSentences,subjProcSentences)
+
+	'''
 	objGraphs  = createSenseGraph(objSentences,objProcSentences)
 	subjGraphs = createSenseGraph(subjSentences,subjProcSentences)
 	
@@ -118,7 +165,7 @@ def main():
 			for w in v.getConnections():
 				print("(%d, %s , %s , %s )" % (cont,v.getId(), w.getId(),v.getWeight(w)))	
 		cont+=1					
-	
+	'''
 if __name__ == "__main__":
     
     main()
