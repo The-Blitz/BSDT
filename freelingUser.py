@@ -99,9 +99,9 @@ def getDepTree(dtree, depth):
 		for i in sorted(ch.keys()):
 			aux.append( getDepTree(ch[i], depth + 1) );
 			
-		depT.append((info.get_label() , w.get_form() , aux ));
+		depT.append((info.get_label() , (w.get_form(),w.get_position()) , aux ));
 	else:
-		depT.append((info.get_label() , w.get_form() , [] ));
+		depT.append((info.get_label() , (w.get_form(),w.get_position()) , [] ));
 	
 	return depT
 
@@ -124,4 +124,6 @@ def dependencyParser(text):
 		#print (depTree)
 		
 	return relations, depTree
+
+
 

@@ -56,7 +56,7 @@ def createSenseGraph(sentences , procSentences):
 			q = Queue()
 			q.put(depT[0])
 						
-			auxRoot = depT[0][1] ## dependency parser root
+			auxRoot = depT[0][1][0] ## dependency parser root
 			
 			if(auxRoot in di):
 				for sense in di[auxRoot]:
@@ -71,14 +71,16 @@ def createSenseGraph(sentences , procSentences):
 				top = q.get()
 				
 				for word in top[2]:
-					if(word[0][1] in di and top[1] in di):
-						for sense1 in di[ top[1] ]:
-							for sense2 in di[ word[0][1] ]:
+					w1 = word[0][1][0]
+					w2 = top[1][0]
+					if(w1 in di and w2 in di):
+						for sense1 in di[ w2 ]:
+							for sense2 in di[ w1 ]:
 								if((sense1 != '-' and sense1 != None) and (sense2 != '-' and sense2 != None)):
 									senseGraph.addEdge(sense1 , sense2)
 									senseGraph.addEdge(sense2 , sense1)
-					elif (auxRoot== top[1] and not(top[1] in di) and word[0][1] in di):
-						for sense2 in di[ word[0][1] ]:
+					elif (auxRoot== w2 and not(w2 in di) and w1 in di):
+						for sense2 in di[ w1]:
 							if(sense2 != '-' and sense2 != None):
 								senseGraph.addEdge('*' , sense2)
 								senseGraph.addEdge(sense2 , '*')			
@@ -130,7 +132,7 @@ def generateExcelCorpus(objSent,subjSent):
 	df = pd.DataFrame({'sentence': numlist, 'word': wordlist , 'lemma': lemmalist  , 'tag': taglist  , 'sense': senselist })
 	df = df[['sentence', 'word','lemma','tag','sense']]
 	df.to_excel('corpusExcel2.xlsx', sheet_name='sheet1', index=False)				
-	
+
 	
 def main():
 	#fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
@@ -146,9 +148,6 @@ def main():
 	objProcSentences =  s.sentenceSenses (objWords,objWordSet)
 	subjProcSentences = s.sentenceSenses (subjWords,subjWordSet)
 
-	generateExcelCorpus(objProcSentences,subjProcSentences)
-
-	'''
 	objGraphs  = createSenseGraph(objSentences,objProcSentences)
 	subjGraphs = createSenseGraph(subjSentences,subjProcSentences)
 	
@@ -165,7 +164,7 @@ def main():
 			for w in v.getConnections():
 				print("(%d, %s , %s , %s )" % (cont,v.getId(), w.getId(),v.getWeight(w)))	
 		cont+=1					
-	'''
+
 if __name__ == "__main__":
     
     main()
