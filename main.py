@@ -57,33 +57,35 @@ def createSenseGraph(sentences , procSentences):
 			q.put(depT[0])
 						
 			auxRoot = depT[0][1][0] ## dependency parser root
-			
+			auxPos  = depT[0][1][1] 
 			if(auxRoot in di):
 				for sense in di[auxRoot]:
 					if(sense != '-' and sense != None):
-						senseGraph.addEdge(sense , '-')
-						senseGraph.addEdge('-' , sense)
+						senseGraph.addEdge(sense,auxRoot,auxPos , '-','-',0)
+						senseGraph.addEdge('-','-',0, sense,auxRoot,auxPos )
 			else:
-				senseGraph.addEdge('*' , '-')
-				senseGraph.addEdge('-' , '*')		
+				senseGraph.addEdge('*',auxRoot,auxPos , '-','-',0)
+				senseGraph.addEdge('-','-',0, '*',auxRoot,auxPos)		
 			
 			while (not q.empty()):
 				top = q.get()
 				
 				for word in top[2]:
 					w1 = word[0][1][0]
+					p1 = word[0][1][1]
 					w2 = top[1][0]
+					p2 = top[1][1]
 					if(w1 in di and w2 in di):
-						for sense1 in di[ w2 ]:
-							for sense2 in di[ w1 ]:
+						for sense2 in di[ w2 ]:
+							for sense1 in di[ w1 ]:
 								if((sense1 != '-' and sense1 != None) and (sense2 != '-' and sense2 != None)):
-									senseGraph.addEdge(sense1 , sense2)
-									senseGraph.addEdge(sense2 , sense1)
+									senseGraph.addEdge(sense1,w2,p1 , sense2,w2,p2)
+									senseGraph.addEdge(sense2,w2,p2 , sense1,w1,p1)
 					elif (auxRoot== w2 and not(w2 in di) and w1 in di):
-						for sense2 in di[ w1]:
-							if(sense2 != '-' and sense2 != None):
-								senseGraph.addEdge('*' , sense2)
-								senseGraph.addEdge(sense2 , '*')			
+						for sense1 in di[ w1]:
+							if(sense1 != '-' and sense1 != None):
+								senseGraph.addEdge('*',w2,p2 , sense1,w1,p1)
+								senseGraph.addEdge(sense1,w1,p1 , '*',w2,p2)			
 					q.put(word[0])
 		cont+=1			
 		graphs.append(senseGraph)
@@ -155,14 +157,14 @@ def main():
 	for g in objGraphs:
 		for v in g:
 			for w in v.getConnections():
-				print("(%d, %s , %s , %s )" % (cont,v.getId(), w.getId(),v.getWeight(w)))
+				print("(%d, %s , %s , %s )" % (cont, v, w, v.getWeight(w)))
 		cont+=1		
 		
 	cont=1		
 	for g in subjGraphs:
 		for v in g:
 			for w in v.getConnections():
-				print("(%d, %s , %s , %s )" % (cont,v.getId(), w.getId(),v.getWeight(w)))	
+				print("(%d, %s , %s , %s )" % (cont, v ,w , v.getWeight(w)))	
 		cont+=1					
 
 if __name__ == "__main__":

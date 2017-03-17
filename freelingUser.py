@@ -99,9 +99,9 @@ def getDepTree(dtree, depth):
 		for i in sorted(ch.keys()):
 			aux.append( getDepTree(ch[i], depth + 1) );
 			
-		depT.append((info.get_label() , (w.get_form(),w.get_position()) , aux ));
+		depT.append((info.get_label() , (w.get_form(),w.get_position()+1) , aux ));
 	else:
-		depT.append((info.get_label() , (w.get_form(),w.get_position()) , [] ));
+		depT.append((info.get_label() , (w.get_form(),w.get_position()+1) , [] ));
 	
 	return depT
 
