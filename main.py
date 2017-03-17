@@ -79,8 +79,8 @@ def createSenseGraph(sentences , procSentences):
 						for sense2 in di[ w2 ]:
 							for sense1 in di[ w1 ]:
 								if((sense1 != '-' and sense1 != None) and (sense2 != '-' and sense2 != None)):
-									senseGraph.addEdge(sense1,w2,p1 , sense2,w2,p2)
-									senseGraph.addEdge(sense2,w2,p2 , sense1,w1,p1)
+									senseGraph.addEdge(sense1,w1,p1 , sense2,w2,p2 , g.getDistance(sense1,sense2))
+									senseGraph.addEdge(sense2,w2,p2 , sense1,w1,p1 , g.getDistance(sense2,sense1))
 					elif (auxRoot== w2 and not(w2 in di) and w1 in di):
 						for sense1 in di[ w1]:
 							if(sense1 != '-' and sense1 != None):
