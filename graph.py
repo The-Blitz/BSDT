@@ -99,10 +99,28 @@ def getDistanceSense(start, end):
 					return ans
 	return -1 # error not found
 				
-def getDistanceList(start,end):
+def getDistanceList(start,end,cond):
 	ans = -1 #never found
-	for i in start:
-		for j in end:
-			ans = max(ans,getDistanceSense(i,j))
-	return ans
-              
+	auxSum = 0;	freqAns = -1#never found
+	freqI = 0 ; freqJ =0
+	for i in range(len(start[0])):
+		for j in range(len(end[0])):
+			dist = getDistanceSense(start[0][i],end[0][j])
+			ans = max(ans,dist)
+			auxSum = auxSum + dist
+			if(freqI<= start[1][i] and freqJ <= end[1][j]):
+				freqI= start[1][i]
+				freqJ= end[1][j]
+				freqAns= dist
+				
+	auxSum = (auxSum) / ( len(start[0]) * len(end[0]))	
+		
+	if(cond==1):
+		return (ans) # maximas relaciones
+	elif(cond==2):
+		return (auxSum) #mean
+	elif(cond==3):
+		return (freqAns) #frequency  
+	return -1 # error never found
+    	
+       

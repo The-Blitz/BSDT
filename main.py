@@ -110,8 +110,8 @@ def createSenseGraph(sentences , procSentences):
 						for sense2 in di[ w2 ]:
 							for sense1 in di[ w1 ]:
 								if(len(sense1[0]) and len(sense2[0]) ):
-									senseGraph.addEdge(listToStr(sense1[0]),w1,p1 , listToStr(sense2[0]),w2,p2 , g.getDistanceList(sense1[0],sense2[0]))
-									senseGraph.addEdge(listToStr(sense2[0]),w2,p2 , listToStr(sense1[0]),w1,p1 , g.getDistanceList(sense2[0],sense1[0]))
+									senseGraph.addEdge(listToStr(sense1[0]),w1,p1 , listToStr(sense2[0]),w2,p2 , g.getDistanceList(sense1,sense2,1))
+									senseGraph.addEdge(listToStr(sense2[0]),w2,p2 , listToStr(sense1[0]),w1,p1 , g.getDistanceList(sense2,sense1,1))
 					elif (auxRoot== w2 and not(w2 in di) and w1 in di):
 						for sense1 in di[ w1]:
 							if(len(sense1[0])):
