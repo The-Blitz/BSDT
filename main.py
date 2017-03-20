@@ -30,8 +30,8 @@ def procTextFile (filename):
 		validWords.append(validTags)
 		ans.append(result)
 	return ans,validWords,fullSent
-	
-def createSenseGraph(sentences , procSentences):
+
+def mergeSenses(procSentences): # this is related to subjectivity
 	dicts = []
 	for opi in procSentences: # search in opinion
 		offsetDict = dict()
@@ -39,12 +39,34 @@ def createSenseGraph(sentences , procSentences):
 			for w in sen:	# search in word
 				word= w[0]
 				offset= w[1]
+				ontology = w[2]
 				if( not(len(offset)==1 and offset[0]=='-') ): # there should be an offset
-					offsetDict[word[0]] = offset
+					NS = []
+					LS = []
+					MS = []
+					HS = []
+					auxOffset = []
+					conta=0
+					for sense in offset:
+						if(sense != '-' and sense != None):
+							subj,obj = s.dbc.searchSubjectivity(sense)
+							if(ontology[conta]=='SubjectiveAssessmentAttribute'): HS.append(sense) #the ontology adds subjectivity value
+							elif(subj==0.0): NS.append(sense)	
+							elif(subj<=0.25): LS.append(sense)
+							elif(subj<=0.50): MS.append(sense)
+							else: HS.append(sense)
+						conta = conta+1	
+					auxOffset.append(NS)
+					auxOffset.append(LS)
+					auxOffset.append(MS)
+					auxOffset.append(HS)	
+					offsetDict[word[0]] = auxOffset
 		dicts.append(offsetDict)
+	return dicts
 	
+def createSenseGraph(sentences , procSentences):
+	dicts = mergeSenses(procSentences)
 	cont=0
-	
 	graphs = [] # '-' connect sentences , '*' replaces sentence root
 	
 	for ls in sentences:
@@ -60,9 +82,9 @@ def createSenseGraph(sentences , procSentences):
 			auxPos  = depT[0][1][1] 
 			if(auxRoot in di):
 				for sense in di[auxRoot]:
-					if(sense != '-' and sense != None):
-						senseGraph.addEdge(sense,auxRoot,auxPos , '-','-',0)
-						senseGraph.addEdge('-','-',0, sense,auxRoot,auxPos )
+					if(len(sense)):
+						senseGraph.addEdge(listToStr(sense),auxRoot,auxPos , '-','-',0)
+						senseGraph.addEdge('-','-',0, listToStr(sense),auxRoot,auxPos )
 			else:
 				senseGraph.addEdge('*',auxRoot,auxPos , '-','-',0)
 				senseGraph.addEdge('-','-',0, '*',auxRoot,auxPos)		
@@ -78,20 +100,23 @@ def createSenseGraph(sentences , procSentences):
 					if(w1 in di and w2 in di):
 						for sense2 in di[ w2 ]:
 							for sense1 in di[ w1 ]:
-								if((sense1 != '-' and sense1 != None) and (sense2 != '-' and sense2 != None)):
-									senseGraph.addEdge(sense1,w1,p1 , sense2,w2,p2 , g.getDistance(sense1,sense2))
-									senseGraph.addEdge(sense2,w2,p2 , sense1,w1,p1 , g.getDistance(sense2,sense1))
+								if(len(sense1) and len(sense2) ):
+									senseGraph.addEdge(listToStr(sense1),w1,p1 , listToStr(sense2),w2,p2 , g.getDistanceList(sense1,sense2))
+									senseGraph.addEdge(listToStr(sense2),w2,p2 , listToStr(sense1),w1,p1 , g.getDistanceList(sense2,sense1))
 					elif (auxRoot== w2 and not(w2 in di) and w1 in di):
 						for sense1 in di[ w1]:
-							if(sense1 != '-' and sense1 != None):
-								senseGraph.addEdge('*',w2,p2 , sense1,w1,p1)
-								senseGraph.addEdge(sense1,w1,p1 , '*',w2,p2)			
+							if(len(sense1)):
+								senseGraph.addEdge('*',w2,p2 , listToStr(sense1),w1,p1)
+								senseGraph.addEdge(listToStr(sense1),w1,p1 , '*',w2,p2)			
 					q.put(word[0])
 		cont+=1			
 		graphs.append(senseGraph)
 						
 					
 	return graphs;			
+
+def listToStr(auxList):
+	return " ".join(str(x) for x in auxList)
 	
 def generateExcelCorpus(objSent,subjSent):
 	numlist   = []

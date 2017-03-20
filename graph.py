@@ -82,7 +82,7 @@ def dijkstra(graph, start):
 		S.add(v.getId())	
 	return (delta, previous)
 
-def getDistance(start, end):
+def getDistanceSense(start, end):
 
 	if(start == end ): 
 		return 2 ; # error same vertex
@@ -99,5 +99,10 @@ def getDistance(start, end):
 					return ans
 	return -1 # error not found
 				
-
+def getDistanceList(start,end):
+	ans = -1 #never found
+	for i in start:
+		for j in end:
+			ans = max(ans,getDistanceSense(i,j))
+	return ans
               
