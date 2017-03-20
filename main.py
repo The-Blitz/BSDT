@@ -41,25 +41,34 @@ def mergeSenses(procSentences): # this is related to subjectivity
 				offset= w[1]
 				ontology = w[2]
 				if( not(len(offset)==1 and offset[0]=='-') ): # there should be an offset
-					NS = []
-					LS = []
-					MS = []
-					HS = []
+					NS = [] ; NSFreq = []
+					LS = [] ; LSFreq = []
+					MS = [] ; MSFreq = []
+					HS = [] ; HSFreq = []
 					auxOffset = []
 					conta=0
 					for sense in offset:
 						if(sense != '-' and sense != None):
+							freq= len(offset) - conta
 							subj,obj = s.dbc.searchSubjectivity(sense)
-							if(ontology[conta]=='SubjectiveAssessmentAttribute'): HS.append(sense) #the ontology adds subjectivity value
-							elif(subj==0.0): NS.append(sense)	
-							elif(subj<=0.25): LS.append(sense)
-							elif(subj<=0.50): MS.append(sense)
-							else: HS.append(sense)
+							if(ontology[conta]=='SubjectiveAssessmentAttribute'): 
+								HS.append(sense) #the ontology adds subjectivity value
+								HSFreq.append(freq)
+							elif(subj==0.0):
+								NS.append(sense)
+								NSFreq.append(freq)	
+							elif(subj<=0.25):
+								LS.append(sense)
+								LSFreq.append(freq)
+							elif(subj<=0.50):
+								MS.append(sense)
+								MSFreq.append(freq)
+							else:
+								HS.append(sense)
+								HSFreq.append(freq)
 						conta = conta+1	
-					auxOffset.append(NS)
-					auxOffset.append(LS)
-					auxOffset.append(MS)
-					auxOffset.append(HS)	
+					auxOffset.append((NS,NSFreq)) ; auxOffset.append((LS,LSFreq))
+					auxOffset.append((MS,MSFreq)) ; auxOffset.append((HS,HSFreq))	
 					offsetDict[word[0]] = auxOffset
 		dicts.append(offsetDict)
 	return dicts
@@ -82,9 +91,9 @@ def createSenseGraph(sentences , procSentences):
 			auxPos  = depT[0][1][1] 
 			if(auxRoot in di):
 				for sense in di[auxRoot]:
-					if(len(sense)):
-						senseGraph.addEdge(listToStr(sense),auxRoot,auxPos , '-','-',0)
-						senseGraph.addEdge('-','-',0, listToStr(sense),auxRoot,auxPos )
+					if(len(sense[0])):
+						senseGraph.addEdge(listToStr(sense[0]),auxRoot,auxPos , '-','-',0)
+						senseGraph.addEdge('-','-',0, listToStr(sense[0]),auxRoot,auxPos )
 			else:
 				senseGraph.addEdge('*',auxRoot,auxPos , '-','-',0)
 				senseGraph.addEdge('-','-',0, '*',auxRoot,auxPos)		
@@ -100,14 +109,14 @@ def createSenseGraph(sentences , procSentences):
 					if(w1 in di and w2 in di):
 						for sense2 in di[ w2 ]:
 							for sense1 in di[ w1 ]:
-								if(len(sense1) and len(sense2) ):
-									senseGraph.addEdge(listToStr(sense1),w1,p1 , listToStr(sense2),w2,p2 , g.getDistanceList(sense1,sense2))
-									senseGraph.addEdge(listToStr(sense2),w2,p2 , listToStr(sense1),w1,p1 , g.getDistanceList(sense2,sense1))
+								if(len(sense1[0]) and len(sense2[0]) ):
+									senseGraph.addEdge(listToStr(sense1[0]),w1,p1 , listToStr(sense2[0]),w2,p2 , g.getDistanceList(sense1[0],sense2[0]))
+									senseGraph.addEdge(listToStr(sense2[0]),w2,p2 , listToStr(sense1[0]),w1,p1 , g.getDistanceList(sense2[0],sense1[0]))
 					elif (auxRoot== w2 and not(w2 in di) and w1 in di):
 						for sense1 in di[ w1]:
-							if(len(sense1)):
-								senseGraph.addEdge('*',w2,p2 , listToStr(sense1),w1,p1)
-								senseGraph.addEdge(listToStr(sense1),w1,p1 , '*',w2,p2)			
+							if(len(sense1[0])):
+								senseGraph.addEdge('*',w2,p2 , listToStr(sense1[0]),w1,p1)
+								senseGraph.addEdge(listToStr(sense1[0]),w1,p1 , '*',w2,p2)			
 					q.put(word[0])
 		cont+=1			
 		graphs.append(senseGraph)
