@@ -1,17 +1,18 @@
 import os.path
 
 class Vertex:
-    def __init__(self,key,w,p):
+    def __init__(self,key,w,p,fq):
         self.id = key
         self.connectedTo = {}
         self.word = w
         self.pos = p
+        self.freq =fq
 
     def addNeighbor(self,nbr,weight=0):
         self.connectedTo[nbr] = weight
 
     def __str__(self):
-        return str(self.id) + " " +str(self.word)+ " " + str(self.pos) 
+        return str(self.id) + " " +str(self.word)+ " " + str(self.pos)  + " " + str(self.freq)
 
     def getConnections(self):
         return self.connectedTo.keys()
@@ -24,7 +25,10 @@ class Vertex:
     
     def getPos(self):
     	return self.pos
-    
+
+    def getFreq(self):
+    	return self.freq
+
     def getWeight(self,nbr):
     	return self.connectedTo[nbr]
 
@@ -33,9 +37,9 @@ class Graph:
         self.vertList = {}
         self.numVertices = 0
 
-    def addVertex(self,key,word,pos):
+    def addVertex(self,key,word,pos,freq):
         self.numVertices = self.numVertices + 1
-        newVertex = Vertex(key,word,pos)
+        newVertex = Vertex(key,word,pos,freq)
         self.vertList[key+"-"+str(pos)] = newVertex
         return newVertex
 
@@ -48,11 +52,11 @@ class Graph:
     def __contains__(self,n):
         return n in self.vertList
 
-    def addEdge(self,f,fword,fpos,t,tword,tpos,cost=0):
+    def addEdge(self,f,fword,fpos,ffreq,t,tword,tpos,tfreq,cost=0):
         if (f+"-"+str(fpos)) not in self.vertList:
-            nv = self.addVertex(f,fword,fpos)
+            nv = self.addVertex(f,fword,fpos,ffreq)
         if (t+"-"+str(tpos)) not in self.vertList:
-            nv = self.addVertex(t,tword,tpos)
+            nv = self.addVertex(t,tword,tpos,tfreq)
         self.vertList[f+"-"+str(fpos)].addNeighbor(self.vertList[t+"-"+str(tpos)], cost)
 
     def getVertices(self):

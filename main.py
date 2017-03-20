@@ -92,11 +92,11 @@ def createSenseGraph(sentences , procSentences):
 			if(auxRoot in di):
 				for sense in di[auxRoot]:
 					if(len(sense[0])):
-						senseGraph.addEdge(listToStr(sense[0]),auxRoot,auxPos , '-','-',0)
-						senseGraph.addEdge('-','-',0, listToStr(sense[0]),auxRoot,auxPos )
+						senseGraph.addEdge(listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]) , '-','-',0,0)
+						senseGraph.addEdge('-','-',0,0, listToStr(sense[0]),auxRoot,auxPos,sum(sense[1])  )
 			else:
-				senseGraph.addEdge('*',auxRoot,auxPos , '-','-',0)
-				senseGraph.addEdge('-','-',0, '*',auxRoot,auxPos)		
+				senseGraph.addEdge('*',auxRoot,auxPos,0 , '-','-',0,0)
+				senseGraph.addEdge('-','-',0,0, '*',auxRoot,auxPos,0)		
 			
 			while (not q.empty()):
 				top = q.get()
@@ -110,13 +110,13 @@ def createSenseGraph(sentences , procSentences):
 						for sense2 in di[ w2 ]:
 							for sense1 in di[ w1 ]:
 								if(len(sense1[0]) and len(sense2[0]) ):
-									senseGraph.addEdge(listToStr(sense1[0]),w1,p1 , listToStr(sense2[0]),w2,p2 , g.getDistanceList(sense1,sense2,1))
-									senseGraph.addEdge(listToStr(sense2[0]),w2,p2 , listToStr(sense1[0]),w1,p1 , g.getDistanceList(sense2,sense1,1))
+									senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1])  , listToStr(sense2[0]),w2,p2,sum(sense2[1])  , g.getDistanceList(sense1,sense2,1))
+									senseGraph.addEdge(listToStr(sense2[0]),w2,p2,sum(sense2[1])  , listToStr(sense1[0]),w1,p1,sum(sense1[1])  , g.getDistanceList(sense2,sense1,1))
 					elif (auxRoot== w2 and not(w2 in di) and w1 in di):
 						for sense1 in di[ w1]:
 							if(len(sense1[0])):
-								senseGraph.addEdge('*',w2,p2 , listToStr(sense1[0]),w1,p1)
-								senseGraph.addEdge(listToStr(sense1[0]),w1,p1 , '*',w2,p2)			
+								senseGraph.addEdge('*',w2,p2,0 , listToStr(sense1[0]),w1,p1,sum(sense1[1]) )
+								senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1])  , '*',w2,p2,0)			
 					q.put(word[0])
 		cont+=1			
 		graphs.append(senseGraph)
