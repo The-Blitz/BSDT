@@ -1,5 +1,5 @@
 import os.path
-
+import operator
 class Vertex:
     def __init__(self,key,w,p,fq):
         self.id = key
@@ -15,7 +15,7 @@ class Vertex:
         return str(self.id) + " " +str(self.word)+ " " + str(self.pos)  + " " + str(self.freq)
 
     def getConnections(self):
-        return self.connectedTo.keys()
+        return sorted(self.connectedTo.keys(),key=operator.attrgetter('pos','id'))
 
     def getId(self):
     	return self.id
@@ -63,8 +63,23 @@ class Graph:
         return self.vertList.keys()
 
     def __iter__(self):
-        return iter(self.vertList.values())
+        return iter(sorted(self.vertList.values(),key=operator.attrgetter('pos','id')))
 
+    def pageRank(self,c = 0.85 , iterations =30): # c= damping factor
+        ranks = {}
+        npages = len(self.vertList)
+        
+        for v in g:
+        	ranks[v] = 1.0 / len(v.connectedTo)
+		
+        for i in range(iterations):
+            newRanks = {}
+            for v in g:
+                #for w in v.getConnections():
+                    # formula
+                ranks = newRanks
+		
+        return ranks
 
 def dijkstra(graph, start):
 	S = set()
@@ -126,5 +141,5 @@ def getDistanceList(start,end,cond):
 	elif(cond==3):
 		return (freqAns) #frequency  
 	return -1 # error never found
-    	
-       
+
+
