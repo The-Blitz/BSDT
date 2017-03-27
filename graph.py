@@ -72,7 +72,7 @@ class Graph:
         cont1=0
         for v in self:
         	cont2 =0
-        	auxSum =0 # sum of all edges
+        	auxSum =0.0 # sum of all edges
         	for w in v.getConnections():
         		auxSum = auxSum + v.getWeight(w)
         	for w in self:
@@ -85,18 +85,18 @@ class Graph:
 	
     def generateProbVector(self):
     	npages = len(self.vertList)
-    	auxVect = numpy.zeros((npages,1))
-    	auxSum =0 # sum of all frequencies
+    	auxVect = numpy.zeros(npages)
+    	auxSum =0.0 # sum of all frequencies
     	cont1 =0
     	for v in self:
     		auxSum = auxSum + (v.getFreq()*1.0)
 		
     	for v in self:
     		if(auxSum !=0) :
-    			auxVect[cont1][0] = (v.getFreq()*1.0) / auxSum
+    			auxVect[cont1] = (v.getFreq()*1.0) / auxSum
     		else:
-    			auxVect[cont1][0] = 1.0/npages	
-
+    			auxVect[cont1] = 1.0/npages
+    		cont1= cont1 + 1
     	return auxVect
 
     def pageRank(self,c = 0.85 , iterations =30): # c= damping factor
@@ -109,10 +109,10 @@ class Graph:
         
         for v in range(npages):
         	rankList.append(1.0 / npages)
-		
+        
         for i in range(iterations):
             rankList = c * mat.dot(rankList) + (1-c) * probVector
-            
+    
         cont=0
         for v in self:
         	ranks[v] = rankList[cont]
