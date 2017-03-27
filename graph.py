@@ -32,6 +32,12 @@ class Vertex:
 
     def getWeight(self,nbr):
     	return self.connectedTo[nbr]
+    	
+    def checkEmptyVertex(self):
+    	if(self.id=='-' or self.id=='*'): return True
+    	for w in self.getConnections():
+    		if(w.id!='-' and w.id!='*'): return False
+    	return True	
 
 class Graph:
     def __init__(self):
@@ -82,20 +88,21 @@ class Graph:
         	    cont2= cont2 + 1
         	cont1= cont1 + 1	
         return auxMat		
-	
+		
     def generateProbVector(self):
     	npages = len(self.vertList)
     	auxVect = numpy.zeros(npages)
     	auxSum =0.0 # sum of all frequencies
     	cont1 =0
     	for v in self:
-    		auxSum = auxSum + (v.getFreq()*1.0)
+    		if(not v.checkEmptyVertex()):
+    			auxSum = auxSum + (v.getFreq()*1.0)
 		
     	for v in self:
-    		if(auxSum !=0) :
+    		if(not v.checkEmptyVertex()) :
     			auxVect[cont1] = (v.getFreq()*1.0) / auxSum
     		else:
-    			auxVect[cont1] = 1.0/npages
+    			auxVect[cont1] = 0.0
     		cont1= cont1 + 1
     	return auxVect
 
@@ -106,7 +113,6 @@ class Graph:
         
         mat = self.generateMatrix()
         probVector = self.generateProbVector()
-        
         for v in range(npages):
         	rankList.append(1.0 / npages)
         
