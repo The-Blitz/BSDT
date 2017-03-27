@@ -1,5 +1,6 @@
 import os.path
 import operator
+import numpy
 class Vertex:
     def __init__(self,key,w,p,fq):
         self.id = key
@@ -65,22 +66,59 @@ class Graph:
     def __iter__(self):
         return iter(sorted(self.vertList.values(),key=operator.attrgetter('pos','id')))
 
+    def generateMatrix(self):
+        npages = len(self.vertList)
+        auxMat = numpy.zeros((npages, npages))
+        cont1=0
+        for v in self:
+        	cont2 =0
+        	auxSum =0 # sum of all edges
+        	for w in v.getConnections():
+        		auxSum = auxSum + v.getWeight(w)
+        	for w in self:
+        	    if (w in v.getConnections()):
+        	    	if(auxSum!=0):
+        	    		auxMat[cont2][cont1] = v.getWeight(w) / auxSum
+        	    cont2= cont2 + 1
+        	cont1= cont1 + 1	
+        return auxMat		
+	
+    def generateProbVector(self):
+    	npages = len(self.vertList)
+    	auxVect = numpy.zeros((npages,1))
+    	auxSum =0 # sum of all frequencies
+    	cont1 =0
+    	for v in self:
+    		auxSum = auxSum + (v.getFreq()*1.0)
+		
+    	for v in self:
+    		if(auxSum !=0) :
+    			auxVect[cont1][0] = (v.getFreq()*1.0) / auxSum
+    		else:
+    			auxVect[cont1][0] = 1.0/npages	
+
+    	return auxVect
+
     def pageRank(self,c = 0.85 , iterations =30): # c= damping factor
         ranks = {}
+        rankList = []
         npages = len(self.vertList)
         
-        for v in g:
-        	ranks[v] = 1.0 / len(v.connectedTo)
+        mat = self.generateMatrix()
+        probVector = self.generateProbVector()
+        
+        for v in range(npages):
+        	rankList.append(1.0 / npages)
 		
         for i in range(iterations):
-            newRanks = {}
-            for v in g:
-                #for w in v.getConnections():
-                    # formula
-                ranks = newRanks
-		
+            rankList = c * mat.dot(rankList) + (1-c) * probVector
+            
+        cont=0
+        for v in self:
+        	ranks[v] = rankList[cont]
+        	cont = cont + 1
         return ranks
-
+	
 def dijkstra(graph, start):
 	S = set()
 

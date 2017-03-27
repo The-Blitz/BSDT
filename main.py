@@ -188,17 +188,19 @@ def main():
 	subjGraphs = createSenseGraph(subjSentences,subjProcSentences)
 	
 	cont=1
-	for g in objGraphs:
-		for v in g:
-			for w in v.getConnections():
-				print("(%d, %s , %s , %s )" % (cont, v, w, v.getWeight(w)))
-		cont+=1		
+	for gr in objGraphs:
+		auxi= gr.pageRank()
+		sortkeys = sorted(auxi.keys(),key=g.operator.attrgetter('pos','id'))
+		for i in range(len(auxi)):
+			print(cont,sortkeys[i],auxi[sortkeys[i]])
+		cont+=1	
 		
 	cont=1		
-	for g in subjGraphs:
-		for v in g:
-			for w in v.getConnections():
-				print("(%d, %s , %s , %s )" % (cont, v ,w , v.getWeight(w)))	
+	for gr in subjGraphs:
+		auxi= gr.pageRank()
+		sortkeys = sorted(auxi.keys(),key=g.operator.attrgetter('pos','id'))
+		for i in range(len(auxi)):
+			print(cont,sortkeys[i],auxi[sortkeys[i]])
 		cont+=1					
 
 if __name__ == "__main__":
