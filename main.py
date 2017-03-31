@@ -31,7 +31,7 @@ def procTextFile (filename):
 		ans.append(result)
 	return ans,validWords,fullSent
 
-def mergeSenses(procSentences): # this is related to subjectivity
+def mergeSenses(procSentences,flag): # this is related to subjectivity
 	dicts = []
 	for opi in procSentences: # search in opinion
 		offsetDict = dict()
@@ -41,40 +41,53 @@ def mergeSenses(procSentences): # this is related to subjectivity
 				offset= w[1]
 				ontology = w[2]
 				if( not(len(offset)==1 and offset[0]=='-') ): # there should be an offset
-					NS = [] ; NSFreq = []
-					LS = [] ; LSFreq = []
-					MS = [] ; MSFreq = []
-					HS = [] ; HSFreq = []
-					auxOffset = []
-					conta=0
-					for sense in offset:
-						if(sense != '-' and sense != None):
+					if(flag==1):
+						NS = [] ; NSFreq = []
+						LS = [] ; LSFreq = []
+						MS = [] ; MSFreq = []
+						HS = [] ; HSFreq = []
+						auxOffset = []
+						conta=0
+						for sense in offset:
+							if(sense != '-' and sense != None):
+								freq= len(offset) - conta
+								subj,obj = s.dbc.searchSubjectivity(sense)
+								if(ontology[conta]=='SubjectiveAssessmentAttribute'): 
+									HS.append(sense) #the ontology adds subjectivity value
+									HSFreq.append(freq)
+								elif(subj==0.0):
+									NS.append(sense)
+									NSFreq.append(freq)	
+								elif(subj<=0.25):
+									LS.append(sense)
+									LSFreq.append(freq)
+								elif(subj<=0.50):
+									MS.append(sense)
+									MSFreq.append(freq)
+								else:
+									HS.append(sense)
+									HSFreq.append(freq)
+							conta = conta+1	
+						auxOffset.append((NS,NSFreq)) ; auxOffset.append((LS,LSFreq))
+						auxOffset.append((MS,MSFreq)) ; auxOffset.append((HS,HSFreq))	
+						offsetDict[word[0]] = auxOffset
+					else:
+						auxOffset = []
+						conta=0
+						for sense in offset:
+							auxSense = [] 
+							auxFreq = []
 							freq= len(offset) - conta
-							subj,obj = s.dbc.searchSubjectivity(sense)
-							if(ontology[conta]=='SubjectiveAssessmentAttribute'): 
-								HS.append(sense) #the ontology adds subjectivity value
-								HSFreq.append(freq)
-							elif(subj==0.0):
-								NS.append(sense)
-								NSFreq.append(freq)	
-							elif(subj<=0.25):
-								LS.append(sense)
-								LSFreq.append(freq)
-							elif(subj<=0.50):
-								MS.append(sense)
-								MSFreq.append(freq)
-							else:
-								HS.append(sense)
-								HSFreq.append(freq)
-						conta = conta+1	
-					auxOffset.append((NS,NSFreq)) ; auxOffset.append((LS,LSFreq))
-					auxOffset.append((MS,MSFreq)) ; auxOffset.append((HS,HSFreq))	
-					offsetDict[word[0]] = auxOffset
+							auxSense.append(sense)
+							auxFreq.append(freq) #kind of necessary because of the sum of list in the next function, which calls this one
+							auxOffset.append((auxSense,auxFreq))
+							conta = conta+1
+						offsetDict[word[0]] = auxOffset	 
 		dicts.append(offsetDict)
 	return dicts
 	
 def createSenseGraph(sentences , procSentences):
-	dicts = mergeSenses(procSentences)
+	dicts = mergeSenses(procSentences,1)
 	cont=0
 	graphs = [] # '-' connect sentences , '*' replaces sentence root
 	
