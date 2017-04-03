@@ -6,10 +6,11 @@ import pandas as pd
 from queue import *
 
 
-def procTextFile (filename):
+def procTextFile (filename,flag): # flag: 0 separate opinion in sentences, 1 sentences per opinion together
 	ans = []
 	validWords = [] # adjectives, adverbs, nouns and verbs	
 	fullSent = []	# all sentences per line
+	positions = []
 	for i in range(len(filename)):
 		sentence = s.splitSentence(filename[i])
 		result = []
@@ -24,12 +25,20 @@ def procTextFile (filename):
 				#print(words[k],lemmas[k],tags[k])
 				if(tags[k][0]=='A' or tags[k][0]=='N' or tags[k][0]=='R' or (tags[k][0]=='V' and tags[k][1]!='A')): # ignore auxiliar verbs
 					validTags.add(lemmas[k])			
-		#print(result)
-		#print(validTags)
-		fullSent.append(auxSent)
-		validWords.append(validTags)
-		ans.append(result)
-	return ans,validWords,fullSent
+			if(not flag):
+				fullSent.append(auxSent)
+				validWords.append(validTags)
+				ans.append(result)
+				result = []
+				validTags = set()
+				auxSent = []
+				positions.append(i+1)
+		if(flag):
+			fullSent.append(auxSent)
+			validWords.append(validTags)
+			ans.append(result)
+			positions.append(i+1)	
+	return ans,validWords,fullSent,positions
 
 def mergeSenses(procSentences,flag): # this is related to subjectivity
 	dicts = []
@@ -191,9 +200,9 @@ def main():
 	fileName  = 'Corpus/subjTest.txt'
 	subjFile  =s.readFile(fileName,'utf-8')
 	
-	objWords,objWordSet,objSentences  = procTextFile(objFile)
-	subjWords,subjWordSet,subjSentences = procTextFile(subjFile)		
-				
+	objWords,objWordSet,objSentences,objPos  = procTextFile(objFile,1)
+	subjWords,subjWordSet,subjSentences,subjPos = procTextFile(subjFile,1)
+		
 	objProcSentences =  s.sentenceSenses (objWords,objWordSet)
 	subjProcSentences = s.sentenceSenses (subjWords,subjWordSet)
 
