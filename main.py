@@ -211,18 +211,14 @@ def main():
 	
 	cont=1
 	for gr in objGraphs:
-		auxi= gr.pageRank()
-		sortkeys = sorted(auxi.keys(),key=g.operator.attrgetter('pos','id'))
-		for i in range(len(auxi)):
-			print(cont,sortkeys[i],auxi[sortkeys[i]])
+		print(cont)
+		print(gr.getEdges())
 		cont+=1	
 		
 	cont=1		
 	for gr in subjGraphs:
-		auxi= gr.pageRank()
-		sortkeys = sorted(auxi.keys(),key=g.operator.attrgetter('pos','id'))
-		for i in range(len(auxi)):
-			print(cont,sortkeys[i],auxi[sortkeys[i]])
+		print(cont)
+		print(gr.getEdges())
 		cont+=1					
 
 if __name__ == "__main__":

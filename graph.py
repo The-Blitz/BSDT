@@ -69,6 +69,15 @@ class Graph:
     def getVertices(self):
         return self.vertList.keys()
 
+    def getEdges(self):
+    	edges=[]
+    	for v in self:
+    		if(v.id!='-' and v.id!='*'):
+    			for w in v.getConnections():
+    				if( w.id!='-' and w.id!='*' and (not existEdge(edges, v.getWord() , w.getWord())) ):
+    					edges.append((v.getWord(),w.getWord()))
+    	return edges				
+
     def __iter__(self):
         return iter(sorted(self.vertList.values(),key=operator.attrgetter('pos','id')))
 
@@ -124,6 +133,11 @@ class Graph:
         	ranks[v] = rankList[cont]
         	cont = cont + 1
         return ranks
+
+def existEdge(auxList, word1, word2):
+    for (aux1,aux2) in auxList:
+    	if((aux1== word1 and aux2 == word2) or (aux2== word1 and aux1 == word2)): return True
+    return False
 	
 def dijkstra(graph, start):
 	S = set()
