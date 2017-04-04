@@ -2,18 +2,19 @@ import os.path
 import operator
 import numpy
 class Vertex:
-    def __init__(self,key,w,p,fq):
+    def __init__(self,key,w,p,fq,cat):
         self.id = key
         self.connectedTo = {}
         self.word = w
         self.pos = p
         self.freq =fq
+        self.cat = cat
 
     def addNeighbor(self,nbr,weight=0):
         self.connectedTo[nbr] = weight
 
     def __str__(self):
-        return str(self.id) + " " +str(self.word)+ " " + str(self.pos)  + " " + str(self.freq)
+        return str(self.id) + " " +str(self.word)+ " " + str(self.pos)  + " " + str(self.freq) + " " + str(self.cat)
 
     def getConnections(self):
         return sorted(self.connectedTo.keys(),key=operator.attrgetter('pos','id'))
@@ -29,7 +30,10 @@ class Vertex:
 
     def getFreq(self):
     	return self.freq
-
+    	
+    def getCat(self):
+    	return self.cat
+    	
     def getWeight(self,nbr):
     	return self.connectedTo[nbr]
     	
@@ -44,9 +48,9 @@ class Graph:
         self.vertList = {}
         self.numVertices = 0
 
-    def addVertex(self,key,word,pos,freq):
+    def addVertex(self,key,word,pos,freq,cat):
         self.numVertices = self.numVertices + 1
-        newVertex = Vertex(key,word,pos,freq)
+        newVertex = Vertex(key,word,pos,freq,cat)
         self.vertList[key+"-"+str(pos)] = newVertex
         return newVertex
 
@@ -59,11 +63,11 @@ class Graph:
     def __contains__(self,n):
         return n in self.vertList
 
-    def addEdge(self,f,fword,fpos,ffreq,t,tword,tpos,tfreq,cost=0):
+    def addEdge(self,f,fword,fpos,ffreq,fcat,t,tword,tpos,tfreq,tcat,cost=0):
         if (f+"-"+str(fpos)) not in self.vertList:
-            nv = self.addVertex(f,fword,fpos,ffreq)
+            nv = self.addVertex(f,fword,fpos,ffreq,fcat)
         if (t+"-"+str(tpos)) not in self.vertList:
-            nv = self.addVertex(t,tword,tpos,tfreq)
+            nv = self.addVertex(t,tword,tpos,tfreq,tcat)
         self.vertList[f+"-"+str(fpos)].addNeighbor(self.vertList[t+"-"+str(tpos)], cost)
 
     def getVertices(self):
@@ -75,7 +79,7 @@ class Graph:
     		if(v.id!='-' and v.id!='*'):
     			for w in v.getConnections():
     				if( w.id!='-' and w.id!='*' and (not existEdge(edges, v.getWord() , w.getWord())) ):
-    					edges.append((v.getWord(),w.getWord()))
+    					edges.append((v.getWord(),v.getPos(),w.getWord(),w.getPos()))
     	return edges				
 
     def __iter__(self):
@@ -135,7 +139,7 @@ class Graph:
         return ranks
 
 def existEdge(auxList, word1, word2):
-    for (aux1,aux2) in auxList:
+    for (aux1,pos1,aux2,pos2) in auxList:
     	if((aux1== word1 and aux2 == word2) or (aux2== word1 and aux1 == word2)): return True
     return False
 	

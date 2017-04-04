@@ -40,6 +40,18 @@ def procTextFile (filename,flag): # flag: 0 separate opinion in sentences, 1 sen
 			positions.append(i+1)	
 	return ans,validWords,fullSent,positions
 
+def getCategory(attr , subj):
+	if(attr=='SubjectiveAssessmentAttribute'): 
+		return 'HS'
+	elif(subj==0.0):
+		return 'NS'
+	elif(subj<=0.25):
+		return 'LS'
+	elif(subj<=0.50):
+		return 'MS'
+	else:
+		return 'HS'
+
 def mergeSenses(procSentences,flag): # this is related to subjectivity
 	dicts = []
 	for opi in procSentences: # search in opinion
@@ -77,8 +89,8 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity
 									HS.append(sense)
 									HSFreq.append(freq)
 							conta = conta+1	
-						auxOffset.append((NS,NSFreq)) ; auxOffset.append((LS,LSFreq))
-						auxOffset.append((MS,MSFreq)) ; auxOffset.append((HS,HSFreq))	
+						auxOffset.append((NS,NSFreq,'NS')) ; auxOffset.append((LS,LSFreq,'LS'))
+						auxOffset.append((MS,MSFreq,'MS')) ; auxOffset.append((HS,HSFreq,'HS'))	
 						offsetDict[word[0]] = auxOffset
 					else:
 						auxOffset = []
@@ -87,9 +99,10 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity
 							auxSense = [] 
 							auxFreq = []
 							freq= len(offset) - conta
-							auxSense.append(sense)
-							auxFreq.append(freq) #kind of necessary because of the sum of list in the next function, which calls this one
-							auxOffset.append((auxSense,auxFreq))
+							subj,obj = s.dbc.searchSubjectivity(sense)
+							auxSense.append(sense) #kind of necessary because of the sum of list in the next function, which calls this one
+							auxFreq.append(freq)   #kind of necessary because of the sum of list in the next function, which calls this one
+							auxOffset.append( ( auxSense,auxFreq,getCategory(ontology[conta],subj) ) )
 							conta = conta+1
 						offsetDict[word[0]] = auxOffset	 
 		dicts.append(offsetDict)
@@ -114,11 +127,11 @@ def createSenseGraph(sentences , procSentences):
 			if(auxRoot in di):
 				for sense in di[auxRoot]:
 					if(len(sense[0])):
-						senseGraph.addEdge(listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]) , '-','-',0,0)
-						senseGraph.addEdge('-','-',0,0, listToStr(sense[0]),auxRoot,auxPos,sum(sense[1])  )
+						senseGraph.addEdge(listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[2] , '-','-',0,0,'NS')
+						senseGraph.addEdge('-','-',0,0,'NS', listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]) ,sense[2] )
 			else:
-				senseGraph.addEdge('*',auxRoot,auxPos,0 , '-','-',0,0)
-				senseGraph.addEdge('-','-',0,0, '*',auxRoot,auxPos,0)		
+				senseGraph.addEdge('*',auxRoot,auxPos,0,'NS' , '-','-',0,0,'NS')
+				senseGraph.addEdge('-','-',0,0,'NS', '*',auxRoot,auxPos,0,'NS')		
 			
 			while (not q.empty()):
 				top = q.get()
@@ -132,13 +145,13 @@ def createSenseGraph(sentences , procSentences):
 						for sense2 in di[ w2 ]:
 							for sense1 in di[ w1 ]:
 								if(len(sense1[0]) and len(sense2[0]) ):
-									senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1])  , listToStr(sense2[0]),w2,p2,sum(sense2[1])  , g.getDistanceList(sense1,sense2,1))
-									senseGraph.addEdge(listToStr(sense2[0]),w2,p2,sum(sense2[1])  , listToStr(sense1[0]),w1,p1,sum(sense1[1])  , g.getDistanceList(sense2,sense1,1))
+									senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[2]  , listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[2]   , g.getDistanceList(sense1,sense2,1))
+									senseGraph.addEdge(listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[2]   , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[2] , g.getDistanceList(sense2,sense1,1))
 					elif (auxRoot== w2 and not(w2 in di) and w1 in di):
 						for sense1 in di[ w1]:
 							if(len(sense1[0])):
-								senseGraph.addEdge('*',w2,p2,0 , listToStr(sense1[0]),w1,p1,sum(sense1[1]) )
-								senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1])  , '*',w2,p2,0)			
+								senseGraph.addEdge('*',w2,p2,0,'NS' , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[2]  )
+								senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[2]   , '*',w2,p2,0,'NS')			
 					q.put(word[0])
 		cont+=1			
 		graphs.append(senseGraph)
@@ -191,6 +204,34 @@ def generateExcelCorpus(objSent,subjSent):
 	df = df[['sentence', 'word','lemma','tag','sense']]
 	df.to_excel('corpusExcel2.xlsx', sheet_name='sheet1', index=False)				
 
+def findVertices(auxList , w1, p1, w2,p2):
+	v1 = None
+	val1=0.0
+	v2 = None
+	val2=0.0
+	for key,value in auxList.items():
+		if (key.getWord()== w1 and key.getPos()==p1 and val1<value):
+			v1 = key
+			val1 = value
+	
+	for key,value in auxList.items():
+		if (key.getWord()== w2 and key.getPos()==p2 and val2<value):
+			v2 = key
+			val2 = value
+	
+	return v1,v2		
+
+def getFeatures (sentGraphs):
+	features = []
+	for gr in sentGraphs:
+		auxFeature = []
+		pageRank= gr.pageRank()
+		edges = gr.getEdges()
+		for (word1,pos1,word2,pos2) in edges:
+			vert1 , vert2 = findVertices(pageRank,word1,pos1,word2,pos2)
+			auxFeature.append( (vert1.getWord() , vert1.getPos() , vert1.getCat() , vert2.getWord() , vert2.getPos() , vert2.getCat() ) )
+		features.append(auxFeature)
+	return features		
 	
 def main():
 	#fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
@@ -209,16 +250,17 @@ def main():
 	objGraphs  = createSenseGraph(objSentences,objProcSentences)
 	subjGraphs = createSenseGraph(subjSentences,subjProcSentences)
 	
+	objFeatures  =getFeatures(objGraphs)
+	subjFeatures =getFeatures(subjGraphs)
+	
 	cont=1
-	for gr in objGraphs:
-		print(cont)
-		print(gr.getEdges())
+	for feat in objFeatures:
+		print(cont , feat)
 		cont+=1	
 		
 	cont=1		
-	for gr in subjGraphs:
-		print(cont)
-		print(gr.getEdges())
+	for feat in subjFeatures:
+		print(cont , feat)
 		cont+=1					
 
 if __name__ == "__main__":
