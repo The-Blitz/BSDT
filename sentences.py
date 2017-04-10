@@ -134,13 +134,20 @@ def readFile(fileName,encode):
 	return lines	
     						
 
-def splitSentence(sentence):
+def splitSentence(sentence,flag):  # flag: 0 separate opinion in sentences, 1 sentences per opinion together
 	sentences = [s for s in sentence.split(".") if s] # get all sentences for each opinion
 	ans = []
+	aux=[]
 	for i in range (len(sentences)): # get each word for every sentence
 		words = [s for s in sentences[i].split(" ") if s]
-		ans.append(words)
+		if(flag):
+			for j in range(len (words)):
+				aux.append(words[j])
+			aux.append(".")
+		else:
+			ans.append(words)
+	if(flag):
+		ans.append(aux)	
 	return ans
-
 
 
