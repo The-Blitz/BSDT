@@ -12,7 +12,7 @@ def procTextFile (filename,flag): # flag: 0 separate opinion in sentences, 1 sen
 	fullSent = []	# all sentences per line
 	positions = []
 	for i in range(len(filename)):
-		sentence = s.splitSentence(filename[i])
+		sentence = s.splitSentence(filename[i],flag)
 		result = []
 		validTags = set()
 		auxSent = []
@@ -52,7 +52,7 @@ def getCategory(attr , subj):
 	else:
 		return 'HS'
 
-def mergeSenses(procSentences,flag): # this is related to subjectivity
+def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 separate senses, 1 senses together
 	dicts = []
 	for opi in procSentences: # search in opinion
 		offsetDict = dict()
@@ -120,8 +120,7 @@ def createSenseGraph(sentences , procSentences):
 			# senseGraph = g.Graph()  #graph per sentece
 			rel, depT = fu.dependencyParser(se)
 			q = Queue()
-			q.put(depT[0])
-						
+			q.put(depT[0])	
 			auxRoot = depT[0][1][0] ## dependency parser root
 			auxPos  = depT[0][1][1] 
 			if(auxRoot in di):
@@ -221,7 +220,7 @@ def findVertices(auxList , w1, p1, w2,p2):
 	
 	return v1,v2		
 
-def getFeatures (sentGraphs):
+def getGraphInfo (sentGraphs):
 	features = []
 	for gr in sentGraphs:
 		auxFeature = []
@@ -232,6 +231,72 @@ def getFeatures (sentGraphs):
 			auxFeature.append( (vert1.getWord() , vert1.getPos() , vert1.getCat() , vert2.getWord() , vert2.getPos() , vert2.getCat() ) )
 		features.append(auxFeature)
 	return features		
+
+
+def addTags(auxFeat, auxWords,auxPos):
+	cont=1
+	result = []
+	aux = []
+	for i in range(len(auxWords)):
+		if(cont!=auxPos[i]):
+			result.append(aux)
+			aux = []
+			cont = cont+1
+		for j in range (len (auxWords[i])): 
+			words  = auxWords[i][j][0]
+			tags   = auxWords[i][j][2]
+			for k in range (len (auxFeat[i]) ):
+				w1 = auxFeat[i][k][0]; p1 = auxFeat[i][k][1]; c1 = auxFeat[i][k][2]
+				w2 = auxFeat[i][k][3]; p2 = auxFeat[i][k][4]; c2 = auxFeat[i][k][5]
+				aux.append((tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
+				#print(i,auxPos[i],w1,w2, (tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
+	if(aux):
+		result.append(aux)			
+	#print(result)
+	return result
+
+def createDict():
+	features = ['N-NS' , 'N-LS' ,'N-MS' ,'N-HS' ,'A-NS' ,'A-LS' ,'A-MS' ,'A-HS' ,'R-NS' ,'R-LS' ,'R-MS' ,'R-HS' ,'V-NS' ,'V-LS' ,'V-MS' ,'V-HS'] #possibilities
+	result = dict()
+	for f1 in features:
+		for f2 in features:
+			auxF1 = f1+ " " +f2 
+			auxF2 = f2+ " " +f1
+			if ((not(auxF1 in result)) and (not(auxF2 in result))):
+				result[auxF1] = 0
+	return result			
+
+def getFeatures(objGraphs,objWords,objPos , subjGraphs,subjWords,subjPos):
+
+	result = []
+	objInfo  =getGraphInfo(objGraphs)
+	subjInfo =getGraphInfo(subjGraphs)
+
+	objFeatures =  addTags(objInfo , objWords,objPos)
+	subjFeatures = addTags(subjInfo , subjWords,subjPos)
+	
+	for auxList in objFeatures:
+		featDict = createDict()
+		for feat in auxList:
+			w1 = feat[0] ; w2 = feat[1]
+			auxF1 = w1+ " " +w2 ; auxF2 = w2+ " " +w1
+			if (auxF1 in featDict):
+				featDict[auxF1] = featDict[auxF1] +1
+			elif (auxF2 in featDict):	
+				featDict[auxF2] = featDict[auxF2] +1
+		result.append(featDict)		
+				
+	for auxList in subjFeatures:
+		featDict = createDict()
+		for feat in auxList:
+			w1 = feat[0] ; w2 = feat[1]
+			auxF1 = w1+ " " +w2 ; auxF2 = w2+ " " +w1
+			if (auxF1 in featDict):
+				featDict[auxF1] = featDict[auxF1] +1
+			elif (auxF2 in featDict):	
+				featDict[auxF2] = featDict[auxF2] +1			
+		result.append(featDict)		
+	return result
 	
 def main():
 	#fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
@@ -243,25 +308,22 @@ def main():
 	
 	objWords,objWordSet,objSentences,objPos  = procTextFile(objFile,1)
 	subjWords,subjWordSet,subjSentences,subjPos = procTextFile(subjFile,1)
-		
+
 	objProcSentences =  s.sentenceSenses (objWords,objWordSet)
 	subjProcSentences = s.sentenceSenses (subjWords,subjWordSet)
 
 	objGraphs  = createSenseGraph(objSentences,objProcSentences)
 	subjGraphs = createSenseGraph(subjSentences,subjProcSentences)
 	
-	objFeatures  =getFeatures(objGraphs)
-	subjFeatures =getFeatures(subjGraphs)
+	features = getFeatures(objGraphs,objWords,objPos , subjGraphs,subjWords,subjPos)
 	
-	cont=1
-	for feat in objFeatures:
-		print(cont , feat)
-		cont+=1	
-		
-	cont=1		
-	for feat in subjFeatures:
-		print(cont , feat)
-		cont+=1					
+	cont =1
+	for feat in features:
+		for aux in feat:
+			if (feat[aux]>0):
+				print(cont,aux,feat[aux])
+		cont +=1		
+
 
 if __name__ == "__main__":
     

@@ -1,4 +1,10 @@
-1 [('cuenta', 1, 'NS', 'historia', 3, 'NS'), ('empleados', 6, 'NS', 'clientes', 9, 'NS'), ('clientes', 9, 'NS', 'visto', 17, 'NS'), ('visto', 17, 'NS', 'relacionados', 18, 'NS'), ('visto', 17, 'NS', 'cambiando', 27, 'NS'), ('sexualmente', 21, 'NS', 'cambiando', 27, 'NS'), ('secretos', 24, 'MS', 'cambiando', 27, 'NS'), ('revelarán', 26, 'NS', 'cambiando', 27, 'NS'), ('cambiando', 27, 'NS', 'vidas', 29, 'NS')]
-2 [('es', 3, 'NS', 'dejada', 4, 'NS'), ('dejada', 4, 'NS', 'descubre', 9, 'NS'), ('descubre', 9, 'NS', 'está', 11, 'NS'), ('está', 11, 'NS', 'embarazada', 12, 'NS')]
-1 [('caracterizaciones', 4, 'NS', 'cachondas', 5, 'HS')]
-2 [('película', 8, 'NS', 'carece', 9, 'LS'), ('lustre', 12, 'NS', 'literario', 13, 'HS'), ('oscuros', 19, 'HS', 'impulsos', 20, 'NS')]
+1 N-NS N-NS 1
+1 N-NS V-NS 3
+1 N-MS V-NS 1
+1 V-NS V-NS 3
+1 R-NS V-NS 1
+2 V-NS V-NS 4
+3 N-NS N-NS 1
+3 N-NS A-HS 1
+4 N-NS V-LS 1
+4 N-NS A-HS 2
