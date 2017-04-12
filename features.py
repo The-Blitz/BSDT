@@ -220,16 +220,27 @@ def findVertices(auxList , w1, p1, w2,p2):
 	
 	return v1,v2		
 
-def getGraphInfo (sentGraphs):
+
+def printPageRank (pr,cont):
+	f = open('prList1.txt','a+')
+	sortkeys = sorted(pr.keys(),key=g.operator.attrgetter('pos','id'))
+	for i in range(len(pr)):
+		f.write("%d %s %f\n" % (cont,sortkeys[i],pr[sortkeys[i]]))	
+	f.close()
+
+def getGraphInfo (sentGraphs,posList):
 	features = []
+	cont =0
 	for gr in sentGraphs:
 		auxFeature = []
 		pageRank= gr.pageRank()
+		printPageRank(pageRank,posList[cont])
 		edges = gr.getEdges()
 		for (word1,pos1,word2,pos2) in edges:
 			vert1 , vert2 = findVertices(pageRank,word1,pos1,word2,pos2)
 			auxFeature.append( (vert1.getWord() , vert1.getPos() , vert1.getCat() , vert2.getWord() , vert2.getPos() , vert2.getCat() ) )
 		features.append(auxFeature)
+		cont+=1
 	return features		
 
 
@@ -269,8 +280,8 @@ def createDict():
 def getFeatures(objGraphs,objWords,objPos , subjGraphs,subjWords,subjPos):
 
 	result = []
-	objInfo  =getGraphInfo(objGraphs)
-	subjInfo =getGraphInfo(subjGraphs)
+	objInfo  =getGraphInfo(objGraphs,objPos)
+	subjInfo =getGraphInfo(subjGraphs,subjPos)
 
 	objFeatures =  addTags(objInfo , objWords,objPos)
 	subjFeatures = addTags(subjInfo , subjWords,subjPos)

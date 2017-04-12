@@ -5,12 +5,13 @@ def main():
 	#TODO
 	features = fe.generate()
 	cont =1
+	f = open('featList1.txt','a+')
 	for feat in features:
 		for aux in feat:
 			if (feat[aux]>0):
-				print(cont,aux,feat[aux])
+				f.write("%d %s %d\n" % (cont,aux,feat[aux]))
 		cont +=1		
-
+	f.close()
 	print("Nuevo Main")
 
 
