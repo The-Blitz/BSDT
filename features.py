@@ -291,7 +291,7 @@ def printFeat(feat,kind):
 	else:
 		f.write("    %s    " % (kind))	
 		for aux in sorted(feat):
-			f.write("  %d  " % (feat[aux]))	
+			f.write("    %d    " % (feat[aux]))	
 		f.write("\n")	
 	f.close()
 
