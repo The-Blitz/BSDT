@@ -6,39 +6,36 @@ import pandas as pd
 from queue import *
 
 
-def procTextFile (filename,flag): # flag: 0 separate opinion in sentences, 1 sentences per opinion together
+def procTextFile (filesent,flag): # flag: 0 separate opinion in sentences, 1 sentences per opinion together
 	ans = []
 	validWords = [] # adjectives, adverbs, nouns and verbs	
 	fullSent = []	# all sentences per line
-	positions = []
-	for i in range(len(filename)):
-		sentence = s.splitSentence(filename[i],flag)
-		result = []
-		validTags = set()
-		auxSent = []
-		for j in range (len (sentence)):
-			aux = s.procSentence(sentence[j])
-			auxSent.append(aux)
-			words,lemmas,tags=fu.procText(aux)
-			result.append( (words,lemmas,tags) )
-			for k in range ( len (tags) ):
-				#print(words[k],lemmas[k],tags[k])
-				if(tags[k][0]=='A' or tags[k][0]=='N' or tags[k][0]=='R' or (tags[k][0]=='V' and tags[k][1]!='A')): # ignore auxiliar verbs
-					validTags.add(lemmas[k])			
-			if(not flag):
-				fullSent.append(auxSent)
-				validWords.append(validTags)
-				ans.append(result)
-				result = []
-				validTags = set()
-				auxSent = []
-				positions.append(i+1)
-		if(flag):
+
+	sentence = s.splitSentence(filesent,flag)
+	result = []
+	validTags = set()
+	auxSent = []
+	for j in range (len (sentence)):
+		aux = s.procSentence(sentence[j])
+		auxSent.append(aux)
+		words,lemmas,tags=fu.procText(aux)
+		result.append( (words,lemmas,tags) )
+		for k in range ( len (tags) ):
+			#print(words[k],lemmas[k],tags[k])
+			if(tags[k][0]=='A' or tags[k][0]=='N' or tags[k][0]=='R' or (tags[k][0]=='V' and tags[k][1]!='A')): # ignore auxiliar verbs
+				validTags.add(lemmas[k])			
+		if(not flag):
 			fullSent.append(auxSent)
 			validWords.append(validTags)
 			ans.append(result)
-			positions.append(i+1)	
-	return ans,validWords,fullSent,positions
+			result = []
+			validTags = set()
+			auxSent = []
+	if(flag):
+		fullSent.append(auxSent)
+		validWords.append(validTags)
+		ans.append(result)
+	return ans,validWords,fullSent
 
 def getCategory(attr , subj):
 	if(attr=='SubjectiveAssessmentAttribute'): 
@@ -228,42 +225,32 @@ def printPageRank (pr,cont):
 		f.write("%d %s %f\n" % (cont,sortkeys[i],pr[sortkeys[i]]))	
 	f.close()
 
-def getGraphInfo (sentGraphs,posList):
+def getGraphInfo (sentGraphs,pos):
 	features = []
-	cont =0
 	for gr in sentGraphs:
 		auxFeature = []
 		pageRank= gr.pageRank()
-		printPageRank(pageRank,posList[cont])
+		printPageRank(pageRank,pos)
 		edges = gr.getEdges()
 		for (word1,pos1,word2,pos2) in edges:
 			vert1 , vert2 = findVertices(pageRank,word1,pos1,word2,pos2)
 			auxFeature.append( (vert1.getWord() , vert1.getPos() , vert1.getCat() , vert2.getWord() , vert2.getPos() , vert2.getCat() ) )
 		features.append(auxFeature)
-		cont+=1
 	return features		
 
 
 def addTags(auxFeat, auxWords,auxPos):
 	cont=1
 	result = []
-	aux = []
 	for i in range(len(auxWords)):
-		if(cont!=auxPos[i]):
-			result.append(aux)
-			aux = []
-			cont = cont+1
 		for j in range (len (auxWords[i])): 
 			words  = auxWords[i][j][0]
 			tags   = auxWords[i][j][2]
 			for k in range (len (auxFeat[i]) ):
 				w1 = auxFeat[i][k][0]; p1 = auxFeat[i][k][1]; c1 = auxFeat[i][k][2]
 				w2 = auxFeat[i][k][3]; p2 = auxFeat[i][k][4]; c2 = auxFeat[i][k][5]
-				aux.append((tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
-				#print(i,auxPos[i],w1,w2, (tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
-	if(aux):
-		result.append(aux)			
-	#print(result)
+				result.append((tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
+				#print(i,auxPos,w1,w2, (tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
 	return result
 
 def createDict():
@@ -277,56 +264,58 @@ def createDict():
 				result[auxF1] = 0
 	return result			
 
-def getFeatures(objGraphs,objWords,objPos , subjGraphs,subjWords,subjPos):
+def getFeatures(auxGraphs,auxWords, pos):
 
-	result = []
-	objInfo  =getGraphInfo(objGraphs,objPos)
-	subjInfo =getGraphInfo(subjGraphs,subjPos)
+	auxInfo  =getGraphInfo(auxGraphs,pos)
 
-	objFeatures =  addTags(objInfo , objWords,objPos)
-	subjFeatures = addTags(subjInfo , subjWords,subjPos)
+	auxFeatures =  addTags(auxInfo , auxWords,pos)
 	
-	for auxList in objFeatures:
-		featDict = createDict()
-		for feat in auxList:
-			w1 = feat[0] ; w2 = feat[1]
-			auxF1 = w1+ " " +w2 ; auxF2 = w2+ " " +w1
-			if (auxF1 in featDict):
-				featDict[auxF1] = featDict[auxF1] +1
-			elif (auxF2 in featDict):	
-				featDict[auxF2] = featDict[auxF2] +1
-		result.append(featDict)		
-				
-	for auxList in subjFeatures:
-		featDict = createDict()
-		for feat in auxList:
-			w1 = feat[0] ; w2 = feat[1]
-			auxF1 = w1+ " " +w2 ; auxF2 = w2+ " " +w1
-			if (auxF1 in featDict):
-				featDict[auxF1] = featDict[auxF1] +1
-			elif (auxF2 in featDict):	
-				featDict[auxF2] = featDict[auxF2] +1			
-		result.append(featDict)		
-	return result
+	featDict = createDict()
+	for feat in auxFeatures:
+		w1 = feat[0] ; w2 = feat[1]
+		auxF1 = w1+ " " +w2 ; auxF2 = w2+ " " +w1
+		if (auxF1 in featDict):
+			featDict[auxF1] = featDict[auxF1] +1
+		elif (auxF2 in featDict):	
+			featDict[auxF2] = featDict[auxF2] +1
+									
+	return featDict
+
+def printFeat(feat,cont):
+	f = open('featList1.txt','a+')
+	for aux in feat:
+		if (feat[aux]>0):
+			f.write("%d %s %d\n" % (cont,aux,feat[aux]))	
+	f.close()
+
 	
 def generate():
-	#fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
-	fileName  = 'Corpus/objTest.txt'
+	fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
+	#fileName  = 'Corpus/objTest.txt'
 	objFile = s.readFile(fileName,'utf-8')
-	#fileName = 'Corpus/spanish_subjectives_filmaffinity_2500'
-	fileName  = 'Corpus/subjTest.txt'
+	fileName = 'Corpus/spanish_subjectives_filmaffinity_2500'
+	#fileName  = 'Corpus/subjTest.txt'
 	subjFile  =s.readFile(fileName,'utf-8')
-	
-	objWords,objWordSet,objSentences,objPos  = procTextFile(objFile,1)
-	subjWords,subjWordSet,subjSentences,subjPos = procTextFile(subjFile,1)
 
-	objProcSentences =  s.sentenceSenses (objWords,objWordSet)
-	subjProcSentences = s.sentenceSenses (subjWords,subjWordSet)
+	for i in range(1,len(objFile)+1):
+		objWords,objWordSet,objSentences  = procTextFile(objFile[i-1],0)
+		
+		objProcSentences =  s.sentenceSenses (objWords,objWordSet)
 
-	objGraphs  = createSenseGraph(objSentences,objProcSentences)
-	subjGraphs = createSenseGraph(subjSentences,subjProcSentences)
+		objGraphs  = createSenseGraph(objSentences,objProcSentences)
 	
-	features = getFeatures(objGraphs,objWords,objPos , subjGraphs,subjWords,subjPos)
-	
-	return features
+		features = getFeatures(objGraphs,objWords,i)
+		printFeat(features,i)
+
+
+	for i in range(1,len(subjFile)+1):
+		subjWords,subjWordSet,subjSentences = procTextFile(subjFile[i-1],0)
+		
+		subjProcSentences = s.sentenceSenses (subjWords,subjWordSet)
+		
+		subjGraphs = createSenseGraph(subjSentences,subjProcSentences)
+
+		features = getFeatures(subjGraphs,subjWords,i)
+		printFeat(features,i)
+		
 
