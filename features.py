@@ -281,22 +281,29 @@ def getFeatures(auxGraphs,auxWords, pos):
 									
 	return featDict
 
-def printFeat(feat,cont):
+def printFeat(feat,kind):
 	f = open('featList1.txt','a+')
-	for aux in feat:
-		if (feat[aux]>0):
-			f.write("%d %s %d\n" % (cont,aux,feat[aux]))	
+	if (kind=='I'):
+		f.write("sentence ")	
+		for aux in sorted(feat):
+			f.write("% s " % (aux))	
+		f.write("\n")	
+	else:
+		f.write("    %s    " % (kind))	
+		for aux in sorted(feat):
+			f.write(" %d " % (feat[aux]))	
+		f.write("\n")	
 	f.close()
 
 	
 def generate():
-	fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
-	#fileName  = 'Corpus/objTest.txt'
+	#fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
+	fileName  = 'Corpus/objTest.txt'
 	objFile = s.readFile(fileName,'utf-8')
-	fileName = 'Corpus/spanish_subjectives_filmaffinity_2500'
-	#fileName  = 'Corpus/subjTest.txt'
+	#fileName = 'Corpus/spanish_subjectives_filmaffinity_2500'
+	fileName  = 'Corpus/subjTest.txt'
 	subjFile  =s.readFile(fileName,'utf-8')
-
+	printFeat(createDict(),'I') #Begin file
 	for i in range(1,len(objFile)+1):
 		objWords,objWordSet,objSentences  = procTextFile(objFile[i-1],0)
 		
@@ -305,7 +312,7 @@ def generate():
 		objGraphs  = createSenseGraph(objSentences,objProcSentences)
 	
 		features = getFeatures(objGraphs,objWords,i)
-		printFeat(features,i)
+		printFeat(features,'O')
 
 
 	for i in range(1,len(subjFile)+1):
@@ -316,6 +323,6 @@ def generate():
 		subjGraphs = createSenseGraph(subjSentences,subjProcSentences)
 
 		features = getFeatures(subjGraphs,subjWords,i)
-		printFeat(features,i)
+		printFeat(features,'S')
 		
 
