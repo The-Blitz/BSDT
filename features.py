@@ -70,6 +70,7 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 							if(sense != '-' and sense != None):
 								freq= len(offset) - conta
 								subj,obj = s.dbc.searchSubjectivity(sense)
+								if(subj==-1): continue; #ignore sense
 								if(ontology[conta]=='SubjectiveAssessmentAttribute'): 
 									HS.append(sense) #the ontology adds subjectivity value
 									HSFreq.append(freq)
@@ -97,6 +98,7 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 							auxFreq = []
 							freq= len(offset) - conta
 							subj,obj = s.dbc.searchSubjectivity(sense)
+							if(subj==-1): continue; #ignore sense
 							auxSense.append(sense) #kind of necessary because of the sum of list in the next function, which calls this one
 							auxFreq.append(freq)   #kind of necessary because of the sum of list in the next function, which calls this one
 							auxOffset.append( ( auxSense,auxFreq,getCategory(ontology[conta],subj) ) )
@@ -312,6 +314,7 @@ def generate():
 		objGraphs  = createSenseGraph(objSentences,objProcSentences)
 	
 		features = getFeatures(objGraphs,objWords,i)
+		#print("Oración", i , "procesada , sentidos juntos")
 		printFeat(features,'O')
 
 
@@ -321,8 +324,8 @@ def generate():
 		subjProcSentences = s.sentenceSenses (subjWords,subjWordSet)
 		
 		subjGraphs = createSenseGraph(subjSentences,subjProcSentences)
-
+		#print("Oración", 125+i , "procesada, sentidos juntos")
 		features = getFeatures(subjGraphs,subjWords,i)
 		printFeat(features,'S')
-		
+
 

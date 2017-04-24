@@ -49,7 +49,9 @@ def searchSubjectivity(text): # text = sense ID
 	ans=cursor.fetchall()
 	db.close()
     # table ( id , subj ,obj )
-	subj=ans[0][1]
-	obj =ans[0][2]
-	return subj,obj;
-	
+	if(len(ans)):
+		subj=ans[0][1]
+		obj =ans[0][2]	
+		return subj,obj;
+	else:
+		return -1,-1	
