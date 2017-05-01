@@ -212,13 +212,17 @@ def findVertices(auxList , w1, p1, w2,p2):
 	val1=0.0
 	v2 = None
 	val2=0.0
-	for key,value in auxList.items():
-		if (key.getWord()== w1 and key.getPos()==p1 and val1<value):
+	sortkeys = sorted(auxList.keys(),key=g.operator.attrgetter('pos','Nsense','id'))
+	
+	for i in range(len(sortkeys)):
+		key=sortkeys[i];	value=auxList[sortkeys[i]];
+		if (key.getWord()== w1 and key.getPos()==p1 and ( (val1==value and abs(val1-value) > 1e-6) or (val1<value) ) ):
 			v1 = key
 			val1 = value
 	
-	for key,value in auxList.items():
-		if (key.getWord()== w2 and key.getPos()==p2 and val2<value):
+	for i in range(len(sortkeys)):
+		key=sortkeys[i];	value=auxList[sortkeys[i]];
+		if (key.getWord()== w2 and key.getPos()==p2 and ( (val2==value and abs(val2-value) > 1e-6) or (val2<value) ) ):
 			v2 = key
 			val2 = value
 	
@@ -290,16 +294,10 @@ def getFeatures(auxGraphs,auxWords, pos):
 
 def printFeat(feat,kind):
 	f = open('featList1.txt','a+')
-	if (kind=='I'):
-		f.write("sentence ")	
-		for aux in sorted(feat):
-			f.write("% s " % (aux))	
-		f.write("\n")	
-	else:
-		f.write("    %s    " % (kind))	
-		for aux in sorted(feat):
-			f.write("     %d    " % (feat[aux]))	
-		f.write("\n")	
+	f.write("%s\t"% (kind))	
+	for aux in sorted(feat):
+		if(feat[aux]):	f.write("%s\t%d\t" % (aux,feat[aux]))	
+	f.write("\n")	
 	f.close()
 
 	
@@ -315,7 +313,7 @@ def generate():
 	objFile = s.readFile(fileName,'utf-8')
 	fileName  = 'Corpus/subjTest.txt'
 	subjFile  =s.readFile(fileName,'utf-8')
-	printFeat(createDict(),'I') #Begin file
+
 	for i in range(1,len(objFile)+1):
 		features = sentToFeat(objFile[i-1],i)
 		#print("Oración", i , "procesada , sentidos juntos")
