@@ -8,6 +8,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import SGDClassifier
 from sklearn.metrics import classification_report,confusion_matrix
+from sklearn.decomposition import PCA
 
 import numpy as np
 import pandas as pd
@@ -46,7 +47,11 @@ def test_clasif(name,clasi,data,target):
 def main():
 	#TODO
 	fileName  = 'featList.txt'
-	data,target=readData(fileName)	
+	data,target=readData(fileName)
+	pca = PCA(n_components=40)
+	pca.fit(data)
+	pca_data = pca.transform(data)	
+	
 	svc = svm.SVC(kernel='linear', C=1)
 	lr  = LogisticRegression()
 	lda = LinearDiscriminantAnalysis()
@@ -55,10 +60,10 @@ def main():
 	bayes= GaussianNB()
 	sgd = SGDClassifier()
 	
+
 	test_clasif('svm',svc,data,target);test_clasif('logistic',lr,data,target);test_clasif('lda',lda,data,target);
 	test_clasif('k neighbors',knn,data,target);test_clasif('decision tree',tree,data,target);test_clasif('naive bayes',bayes,data,target);
 	test_clasif('sgd',sgd,data,target);
-	#print(result)
 
 
 if __name__ == "__main__":
