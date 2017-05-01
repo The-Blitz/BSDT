@@ -298,34 +298,28 @@ def printFeat(feat,kind):
 	f.close()
 
 	
+def sentToFeat(sentence,cont):
+	words,wordSet,sentences  = procTextFile(sentence,0)
+	procSentences =  s.sentenceSenses (words,wordSet)
+	graphs  = createSenseGraph(sentences,procSentences)
+	features = getFeatures(graphs,words,cont)
+	return features
+
 def generate():
-	#fileName = 'Corpus/spanish_objectives_filmaffinity_2500'
 	fileName  = 'Corpus/objTest.txt'
 	objFile = s.readFile(fileName,'utf-8')
-	#fileName = 'Corpus/spanish_subjectives_filmaffinity_2500'
 	fileName  = 'Corpus/subjTest.txt'
 	subjFile  =s.readFile(fileName,'utf-8')
 	printFeat(createDict(),'I') #Begin file
 	for i in range(1,len(objFile)+1):
-		objWords,objWordSet,objSentences  = procTextFile(objFile[i-1],0)
-		
-		objProcSentences =  s.sentenceSenses (objWords,objWordSet)
-
-		objGraphs  = createSenseGraph(objSentences,objProcSentences)
-	
-		features = getFeatures(objGraphs,objWords,i)
+		features = sentToFeat(objFile[i-1],i)
 		#print("Oración", i , "procesada , sentidos juntos")
 		printFeat(features,'O')
 
 
 	for i in range(1,len(subjFile)+1):
-		subjWords,subjWordSet,subjSentences = procTextFile(subjFile[i-1],0)
-		
-		subjProcSentences = s.sentenceSenses (subjWords,subjWordSet)
-		
-		subjGraphs = createSenseGraph(subjSentences,subjProcSentences)
+		features = sentToFeat(subjFile[i-1],i)
 		#print("Oración", 125+i , "procesada, sentidos juntos")
-		features = getFeatures(subjGraphs,subjWords,i)
 		printFeat(features,'S')
 
 
