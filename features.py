@@ -65,7 +65,7 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 						MS = [] ; MSFreq = []
 						HS = [] ; HSFreq = []
 						auxOffset = []
-						conta=0
+						conta=0;contaN=1000;contaL=1000;contaM=1000;contaH=1000;
 						for sense in offset:
 							if(sense != '-' and sense != None):
 								freq= len(offset) - conta
@@ -74,21 +74,26 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 								if(ontology[conta]=='SubjectiveAssessmentAttribute'): 
 									HS.append(sense) #the ontology adds subjectivity value
 									HSFreq.append(freq)
+									contaH=min(contaH,conta+1)
 								elif(subj==0.0):
 									NS.append(sense)
-									NSFreq.append(freq)	
+									NSFreq.append(freq)
+									contaN=min(contaN,conta+1)	
 								elif(subj<=0.25):
 									LS.append(sense)
 									LSFreq.append(freq)
+									contaL=min(contaL,conta+1)
 								elif(subj<=0.50):
 									MS.append(sense)
 									MSFreq.append(freq)
+									contaM=min(contaM,conta+1)
 								else:
 									HS.append(sense)
 									HSFreq.append(freq)
+									contaH=min(contaH,conta+1)
 							conta = conta+1	
-						auxOffset.append((NS,NSFreq,'NS')) ; auxOffset.append((LS,LSFreq,'LS'))
-						auxOffset.append((MS,MSFreq,'MS')) ; auxOffset.append((HS,HSFreq,'HS'))	
+						auxOffset.append((NS,NSFreq,'NS',contaN)) ; auxOffset.append((LS,LSFreq,'LS',contaL))
+						auxOffset.append((MS,MSFreq,'MS',contaM)) ; auxOffset.append((HS,HSFreq,'HS',contaH))	
 						offsetDict[word[0]] = auxOffset
 					else:
 						auxOffset = []
@@ -101,7 +106,7 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 							if(subj==-1): continue; #ignore sense
 							auxSense.append(sense) #kind of necessary because of the sum of list in the next function, which calls this one
 							auxFreq.append(freq)   #kind of necessary because of the sum of list in the next function, which calls this one
-							auxOffset.append( ( auxSense,auxFreq,getCategory(ontology[conta],subj) ) )
+							auxOffset.append( ( auxSense,auxFreq,getCategory(ontology[conta],subj),conta+1 ) )
 							conta = conta+1
 						offsetDict[word[0]] = auxOffset	 
 		dicts.append(offsetDict)
@@ -125,11 +130,11 @@ def createSenseGraph(sentences , procSentences):
 			if(auxRoot in di):
 				for sense in di[auxRoot]:
 					if(len(sense[0])):
-						senseGraph.addEdge(listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[2] , '-','-',0,0,'NS')
-						senseGraph.addEdge('-','-',0,0,'NS', listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]) ,sense[2] )
+						senseGraph.addEdge(listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[3],sense[2] , '-','-',0,0,0,'NS')
+						senseGraph.addEdge('-','-',0,0,0,'NS', listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[3] ,sense[2] )
 			else:
-				senseGraph.addEdge('*',auxRoot,auxPos,0,'NS' , '-','-',0,0,'NS')
-				senseGraph.addEdge('-','-',0,0,'NS', '*',auxRoot,auxPos,0,'NS')		
+				senseGraph.addEdge('*',auxRoot,auxPos,0,0,'NS' , '-','-',0,0,0,'NS')
+				senseGraph.addEdge('-','-',0,0,0,'NS', '*',auxRoot,auxPos,0,0,'NS')		
 			
 			while (not q.empty()):
 				top = q.get()
@@ -143,13 +148,13 @@ def createSenseGraph(sentences , procSentences):
 						for sense2 in di[ w2 ]:
 							for sense1 in di[ w1 ]:
 								if(len(sense1[0]) and len(sense2[0]) ):
-									senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[2]  , listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[2]   , g.getDistanceList(sense1,sense2,1))
-									senseGraph.addEdge(listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[2]   , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[2] , g.getDistanceList(sense2,sense1,1))
+									senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]  , listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[3],sense2[2]   , g.getDistanceList(sense1,sense2,1))
+									senseGraph.addEdge(listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[3],sense2[2]   , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2] , g.getDistanceList(sense2,sense1,1))
 					elif (auxRoot== w2 and not(w2 in di) and w1 in di):
 						for sense1 in di[ w1]:
 							if(len(sense1[0])):
-								senseGraph.addEdge('*',w2,p2,0,'NS' , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[2]  )
-								senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[2]   , '*',w2,p2,0,'NS')			
+								senseGraph.addEdge('*',w2,p2,0,0,'NS' , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]  )
+								senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]   , '*',w2,p2,0,0,'NS')			
 					q.put(word[0])
 		cont+=1			
 		graphs.append(senseGraph)
@@ -222,7 +227,7 @@ def findVertices(auxList , w1, p1, w2,p2):
 
 def printPageRank (pr,cont):
 	f = open('prList1.txt','a+')
-	sortkeys = sorted(pr.keys(),key=g.operator.attrgetter('pos','id'))
+	sortkeys = sorted(pr.keys(),key=g.operator.attrgetter('pos','Nsense','id'))
 	for i in range(len(pr)):
 		f.write("%d %s %f\n" % (cont,sortkeys[i],pr[sortkeys[i]]))	
 	f.close()
@@ -322,4 +327,4 @@ def generate():
 		#print("Oración", 125+i , "procesada, sentidos juntos")
 		printFeat(features,'S')
 
-
+generate()

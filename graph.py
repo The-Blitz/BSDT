@@ -2,22 +2,23 @@ import os.path
 import operator
 import numpy
 class Vertex:
-    def __init__(self,key,w,p,fq,cat):
+    def __init__(self,key,w,p,fq,s,cat):
         self.id = key
         self.connectedTo = {}
         self.word = w
         self.pos = p
         self.freq =fq
+        self.Nsense=s
         self.cat = cat
 
     def addNeighbor(self,nbr,weight=0):
         self.connectedTo[nbr] = weight
 
     def __str__(self):
-        return str(self.id) + " " +str(self.word)+ " " + str(self.pos)  + " " + str(self.freq) + " " + str(self.cat)
+        return str(self.id) + " " +str(self.word)+ " " + str(self.pos)  + " " + str(self.freq) + " " + str(self.Nsense)+ " " + str(self.cat)
 
     def getConnections(self):
-        return sorted(self.connectedTo.keys(),key=operator.attrgetter('pos','id'))
+        return sorted(self.connectedTo.keys(),key=operator.attrgetter('pos','Nsense','id'))
 
     def getId(self):
     	return self.id
@@ -30,13 +31,16 @@ class Vertex:
 
     def getFreq(self):
     	return self.freq
+
+    def getNsense(self):
+    	return self.Nsense
     	
     def getCat(self):
     	return self.cat
     	
     def getWeight(self,nbr):
     	return self.connectedTo[nbr]
-    	
+  	    	
     def checkEmptyVertex(self):
     	if(self.id=='-' or self.id=='*'): return True
     	for w in self.getConnections():
@@ -48,9 +52,9 @@ class Graph:
         self.vertList = {}
         self.numVertices = 0
 
-    def addVertex(self,key,word,pos,freq,cat):
+    def addVertex(self,key,word,pos,freq,s,cat):
         self.numVertices = self.numVertices + 1
-        newVertex = Vertex(key,word,pos,freq,cat)
+        newVertex = Vertex(key,word,pos,freq,s,cat)
         self.vertList[key+"-"+str(pos)] = newVertex
         return newVertex
 
@@ -63,11 +67,11 @@ class Graph:
     def __contains__(self,n):
         return n in self.vertList
 
-    def addEdge(self,f,fword,fpos,ffreq,fcat,t,tword,tpos,tfreq,tcat,cost=0):
+    def addEdge(self,f,fword,fpos,ffreq,fs,fcat,t,tword,tpos,tfreq,ts,tcat,cost=0):
         if (f+"-"+str(fpos)) not in self.vertList:
-            nv = self.addVertex(f,fword,fpos,ffreq,fcat)
+            nv = self.addVertex(f,fword,fpos,ffreq,fs,fcat)
         if (t+"-"+str(tpos)) not in self.vertList:
-            nv = self.addVertex(t,tword,tpos,tfreq,tcat)
+            nv = self.addVertex(t,tword,tpos,tfreq,ts,tcat)
         self.vertList[f+"-"+str(fpos)].addNeighbor(self.vertList[t+"-"+str(tpos)], cost)
 
     def getVertices(self):
@@ -83,7 +87,7 @@ class Graph:
     	return edges				
 
     def __iter__(self):
-        return iter(sorted(self.vertList.values(),key=operator.attrgetter('pos','id')))
+        return iter(sorted(self.vertList.values(),key=operator.attrgetter('pos','Nsense','id')))
 
     def generateMatrix(self):
         npages = len(self.vertList)
