@@ -1,8 +1,18 @@
-from sklearn.model_selection import train_test_split,cross_val_score,cross_val_predict
+from sklearn import model_selection as ms
 from sklearn import datasets
 from sklearn import svm
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.naive_bayes import GaussianNB
+from sklearn.linear_model import SGDClassifier
+from sklearn.metrics import classification_report,confusion_matrix
+
 import numpy as np
 import pandas as pd
+import warnings
+warnings.filterwarnings('ignore')
 
 def readData(fileName):
 	data=[]
@@ -26,18 +36,28 @@ def readData(fileName):
 	npData=pd.DataFrame(data).values
 	return npData,target
 
+def test_clasif(name,clasi,data,target):
+	with warnings.catch_warnings():
+		result = ms.cross_val_predict(clasi, data, target, cv=5)
+		print(name)
+		print(classification_report(result,target))
+		print(confusion_matrix(result,target))
+
 def main():
 	#TODO
 	fileName  = 'featList.txt'
 	data,target=readData(fileName)	
-	#X_train, X_test, y_train, y_test = train_test_split(data,target, test_size=0.40)
-	svc = svm.SVC(kernel='linear', C=1)#.fit(X_train, y_train) 
-	#ans_poly=svc.predict(X_test)
-	#acc_poly=svc.score(X_test,y_test)
-	#print (ans_poly ,"accuracy=", acc_poly)
-	scores = cross_val_score(svc, data, target, cv=5)
-	print ("Usando cross validation: " , ("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2)))
-	result = cross_val_predict(svc, data, target, cv=5)
+	svc = svm.SVC(kernel='linear', C=1)
+	lr  = LogisticRegression()
+	lda = LinearDiscriminantAnalysis()
+	knn = KNeighborsClassifier()
+	tree= DecisionTreeClassifier()
+	bayes= GaussianNB()
+	sgd = SGDClassifier()
+	
+	test_clasif('svm',svc,data,target);test_clasif('logistic',lr,data,target);test_clasif('lda',lda,data,target);
+	test_clasif('k neighbors',knn,data,target);test_clasif('decision tree',tree,data,target);test_clasif('naive bayes',bayes,data,target);
+	test_clasif('sgd',sgd,data,target);
 	#print(result)
 
 
