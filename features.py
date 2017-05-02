@@ -45,6 +45,7 @@ def getCategory(attr , subj):
 def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 separate senses, 1 senses together , 2 senses mean
 	dicts = []
 	for sen in procSentences: # search in sentence
+		pos=1
 		offsetDict = dict()
 		for w in sen:	# search in word
 			word= w[0]
@@ -88,7 +89,7 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 						conta = conta+1	
 					auxOffset.append((NS,NSFreq,'NS',contaN)) ; auxOffset.append((LS,LSFreq,'LS',contaL))
 					auxOffset.append((MS,MSFreq,'MS',contaM)) ; auxOffset.append((HS,HSFreq,'HS',contaH))	
-					offsetDict[word[0]] = auxOffset
+					offsetDict[word[0]+" "+str(pos)] = auxOffset
 				elif(flag==0):
 					auxOffset = []
 					conta=0
@@ -104,7 +105,7 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 						auxFreq.append(freq)   #kind of necessary because of the sum of list in the next function, which calls this one
 						auxOffset.append( ( auxSense,auxFreq,getCategory(ontology[conta],subj),conta+1 ) )
 						conta = conta+1
-					offsetDict[word[0]] = auxOffset
+					offsetDict[word[0]+" "+str(pos)] = auxOffset
 				elif(flag==2):
 					conta=0
 					total=0
@@ -120,7 +121,8 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 						else:
 							meanS=meanS+subj	
 						conta = conta+1
-					offsetDict[word[0]] = getCategory('',meanS/total)											 
+					offsetDict[word[0]+" "+str(pos)] = getCategory('',meanS/total)
+			pos=pos+1													 
 		dicts.append(offsetDict)
 	return dicts
 	
@@ -138,8 +140,8 @@ def createSenseGraph(sentences , procSentences):
 		relation= depT[0][0]	# relation between words
 		auxRoot = depT[0][1][0] ## dependency parser root
 		auxPos  = depT[0][1][1] 
-		if(auxRoot in di):
-			for sense in di[auxRoot]:
+		if((auxRoot+" "+str(auxPos)) in di):
+			for sense in di[auxRoot+" "+str(auxPos)]:
 				if(len(sense[0])):
 					senseGraph.addEdge(listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[3],sense[2] , '-','-',0,0,0,'NS',0, relation)
 					senseGraph.addEdge('-','-',0,0,0,'NS', listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[3] ,sense[2],0, relation)
@@ -156,14 +158,14 @@ def createSenseGraph(sentences , procSentences):
 				w2 = top[1][0]
 				p2 = top[1][1]
 				relation = word[0][0] # relation between words
-				if(w1 in di and w2 in di):
-					for sense2 in di[ w2 ]:
-						for sense1 in di[ w1 ]:
+				if((w1+" "+str(p1)) in di and (w2+" "+str(p2)) in di):
+					for sense2 in di[ (w2+" "+str(p2)) ]:
+						for sense1 in di[ (w1+" "+str(p1))  ]:
 							if(len(sense1[0]) and len(sense2[0]) ):
 								senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]  , listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[3],sense2[2]   , g.getDistanceList(sense1,sense2,1), relation)
 								senseGraph.addEdge(listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[3],sense2[2]   , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2] , g.getDistanceList(sense2,sense1,1), relation)
-				elif (auxRoot== w2 and not(w2 in di) and w1 in di):
-					for sense1 in di[ w1]:
+				elif (auxRoot== w2 and not((w2+" "+str(p2)) in di) and (w1+" "+str(p1))  in di):
+					for sense1 in di[ (w1+" "+str(p1))  ]:
 						if(len(sense1[0])):
 							senseGraph.addEdge('*',w2,p2,0,0,'NS' , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]  ,0, relation)
 							senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]   , '*',w2,p2,0,0,'NS',0, relation)			
@@ -193,8 +195,8 @@ def meanFeatures(sentences,procSentences,words,cont):
 				w2 = top[1][0]
 				p2 = top[1][1]
 				relation = word[0][0] # relation between words
-				if(w1 in di and w2 in di): 
-					result.append((words[cont][2][p1-1][0]+"-"+di[w1],words[cont][2][p2-1][0]+"-"+di[w2],relation))
+				if((w1+" "+str(p1)) in di and (w2+" "+str(p2)) in di): 
+					result.append((words[cont][2][p1-1][0]+"-"+di[(w1+" "+str(p1))],words[cont][2][p2-1][0]+"-"+di[(w2+" "+str(p2))],relation))
 				q.put(word[0])
 		cont=cont+1							
 	featDict = createDict()
