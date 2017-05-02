@@ -49,7 +49,7 @@ def getCategory(attr , subj):
 	else:
 		return 'HS'
 
-def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 separate senses, 1 senses together
+def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 separate senses, 1 senses together , 2 senses mean
 	dicts = []
 	for opi in procSentences: # search in opinion
 		offsetDict = dict()
@@ -70,7 +70,9 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 							if(sense != '-' and sense != None):
 								freq= len(offset) - conta
 								subj,obj = s.dbc.searchSubjectivity(sense)
-								if(subj==-1): continue; #ignore sense
+								if(subj==-1): 
+									conta = conta+1	
+									continue; #ignore sense
 								if(ontology[conta]=='SubjectiveAssessmentAttribute'): 
 									HS.append(sense) #the ontology adds subjectivity value
 									HSFreq.append(freq)
@@ -95,7 +97,7 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 						auxOffset.append((NS,NSFreq,'NS',contaN)) ; auxOffset.append((LS,LSFreq,'LS',contaL))
 						auxOffset.append((MS,MSFreq,'MS',contaM)) ; auxOffset.append((HS,HSFreq,'HS',contaH))	
 						offsetDict[word[0]] = auxOffset
-					else:
+					elif(flag==0):
 						auxOffset = []
 						conta=0
 						for sense in offset:
@@ -103,12 +105,31 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 							auxFreq = []
 							freq= len(offset) - conta
 							subj,obj = s.dbc.searchSubjectivity(sense)
-							if(subj==-1): continue; #ignore sense
+							if(subj==-1): 
+								conta = conta+1	
+								continue; #ignore sense
 							auxSense.append(sense) #kind of necessary because of the sum of list in the next function, which calls this one
 							auxFreq.append(freq)   #kind of necessary because of the sum of list in the next function, which calls this one
 							auxOffset.append( ( auxSense,auxFreq,getCategory(ontology[conta],subj),conta+1 ) )
 							conta = conta+1
-						offsetDict[word[0]] = auxOffset	 
+						offsetDict[word[0]] = auxOffset
+					elif(flag==2):
+						conta=0
+						total=0
+						meanS=0.0
+						for sense in offset:
+							subj,obj = s.dbc.searchSubjectivity(sense)
+							if(subj==-1): 
+								conta = conta+1	
+								continue; #ignore sense
+							total = total+1	
+							if(ontology[conta]=='SubjectiveAssessmentAttribute'): 
+								meanS= meanS+1.0
+							else:
+								meanS=meanS+subj	
+							conta = conta+1
+						offsetDict[word[0]] = getCategory('',meanS/total)
+		if(flag==2): return 	offsetDict												 
 		dicts.append(offsetDict)
 	return dicts
 	
@@ -166,7 +187,37 @@ def createSenseGraph(sentences , procSentences):
 
 def listToStr(auxList):
 	return " ".join(str(x) for x in auxList)
-	
+
+def meanFeatures(sentences,procSentences,words,cont):
+	result= []
+	dicts = mergeSenses(procSentences,2)
+	for ls in sentences:
+		for se in ls:
+			rel, depT = fu.dependencyParser(se)
+			q = Queue()
+			q.put(depT[0])	
+			while (not q.empty()):
+				top = q.get()
+				for word in top[2]:
+					w1 = word[0][1][0]
+					p1 = word[0][1][1]
+					w2 = top[1][0]
+					p2 = top[1][1]
+					relation = word[0][0] # relation between words
+					if(w1 in dicts and w2 in dicts): 
+						result.append((words[0][0][2][p1-1][0]+"-"+dicts[w1],words[0][0][2][p2-1][0]+"-"+dicts[w2],relation))
+					q.put(word[0])	
+					
+	featDict = createDict()
+	for feat in result:
+		w1 = feat[0] ; w2 = feat[1] ; r = feat[2];
+		auxF1 = w1+ " " +w2 + " " + r ; auxF2 = w2+ " " +w1 + " " + r ;
+		if (auxF1 in featDict):
+			featDict[auxF1] = featDict[auxF1] +1
+		elif (auxF2 in featDict):	
+			featDict[auxF2] = featDict[auxF2] +1								
+	return featDict							
+					
 def generateExcelCorpus(objSent,subjSent):
 	numlist   = []
 	wordlist  = []
@@ -308,11 +359,14 @@ def printFeat(feat,kind):
 	f.close()
 
 	
-def sentToFeat(sentence,cont):
+def sentToFeat(sentence,cont,flag): #cont: sentence in corpus , flag: 0 NOT WSD, 1 with WSD
 	words,wordSet,sentences  = procTextFile(sentence,0)
 	procSentences =  s.sentenceSenses (words,wordSet)
-	graphs  = createSenseGraph(sentences,procSentences)
-	features = getFeatures(graphs,words,cont)
+	if (flag):
+		graphs  = createSenseGraph(sentences,procSentences)
+		features = getFeatures(graphs,words,cont)
+	else:
+		features = meanFeatures(sentences,procSentences,words,cont) # get features with subjectivity's mean
 	return features
 
 def generate():
@@ -322,14 +376,14 @@ def generate():
 	subjFile  =s.readFile(fileName,'utf-8')
 
 	for i in range(1,len(objFile)+1):
-		features = sentToFeat(objFile[i-1],i)
+		features = sentToFeat(objFile[i-1],i,0)
 		#print("Oración", i , "procesada , sentidos juntos")
-		printFeat(features,'O')
+		#printFeat(features,'O')
 
 
 	for i in range(1,len(subjFile)+1):
-		features = sentToFeat(subjFile[i-1],i)
+		features = sentToFeat(subjFile[i-1],i,0)
 		#print("Oración", 125+i , "procesada, sentidos juntos")
-		printFeat(features,'S')
+		#printFeat(features,'S')
 
 
