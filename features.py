@@ -10,31 +10,24 @@ def procTextFile (filesent,flag): # flag: 0 separate opinion in sentences, 1 sen
 	ans = []
 	validWords = [] # adjectives, adverbs, nouns and verbs	
 	fullSent = []	# all sentences per line
-
 	sentence = s.splitSentence(filesent,flag)
-	result = []
 	validTags = set()
-	auxSent = []
 	for j in range (len (sentence)):
 		aux = s.procSentence(sentence[j])
-		auxSent.append(aux)
 		words,lemmas,tags=fu.procText(aux)
-		result.append( (words,lemmas,tags) )
 		for k in range ( len (tags) ):
 			#print(words[k],lemmas[k],tags[k])
 			if(tags[k][0]=='A' or tags[k][0]=='N' or tags[k][0]=='R' or (tags[k][0]=='V' and tags[k][1]!='A')): # ignore auxiliar verbs
 				validTags.add(lemmas[k])			
 		if(not flag):
-			fullSent.append(auxSent)
+			fullSent.append(aux)
 			validWords.append(validTags)
-			ans.append(result)
-			result = []
+			ans.append((words,lemmas,tags))
 			validTags = set()
-			auxSent = []
 	if(flag):
-		fullSent.append(auxSent)
+		fullSent.append(aux)
 		validWords.append(validTags)
-		ans.append(result)
+		ans.append((words,lemmas,tags))
 	return ans,validWords,fullSent
 
 def getCategory(attr , subj):
@@ -51,85 +44,83 @@ def getCategory(attr , subj):
 
 def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 separate senses, 1 senses together , 2 senses mean
 	dicts = []
-	for opi in procSentences: # search in opinion
+	for sen in procSentences: # search in sentence
 		offsetDict = dict()
-		for sen in opi: # search in sentence
-			for w in sen:	# search in word
-				word= w[0]
-				offset= w[1]
-				ontology = w[2]
-				if( not(len(offset)==1 and offset[0]=='-') ): # there should be an offset
-					if(flag==1):
-						NS = [] ; NSFreq = []
-						LS = [] ; LSFreq = []
-						MS = [] ; MSFreq = []
-						HS = [] ; HSFreq = []
-						auxOffset = []
-						conta=0;contaN=1000;contaL=1000;contaM=1000;contaH=1000;
-						for sense in offset:
-							if(sense != '-' and sense != None):
-								freq= len(offset) - conta
-								subj,obj = s.dbc.searchSubjectivity(sense)
-								if(subj==-1): 
-									conta = conta+1	
-									continue; #ignore sense
-								if(ontology[conta]=='SubjectiveAssessmentAttribute'): 
-									HS.append(sense) #the ontology adds subjectivity value
-									HSFreq.append(freq)
-									contaH=min(contaH,conta+1)
-								elif(subj==0.0):
-									NS.append(sense)
-									NSFreq.append(freq)
-									contaN=min(contaN,conta+1)	
-								elif(subj<=0.25):
-									LS.append(sense)
-									LSFreq.append(freq)
-									contaL=min(contaL,conta+1)
-								elif(subj<=0.50):
-									MS.append(sense)
-									MSFreq.append(freq)
-									contaM=min(contaM,conta+1)
-								else:
-									HS.append(sense)
-									HSFreq.append(freq)
-									contaH=min(contaH,conta+1)
-							conta = conta+1	
-						auxOffset.append((NS,NSFreq,'NS',contaN)) ; auxOffset.append((LS,LSFreq,'LS',contaL))
-						auxOffset.append((MS,MSFreq,'MS',contaM)) ; auxOffset.append((HS,HSFreq,'HS',contaH))	
-						offsetDict[word[0]] = auxOffset
-					elif(flag==0):
-						auxOffset = []
-						conta=0
-						for sense in offset:
-							auxSense = [] 
-							auxFreq = []
+		for w in sen:	# search in word
+			word= w[0]
+			offset= w[1]
+			ontology = w[2]
+			if( not(len(offset)==1 and offset[0]=='-') ): # there should be an offset
+				if(flag==1):
+					NS = [] ; NSFreq = []
+					LS = [] ; LSFreq = []
+					MS = [] ; MSFreq = []
+					HS = [] ; HSFreq = []
+					auxOffset = []
+					conta=0;contaN=1000;contaL=1000;contaM=1000;contaH=1000;
+					for sense in offset:
+						if(sense != '-' and sense != None):
 							freq= len(offset) - conta
 							subj,obj = s.dbc.searchSubjectivity(sense)
 							if(subj==-1): 
 								conta = conta+1	
 								continue; #ignore sense
-							auxSense.append(sense) #kind of necessary because of the sum of list in the next function, which calls this one
-							auxFreq.append(freq)   #kind of necessary because of the sum of list in the next function, which calls this one
-							auxOffset.append( ( auxSense,auxFreq,getCategory(ontology[conta],subj),conta+1 ) )
-							conta = conta+1
-						offsetDict[word[0]] = auxOffset
-					elif(flag==2):
-						conta=0
-						total=0
-						meanS=0.0
-						for sense in offset:
-							subj,obj = s.dbc.searchSubjectivity(sense)
-							if(subj==-1): 
-								conta = conta+1	
-								continue; #ignore sense
-							total = total+1	
 							if(ontology[conta]=='SubjectiveAssessmentAttribute'): 
-								meanS= meanS+1.0
+								HS.append(sense) #the ontology adds subjectivity value
+								HSFreq.append(freq)
+								contaH=min(contaH,conta+1)
+							elif(subj==0.0):
+								NS.append(sense)
+								NSFreq.append(freq)
+								contaN=min(contaN,conta+1)	
+							elif(subj<=0.25):
+								LS.append(sense)
+								LSFreq.append(freq)
+								contaL=min(contaL,conta+1)
+							elif(subj<=0.50):
+								MS.append(sense)
+								MSFreq.append(freq)
+								contaM=min(contaM,conta+1)
 							else:
-								meanS=meanS+subj	
-							conta = conta+1
-						offsetDict[word[0]] = getCategory('',meanS/total)
-		if(flag==2): return 	offsetDict												 
+								HS.append(sense)
+								HSFreq.append(freq)
+								contaH=min(contaH,conta+1)
+						conta = conta+1	
+					auxOffset.append((NS,NSFreq,'NS',contaN)) ; auxOffset.append((LS,LSFreq,'LS',contaL))
+					auxOffset.append((MS,MSFreq,'MS',contaM)) ; auxOffset.append((HS,HSFreq,'HS',contaH))	
+					offsetDict[word[0]] = auxOffset
+				elif(flag==0):
+					auxOffset = []
+					conta=0
+					for sense in offset:
+						auxSense = [] 
+						auxFreq = []
+						freq= len(offset) - conta
+						subj,obj = s.dbc.searchSubjectivity(sense)
+						if(subj==-1): 
+							conta = conta+1	
+							continue; #ignore sense
+						auxSense.append(sense) #kind of necessary because of the sum of list in the next function, which calls this one
+						auxFreq.append(freq)   #kind of necessary because of the sum of list in the next function, which calls this one
+						auxOffset.append( ( auxSense,auxFreq,getCategory(ontology[conta],subj),conta+1 ) )
+						conta = conta+1
+					offsetDict[word[0]] = auxOffset
+				elif(flag==2):
+					conta=0
+					total=0
+					meanS=0.0
+					for sense in offset:
+						subj,obj = s.dbc.searchSubjectivity(sense)
+						if(subj==-1): 
+							conta = conta+1	
+							continue; #ignore sense
+						total = total+1	
+						if(ontology[conta]=='SubjectiveAssessmentAttribute'): 
+							meanS= meanS+1.0
+						else:
+							meanS=meanS+subj	
+						conta = conta+1
+					offsetDict[word[0]] = getCategory('',meanS/total)											 
 		dicts.append(offsetDict)
 	return dicts
 	
@@ -137,52 +128,49 @@ def createSenseGraph(sentences , procSentences):
 	dicts = mergeSenses(procSentences,1)
 	cont=0
 	graphs = [] # '-' connect sentences , '*' replaces sentence root
-	
-	for ls in sentences:
+
+	for se in sentences:
 		di = dicts[cont]
-		senseGraph = g.Graph() #graph per opinion
-		for se in ls:
-			# senseGraph = g.Graph()  #graph per sentece
-			rel, depT = fu.dependencyParser(se)
-			q = Queue()
-			q.put(depT[0])	
-			relation= depT[0][0]	# relation between words
-			auxRoot = depT[0][1][0] ## dependency parser root
-			auxPos  = depT[0][1][1] 
-			if(auxRoot in di):
-				for sense in di[auxRoot]:
-					if(len(sense[0])):
-						senseGraph.addEdge(listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[3],sense[2] , '-','-',0,0,0,'NS',0, relation)
-						senseGraph.addEdge('-','-',0,0,0,'NS', listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[3] ,sense[2],0, relation)
-			else:
-				senseGraph.addEdge('*',auxRoot,auxPos,0,0,'NS' , '-','-',0,0,0,'NS',0, relation)
-				senseGraph.addEdge('-','-',0,0,0,'NS', '*',auxRoot,auxPos,0,0,'NS',0, relation)		
+		senseGraph = g.Graph() #graph per sentence
+		rel, depT = fu.dependencyParser(se)
+		q = Queue()
+		q.put(depT[0])	
+		relation= depT[0][0]	# relation between words
+		auxRoot = depT[0][1][0] ## dependency parser root
+		auxPos  = depT[0][1][1] 
+		if(auxRoot in di):
+			for sense in di[auxRoot]:
+				if(len(sense[0])):
+					senseGraph.addEdge(listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[3],sense[2] , '-','-',0,0,0,'NS',0, relation)
+					senseGraph.addEdge('-','-',0,0,0,'NS', listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[3] ,sense[2],0, relation)
+		else:
+			senseGraph.addEdge('*',auxRoot,auxPos,0,0,'NS' , '-','-',0,0,0,'NS',0, relation)
+			senseGraph.addEdge('-','-',0,0,0,'NS', '*',auxRoot,auxPos,0,0,'NS',0, relation)		
 			
-			while (not q.empty()):
-				top = q.get()
+		while (not q.empty()):
+			top = q.get()
 				
-				for word in top[2]:
-					w1 = word[0][1][0]
-					p1 = word[0][1][1]
-					w2 = top[1][0]
-					p2 = top[1][1]
-					relation = word[0][0] # relation between words
-					if(w1 in di and w2 in di):
-						for sense2 in di[ w2 ]:
-							for sense1 in di[ w1 ]:
-								if(len(sense1[0]) and len(sense2[0]) ):
-									senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]  , listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[3],sense2[2]   , g.getDistanceList(sense1,sense2,1), relation)
-									senseGraph.addEdge(listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[3],sense2[2]   , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2] , g.getDistanceList(sense2,sense1,1), relation)
-					elif (auxRoot== w2 and not(w2 in di) and w1 in di):
-						for sense1 in di[ w1]:
-							if(len(sense1[0])):
-								senseGraph.addEdge('*',w2,p2,0,0,'NS' , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]  ,0, relation)
-								senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]   , '*',w2,p2,0,0,'NS',0, relation)			
-					q.put(word[0])
+			for word in top[2]:
+				w1 = word[0][1][0]
+				p1 = word[0][1][1]
+				w2 = top[1][0]
+				p2 = top[1][1]
+				relation = word[0][0] # relation between words
+				if(w1 in di and w2 in di):
+					for sense2 in di[ w2 ]:
+						for sense1 in di[ w1 ]:
+							if(len(sense1[0]) and len(sense2[0]) ):
+								senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]  , listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[3],sense2[2]   , g.getDistanceList(sense1,sense2,1), relation)
+								senseGraph.addEdge(listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[3],sense2[2]   , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2] , g.getDistanceList(sense2,sense1,1), relation)
+				elif (auxRoot== w2 and not(w2 in di) and w1 in di):
+					for sense1 in di[ w1]:
+						if(len(sense1[0])):
+							senseGraph.addEdge('*',w2,p2,0,0,'NS' , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]  ,0, relation)
+							senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]   , '*',w2,p2,0,0,'NS',0, relation)			
+				q.put(word[0])
 		cont+=1			
 		graphs.append(senseGraph)
-						
-					
+							
 	return graphs;			
 
 def listToStr(auxList):
@@ -191,23 +179,24 @@ def listToStr(auxList):
 def meanFeatures(sentences,procSentences,words,cont):
 	result= []
 	dicts = mergeSenses(procSentences,2)
-	for ls in sentences:
-		for se in ls:
-			rel, depT = fu.dependencyParser(se)
-			q = Queue()
-			q.put(depT[0])	
-			while (not q.empty()):
-				top = q.get()
-				for word in top[2]:
-					w1 = word[0][1][0]
-					p1 = word[0][1][1]
-					w2 = top[1][0]
-					p2 = top[1][1]
-					relation = word[0][0] # relation between words
-					if(w1 in dicts and w2 in dicts): 
-						result.append((words[0][0][2][p1-1][0]+"-"+dicts[w1],words[0][0][2][p2-1][0]+"-"+dicts[w2],relation))
-					q.put(word[0])	
-					
+	cont=0
+	for se in sentences:
+		di = dicts[cont]
+		rel, depT = fu.dependencyParser(se)
+		q = Queue()
+		q.put(depT[0])	
+		while (not q.empty()):
+			top = q.get()
+			for word in top[2]:
+				w1 = word[0][1][0]
+				p1 = word[0][1][1]
+				w2 = top[1][0]
+				p2 = top[1][1]
+				relation = word[0][0] # relation between words
+				if(w1 in di and w2 in di): 
+					result.append((words[cont][2][p1-1][0]+"-"+di[w1],words[cont][2][p2-1][0]+"-"+di[w2],relation))
+				q.put(word[0])
+		cont=cont+1							
 	featDict = createDict()
 	for feat in result:
 		w1 = feat[0] ; w2 = feat[1] ; r = feat[2];
@@ -307,15 +296,13 @@ def addTags(auxFeat, auxWords,auxPos):
 	cont=1
 	result = []
 	for i in range(len(auxWords)):
-		for j in range (len (auxWords[i])): 
-			words  = auxWords[i][j][0]
-			tags   = auxWords[i][j][2]
-			for k in range (len (auxFeat[i]) ):
-				w1 = auxFeat[i][k][0]; p1 = auxFeat[i][k][1]; c1 = auxFeat[i][k][2]
-				w2 = auxFeat[i][k][3]; p2 = auxFeat[i][k][4]; c2 = auxFeat[i][k][5]
-				r  = auxFeat[i][k][6]
-				result.append((tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2,r))
-				#print(i,auxPos,r,w1,w2, (tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
+		tags   = auxWords[i][2]
+		for k in range (len (auxFeat[i]) ):
+			w1 = auxFeat[i][k][0]; p1 = auxFeat[i][k][1]; c1 = auxFeat[i][k][2]
+			w2 = auxFeat[i][k][3]; p2 = auxFeat[i][k][4]; c2 = auxFeat[i][k][5]
+			r  = auxFeat[i][k][6]
+			result.append((tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2,r))
+			#print(i,auxPos,r,w1,w2, (tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
 	return result
 
 def createDict():
@@ -376,14 +363,14 @@ def generate():
 	subjFile  =s.readFile(fileName,'utf-8')
 
 	for i in range(1,len(objFile)+1):
-		features = sentToFeat(objFile[i-1],i,0)
+		features = sentToFeat(objFile[i-1],i,1)
 		#print("Oración", i , "procesada , sentidos juntos")
 		#printFeat(features,'O')
 
 
 	for i in range(1,len(subjFile)+1):
-		features = sentToFeat(subjFile[i-1],i,0)
+		features = sentToFeat(subjFile[i-1],i,1)
 		#print("Oración", 125+i , "procesada, sentidos juntos")
 		#printFeat(features,'S')
 
-
+generate()

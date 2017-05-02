@@ -48,54 +48,54 @@ def procSentence(text):
     return result
 
 def sentenceSenses(sentences, wordSets):
-	ans = []
-	for i in range(len(sentences)): # all the opinions
-		#print (wordSets[i])
-		result = []
-		for j in range (len (sentences[i])): # words in a single sentence
-			sentence = []
-			words  = sentences[i][j][0]
-			lemmas = sentences[i][j][1]
-			tags   = sentences[i][j][2]
-			for k in range (len (lemmas) ):
-				senses = []
-				synonyms= []
-				auxOffset= []
-				auxOntology = []
-				if (lemmas[k] in wordSets[i]): # the word is an adjective or an adverb or a noun or a verb
-					offset = dbc.offsetSearch(lemmas[k], tags[k][0])
-					if(len(offset)):
-						for l in range (len(offset)):
-							auxOffset.append(offset[l][0])
-							ontology = (dbc.ontologySearch(offset[l][0]))
-							if (len(ontology)): # if there is an ontology
-								auxOntology.append(ontology[0][0])
-							else:
-								auxOntology.append('-')	
-							gloss  = dbc.glossSearch(offset[l][0])
-							senses.append(gloss[0][0]) # single tuple with 1 element
+	result = []
+	for j in range (len (sentences)): # words in a single sentence
+		sent=[]
+		words  = sentences[j][0]
+		lemmas = sentences[j][1]
+		tags   = sentences[j][2]
+		for k in range (len (lemmas) ):
+			senses = []
+			synonyms= []
+			auxOffset= []
+			auxOntology = []
+			if (lemmas[k] in wordSets[j]): # the word is an adjective or an adverb or a noun or a verb
+				offset = dbc.offsetSearch(lemmas[k], tags[k][0])
+				if(len(offset)):
+					for l in range (len(offset)):
+						auxOffset.append(offset[l][0])
+						ontology = (dbc.ontologySearch(offset[l][0]))
+						if (len(ontology)): # if there is an ontology
+							auxOntology.append(ontology[0][0])
+						else:
+							auxOntology.append('-')	
 							
-							syno   = dbc.synonymSearch(offset[l][0])
-							if(len (syno) == 1) : synonyms.append('-') #the same
-							else:
-								auxiSyno = []
-								for m in range (len (syno)):
-									if(syno[m][0] != lemmas[k]): auxiSyno.append(syno[m][0])
-								synonyms.append(auxiSyno)
-					else:
-						senses.append('-')	#sense not found
-						synonyms.append('-')
-						auxOffset.append('-')
-						auxOntology.append('-')
+						gloss  = dbc.glossSearch(offset[l][0])
+						if (gloss[0][0]!='None'): # if there is a gloss
+							senses.append(gloss[0][0]) # single tuple with 1 element
+						else:
+							senses.append('-')	
+							
+						syno   = dbc.synonymSearch(offset[l][0])
+						if(len (syno) == 1) : synonyms.append('-') #the same
+						else:
+							auxiSyno = []
+							for m in range (len (syno)):
+								if(syno[m][0] != lemmas[k]): auxiSyno.append(syno[m][0])
+							synonyms.append(auxiSyno)
 				else:
 					senses.append('-')	#sense not found
 					synonyms.append('-')
 					auxOffset.append('-')
 					auxOntology.append('-')
-				sentence.append(((words[k],lemmas[k],tags[k]),auxOffset,auxOntology,synonyms,senses))
-			result.append(sentence)		 
-		ans.append(result)
-	return ans		
+			else:
+				senses.append('-')	#sense not found
+				synonyms.append('-')
+				auxOffset.append('-')
+				auxOntology.append('-')
+			sent.append(((words[k],lemmas[k],tags[k]),auxOffset,auxOntology,synonyms,senses))
+		result.append(sent)		 
+	return result		
 				
 
 # clean html tags   
