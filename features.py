@@ -125,16 +125,17 @@ def createSenseGraph(sentences , procSentences):
 			rel, depT = fu.dependencyParser(se)
 			q = Queue()
 			q.put(depT[0])	
+			relation= depT[0][0]	# relation between words
 			auxRoot = depT[0][1][0] ## dependency parser root
 			auxPos  = depT[0][1][1] 
 			if(auxRoot in di):
 				for sense in di[auxRoot]:
 					if(len(sense[0])):
-						senseGraph.addEdge(listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[3],sense[2] , '-','-',0,0,0,'NS')
-						senseGraph.addEdge('-','-',0,0,0,'NS', listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[3] ,sense[2] )
+						senseGraph.addEdge(listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[3],sense[2] , '-','-',0,0,0,'NS',0, relation)
+						senseGraph.addEdge('-','-',0,0,0,'NS', listToStr(sense[0]),auxRoot,auxPos,sum(sense[1]),sense[3] ,sense[2],0, relation)
 			else:
-				senseGraph.addEdge('*',auxRoot,auxPos,0,0,'NS' , '-','-',0,0,0,'NS')
-				senseGraph.addEdge('-','-',0,0,0,'NS', '*',auxRoot,auxPos,0,0,'NS')		
+				senseGraph.addEdge('*',auxRoot,auxPos,0,0,'NS' , '-','-',0,0,0,'NS',0, relation)
+				senseGraph.addEdge('-','-',0,0,0,'NS', '*',auxRoot,auxPos,0,0,'NS',0, relation)		
 			
 			while (not q.empty()):
 				top = q.get()
@@ -144,17 +145,18 @@ def createSenseGraph(sentences , procSentences):
 					p1 = word[0][1][1]
 					w2 = top[1][0]
 					p2 = top[1][1]
+					relation = word[0][0] # relation between words
 					if(w1 in di and w2 in di):
 						for sense2 in di[ w2 ]:
 							for sense1 in di[ w1 ]:
 								if(len(sense1[0]) and len(sense2[0]) ):
-									senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]  , listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[3],sense2[2]   , g.getDistanceList(sense1,sense2,1))
-									senseGraph.addEdge(listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[3],sense2[2]   , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2] , g.getDistanceList(sense2,sense1,1))
+									senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]  , listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[3],sense2[2]   , g.getDistanceList(sense1,sense2,1), relation)
+									senseGraph.addEdge(listToStr(sense2[0]),w2,p2,sum(sense2[1]),sense2[3],sense2[2]   , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2] , g.getDistanceList(sense2,sense1,1), relation)
 					elif (auxRoot== w2 and not(w2 in di) and w1 in di):
 						for sense1 in di[ w1]:
 							if(len(sense1[0])):
-								senseGraph.addEdge('*',w2,p2,0,0,'NS' , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]  )
-								senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]   , '*',w2,p2,0,0,'NS')			
+								senseGraph.addEdge('*',w2,p2,0,0,'NS' , listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]  ,0, relation)
+								senseGraph.addEdge(listToStr(sense1[0]),w1,p1,sum(sense1[1]),sense1[3],sense1[2]   , '*',w2,p2,0,0,'NS',0, relation)			
 					q.put(word[0])
 		cont+=1			
 		graphs.append(senseGraph)
@@ -241,11 +243,11 @@ def getGraphInfo (sentGraphs,pos):
 	for gr in sentGraphs:
 		auxFeature = []
 		pageRank= gr.pageRank()
-		printPageRank(pageRank,pos)
+		#printPageRank(pageRank,pos)
 		edges = gr.getEdges()
-		for (word1,pos1,word2,pos2) in edges:
+		for (word1,pos1,word2,pos2,relation) in edges:
 			vert1 , vert2 = findVertices(pageRank,word1,pos1,word2,pos2)
-			auxFeature.append( (vert1.getWord() , vert1.getPos() , vert1.getCat() , vert2.getWord() , vert2.getPos() , vert2.getCat() ) )
+			auxFeature.append( (vert1.getWord() , vert1.getPos() , vert1.getCat() , vert2.getWord() , vert2.getPos() , vert2.getCat() , relation) )
 		features.append(auxFeature)
 	return features		
 
@@ -260,19 +262,24 @@ def addTags(auxFeat, auxWords,auxPos):
 			for k in range (len (auxFeat[i]) ):
 				w1 = auxFeat[i][k][0]; p1 = auxFeat[i][k][1]; c1 = auxFeat[i][k][2]
 				w2 = auxFeat[i][k][3]; p2 = auxFeat[i][k][4]; c2 = auxFeat[i][k][5]
-				result.append((tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
-				#print(i,auxPos,w1,w2, (tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
+				r  = auxFeat[i][k][6]
+				result.append((tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2,r))
+				#print(i,auxPos,r,w1,w2, (tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
 	return result
 
 def createDict():
 	features = ['N-NS' , 'N-LS' ,'N-MS' ,'N-HS' ,'A-NS' ,'A-LS' ,'A-MS' ,'A-HS' ,'R-NS' ,'R-LS' ,'R-MS' ,'R-HS' ,'V-NS' ,'V-LS' ,'V-MS' ,'V-HS'] #possibilities
+	dependencies =['spec','sn','f','sp','cc','suj','cd','S','s.a','sentence','coord','conj','v','atr','creg','mod',
+	'morfema.pronominal','grup.nom','ci','sadv','ao','d','cpred','pass','et','cag','s','z','infinitiu','grup.a','inc','impers',
+	'c','relatiu','r','neg','a','sa','n','gerundi','interjeccio','grup.adv','morfema.verbal','participi','p','w','voc','i','prep'] # freeling 
 	result = dict()
 	for f1 in features:
 		for f2 in features:
-			auxF1 = f1+ " " +f2 
-			auxF2 = f2+ " " +f1
-			if ((not(auxF1 in result)) and (not(auxF2 in result))):
-				result[auxF1] = 0
+			for d in dependencies:
+				auxF1 = f1+ " " +f2+ " " + d 
+				auxF2 = f2+ " " +f1+ " " + d 
+				if ((not(auxF1 in result)) and (not(auxF2 in result))):
+					result[auxF1] = 0
 	return result			
 
 def getFeatures(auxGraphs,auxWords, pos):
@@ -283,8 +290,8 @@ def getFeatures(auxGraphs,auxWords, pos):
 	
 	featDict = createDict()
 	for feat in auxFeatures:
-		w1 = feat[0] ; w2 = feat[1]
-		auxF1 = w1+ " " +w2 ; auxF2 = w2+ " " +w1
+		w1 = feat[0] ; w2 = feat[1] ; r = feat[2];
+		auxF1 = w1+ " " +w2 + " " + r ; auxF2 = w2+ " " +w1 + " " + r ;
 		if (auxF1 in featDict):
 			featDict[auxF1] = featDict[auxF1] +1
 		elif (auxF2 in featDict):	
@@ -325,4 +332,4 @@ def generate():
 		#print("Oración", 125+i , "procesada, sentidos juntos")
 		printFeat(features,'S')
 
-generate()
+

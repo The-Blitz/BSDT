@@ -11,8 +11,8 @@ class Vertex:
         self.Nsense=s
         self.cat = cat
 
-    def addNeighbor(self,nbr,weight=0):
-        self.connectedTo[nbr] = weight
+    def addNeighbor(self,nbr,weight=0,relation=''):
+        self.connectedTo[nbr] = (weight,relation)
 
     def __str__(self):
         return str(self.id) + " " +str(self.word)+ " " + str(self.pos)  + " " + str(self.freq) + " " + str(self.Nsense)+ " " + str(self.cat)
@@ -39,8 +39,11 @@ class Vertex:
     	return self.cat
     	
     def getWeight(self,nbr):
-    	return self.connectedTo[nbr]
-  	    	
+    	return self.connectedTo[nbr][0]
+    
+    def getRelation(self,nbr):	
+  	    return self.connectedTo[nbr][1]
+  	    
     def checkEmptyVertex(self):
     	if(self.id=='-' or self.id=='*'): return True
     	for w in self.getConnections():
@@ -67,12 +70,12 @@ class Graph:
     def __contains__(self,n):
         return n in self.vertList
 
-    def addEdge(self,f,fword,fpos,ffreq,fs,fcat,t,tword,tpos,tfreq,ts,tcat,cost=0):
+    def addEdge(self,f,fword,fpos,ffreq,fs,fcat,t,tword,tpos,tfreq,ts,tcat,cost=0,relation=''):
         if (f+"-"+str(fpos)) not in self.vertList:
             nv = self.addVertex(f,fword,fpos,ffreq,fs,fcat)
         if (t+"-"+str(tpos)) not in self.vertList:
             nv = self.addVertex(t,tword,tpos,tfreq,ts,tcat)
-        self.vertList[f+"-"+str(fpos)].addNeighbor(self.vertList[t+"-"+str(tpos)], cost)
+        self.vertList[f+"-"+str(fpos)].addNeighbor(self.vertList[t+"-"+str(tpos)], cost, relation)
 
     def getVertices(self):
         return self.vertList.keys()
@@ -83,7 +86,7 @@ class Graph:
     		if(v.id!='-' and v.id!='*'):
     			for w in v.getConnections():
     				if( w.id!='-' and w.id!='*' and (not existEdge(edges, v.getWord() , w.getWord())) ):
-    					edges.append((v.getWord(),v.getPos(),w.getWord(),w.getPos()))
+    					edges.append((v.getWord(),v.getPos(),w.getWord(),w.getPos(),v.getRelation(w) ))
     	return edges				
 
     def __iter__(self):
@@ -143,7 +146,7 @@ class Graph:
         return ranks
 
 def existEdge(auxList, word1, word2):
-    for (aux1,pos1,aux2,pos2) in auxList:
+    for (aux1,pos1,aux2,pos2,rela) in auxList:
     	if((aux1== word1 and aux2 == word2) or (aux2== word1 and aux1 == word2)): return True
     return False
 	
