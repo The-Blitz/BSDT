@@ -375,4 +375,3 @@ def generate():
 		#print("Oración", 125+i , "procesada, sentidos juntos")
 		#printFeat(features,'S')
 
-generate()

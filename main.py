@@ -9,12 +9,16 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import SGDClassifier
 from sklearn.metrics import classification_report,confusion_matrix
 from sklearn.decomposition import PCA
+from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.feature_selection import SelectFromModel
 
 import numpy as np
 import pandas as pd
 import features as fe
 import warnings
 warnings.filterwarnings('ignore')
+
+#np.set_printoptions(threshold=np.nan) show full dataset
 
 def readData(fileName):
 	data=[]
@@ -46,7 +50,12 @@ def main():
 	#TODO
 	fileName  = 'test.txt'
 	data,target=readData(fileName)
-	print(data)
+	clf = ExtraTreesClassifier()
+	clf.fit(data,target)
+	model=SelectFromModel(clf,prefit=True)
+	ex_data=model.transform(data)
+	#print(clf.feature_importances_)
+	#print(ex_data.shape)
 	'''
 	svc = svm.SVC(kernel='linear', C=1)
 	lr  = LogisticRegression()
