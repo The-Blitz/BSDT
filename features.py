@@ -182,7 +182,9 @@ def meanFeatures(sentences,procSentences,words,cont):
 	result= []
 	dicts = mergeSenses(procSentences,2)
 	cont=0
+	sentSubj= []
 	for se in sentences:
+		dictSubj = dict()
 		di = dicts[cont]
 		rel, depT = fu.dependencyParser(se)
 		q = Queue()
@@ -197,8 +199,11 @@ def meanFeatures(sentences,procSentences,words,cont):
 				relation = word[0][0] # relation between words
 				if((w1+" "+str(p1)) in di and (w2+" "+str(p2)) in di): 
 					result.append((words[cont][2][p1-1][0]+"-"+di[(w1+" "+str(p1))],words[cont][2][p2-1][0]+"-"+di[(w2+" "+str(p2))],relation))
+					dictSubj[p1] = di[(w1+" "+str(p1))] ; dictSubj[p2] = di[(w2+" "+str(p2))] ; #each word subjectivity
 				q.put(word[0])
-		cont=cont+1							
+		cont=cont+1	
+		sentSubj.append(dictSubj)
+								
 	featDict = createDict()
 	for feat in result:
 		w1 = feat[0] ; w2 = feat[1] ; r = feat[2];
@@ -206,8 +211,9 @@ def meanFeatures(sentences,procSentences,words,cont):
 		if (auxF1 in featDict):
 			featDict[auxF1] = featDict[auxF1] +1
 		elif (auxF2 in featDict):	
-			featDict[auxF2] = featDict[auxF2] +1								
-	return featDict							
+			featDict[auxF2] = featDict[auxF2] +1	
+										
+	return featDict,sentSubj						
 					
 def generateExcelCorpus(objSent,subjSent):
 	numlist   = []
@@ -297,15 +303,20 @@ def getGraphInfo (sentGraphs,pos):
 def addTags(auxFeat, auxWords,auxPos):
 	cont=1
 	result = []
+	sentSubj= []
 	for i in range(len(auxWords)):
 		tags   = auxWords[i][2]
+		dictSubj = dict()
 		for k in range (len (auxFeat[i]) ):
 			w1 = auxFeat[i][k][0]; p1 = auxFeat[i][k][1]; c1 = auxFeat[i][k][2]
 			w2 = auxFeat[i][k][3]; p2 = auxFeat[i][k][4]; c2 = auxFeat[i][k][5]
 			r  = auxFeat[i][k][6]
 			result.append((tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2,r))
 			#print(i,auxPos,r,w1,w2, (tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
-	return result
+			dictSubj[p1]=c1 ; dictSubj[p2]=c2 ;#each word subjectivity
+		sentSubj.append(dictSubj)
+		
+	return result,sentSubj
 
 def createDict():
 	features = ['N-NS' , 'N-LS' ,'N-MS' ,'N-HS' ,'A-NS' ,'A-LS' ,'A-MS' ,'A-HS' ,'R-NS' ,'R-LS' ,'R-MS' ,'R-HS' ,'V-NS' ,'V-LS' ,'V-MS' ,'V-HS'] #possibilities
@@ -326,7 +337,7 @@ def getFeatures(auxGraphs,auxWords, pos):
 
 	auxInfo  =getGraphInfo(auxGraphs,pos)
 
-	auxFeatures =  addTags(auxInfo , auxWords,pos)
+	auxFeatures,sentSubj =  addTags(auxInfo , auxWords,pos)
 	
 	featDict = createDict()
 	for feat in auxFeatures:
@@ -337,7 +348,7 @@ def getFeatures(auxGraphs,auxWords, pos):
 		elif (auxF2 in featDict):	
 			featDict[auxF2] = featDict[auxF2] +1
 									
-	return featDict
+	return featDict,sentSubj
 
 def printFeat(feat,kind):
 	f = open('featList1.txt','a+')
@@ -353,10 +364,11 @@ def sentToFeat(sentence,cont,flag): #cont: sentence in corpus , flag: 0 NOT WSD,
 	procSentences =  s.sentenceSenses (words,wordSet)
 	if (flag):
 		graphs  = createSenseGraph(sentences,procSentences)
-		features = getFeatures(graphs,words,cont)
+		features,sentSubj = getFeatures(graphs,words,cont)
 	else:
-		features = meanFeatures(sentences,procSentences,words,cont) # get features with subjectivity's mean
-	return features
+		features,sentSubj = meanFeatures(sentences,procSentences,words,cont) # get features with subjectivity's mean
+	
+	return features,sentSubj,words
 
 def generate():
 	fileName  = 'Corpus/objTest.txt'
@@ -365,13 +377,13 @@ def generate():
 	subjFile  =s.readFile(fileName,'utf-8')
 
 	for i in range(1,len(objFile)+1):
-		features = sentToFeat(objFile[i-1],i,1)
+		features,sentSubj,words = sentToFeat(objFile[i-1],i,1)
 		#print("Oración", i , "procesada , sentidos juntos")
 		#printFeat(features,'O')
 
 
 	for i in range(1,len(subjFile)+1):
-		features = sentToFeat(subjFile[i-1],i,1)
+		features,sentSubj,words = sentToFeat(subjFile[i-1],i,1)
 		#print("Oración", 125+i , "procesada, sentidos juntos")
 		#printFeat(features,'S')
 
