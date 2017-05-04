@@ -139,11 +139,12 @@ def splitSentence(sentence,flag):  # flag: 0 separate opinion in sentences, 1 se
 	ans = []
 	aux=[]
 	for i in range (len(sentences)): # get each word for every sentence
-		words = [s for s in sentences[i].split(" ") if s]
+		words = [s.lower() for s in sentences[i].split(" ") if s] # lower all words
+		print(words)
 		if (not words):	continue;
 		if(flag):
 			for j in range(len (words)):
-				aux.append(words[j])
+				aux.append(words[j]) 
 			aux.append(".")
 		else:
 			ans.append(words)
