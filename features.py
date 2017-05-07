@@ -207,7 +207,7 @@ def meanFeatures(sentences,procSentences,words,cont):
 	featDict = createDict()
 	for feat in result:
 		w1 = feat[0] ; w2 = feat[1] ; r = feat[2];
-		auxF1 = w1+ " " +w2 + " " + r ; auxF2 = w2+ " " +w1 + " " + r ;
+		auxF1 = w1+ " " +w2 ; auxF2 = w2+ " " +w1 ;
 		if (auxF1 in featDict):
 			featDict[auxF1] = featDict[auxF1] +1
 		elif (auxF2 in featDict):	
@@ -320,15 +320,15 @@ def addTags(auxFeat, auxWords,auxPos):
 
 def createDict():
 	features = ['N-NS' , 'N-LS' ,'N-MS' ,'N-HS' ,'A-NS' ,'A-LS' ,'A-MS' ,'A-HS' ,'R-NS' ,'R-LS' ,'R-MS' ,'R-HS' ,'V-NS' ,'V-LS' ,'V-MS' ,'V-HS'] #possibilities
-	dependencies =['spec','sn','f','sp','cc','suj','cd','S','s.a','sentence','coord','conj','v','atr','creg','mod',
+	'''dependencies =['spec','sn','f','sp','cc','suj','cd','S','s.a','sentence','coord','conj','v','atr','creg','mod',
 	'morfema.pronominal','grup.nom','ci','sadv','ao','d','cpred','pass','et','cag','s','z','infinitiu','grup.a','inc','impers',
-	'c','relatiu','r','neg','a','sa','n','gerundi','interjeccio','grup.adv','morfema.verbal','participi','p','w','voc','i','prep'] # freeling 
+	'c','relatiu','r','neg','a','sa','n','gerundi','interjeccio','grup.adv','morfema.verbal','participi','p','w','voc','i','prep'] # freeling '''
 	result = dict()
 	for f1 in features:
 		for f2 in features:
-			for d in dependencies:
-				auxF1 = f1+ " " +f2+ " " + d 
-				auxF2 = f2+ " " +f1+ " " + d 
+			#for d in dependencies:
+				auxF1 = f1+ " " +f2#+ " " + d 
+				auxF2 = f2+ " " +f1#+ " " + d 
 				if ((not(auxF1 in result)) and (not(auxF2 in result))):
 					result[auxF1] = 0
 	return result			
@@ -342,7 +342,7 @@ def getFeatures(auxGraphs,auxWords, pos):
 	featDict = createDict()
 	for feat in auxFeatures:
 		w1 = feat[0] ; w2 = feat[1] ; r = feat[2];
-		auxF1 = w1+ " " +w2 + " " + r ; auxF2 = w2+ " " +w1 + " " + r ;
+		auxF1 = w1+ " " +w2 ; auxF2 = w2+ " " +w1 ;
 		if (auxF1 in featDict):
 			featDict[auxF1] = featDict[auxF1] +1
 		elif (auxF2 in featDict):	
