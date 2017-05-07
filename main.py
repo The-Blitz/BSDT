@@ -134,16 +134,27 @@ class entryBox(tkinter.Frame):
 class resultBox(tkinter.Frame):
 	def __init__(self,parent):
 		tkinter.Frame.__init__(self,parent)
-		self.entry = tkinter.Entry(self, width=70)
+		scroll = tkinter.Scrollbar(self)
+		scroll.pack(side = 'bottom')
+		self.text = tkinter.Text(self,bg="white", bd=0,fg='black',height=1, width=80,yscrollcommand =scroll.set)
+		scroll.config(command = self.text.yview, orient='horizontal')
+		self.text.tag_configure("NS", background="white")
+		self.text.tag_configure("LS", background="green", foreground="white")
+		self.text.tag_configure("MS", background="yellow", foreground="white")
+		self.text.tag_configure("HS", background="red", foreground="white")
 	
 	def showText(self):
-		self.entry.insert(0,sentence)
-		self.entry.config(state='readonly',readonlybackground='white')
-		self.entry.pack()
+		features,sentSubj,words = fe.sentToFeat(sentence)
+		for s in range(len(words)):
+			for w in range(len(words[s][0])):
+				self.text.insert('end',words[s][0][w]+" ",sentSubj[s].get(w+1, "NS"))
+			self.text.insert('end',".")	
+		self.text.config(state='disabled')
+		self.text.pack()
 	
 	def clear(self):
-		self.entry.config(state='normal')
-		self.entry.delete(0, 'end')		
+		self.text.config(state='normal')
+		self.text.delete(1.0,'end')		
 		
 class FirstScreen(tkinter.Frame):
 	def __init__(self, parent, controller):
@@ -175,9 +186,9 @@ class AnsScreen(tkinter.Frame):
 		quit.pack( side=tkinter.RIGHT,padx=100, pady=0)	
 	
 def main():
-	#app = Application()
-	#app.mainloop()
-	#features,sentSubj,words = fe.sentToFeat('Un festival, de caracterizaciones cachoNDAS')
+	app = Application()
+	app.mainloop()
+	#features,sentSubj,words = fe.sentToFeat('Humor inteligentemente de baja estofa. Un festival, de caracterizaciones cachoNDAS')
 	#print(sentSubj,words)
 
 if __name__ == "__main__":
