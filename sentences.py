@@ -59,7 +59,7 @@ def sentenceSenses(sentences, wordSets):
 			synonyms= []
 			auxOffset= []
 			auxOntology = []
-			if (lemmas[k] in wordSets[j]): # the word is an adjective or an adverb or a noun or a verb
+			if ((lemmas[k]+' '+str(k+1)) in wordSets[j]): # the word is an adjective or an adverb or a noun or a verb
 				offset = dbc.offsetSearch(lemmas[k], tags[k][0])
 				if(len(offset)):
 					for l in range (len(offset)):

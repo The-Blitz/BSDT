@@ -85,7 +85,7 @@ class Graph:
     	for v in self:
     		if(v.id!='-' and v.id!='*'):
     			for w in v.getConnections():
-    				if( w.id!='-' and w.id!='*' and (not existEdge(edges, v.getWord() , w.getWord())) ):
+    				if( w.id!='-' and w.id!='*' and (not existEdge(edges, v.getPos() , w.getPos())) ):
     					edges.append((v.getWord(),v.getPos(),w.getWord(),w.getPos(),v.getRelation(w) ))
     	return edges				
 
@@ -145,9 +145,9 @@ class Graph:
         	cont = cont + 1
         return ranks
 
-def existEdge(auxList, word1, word2):
+def existEdge(auxList, wordP1, wordP2):
     for (aux1,pos1,aux2,pos2,rela) in auxList:
-    	if((aux1== word1 and aux2 == word2) or (aux2== word1 and aux1 == word2)): return True
+    	if((pos1== wordP1 and pos2 == wordP2) or (pos2== wordP1 and pos1 == wordP2)): return True
     return False
 	
 def dijkstra(graph, start):

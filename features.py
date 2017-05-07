@@ -18,7 +18,7 @@ def procTextFile (filesent,flag): # flag: 0 separate opinion in sentences, 1 sen
 		for k in range ( len (tags) ):
 			#print(words[k],lemmas[k],tags[k])
 			if(tags[k][0]=='A' or tags[k][0]=='N' or tags[k][0]=='R' or (tags[k][0]=='V' and tags[k][1]!='A')): # ignore auxiliar verbs
-				validTags.add(lemmas[k])			
+				validTags.add(lemmas[k]+" "+str(k+1))			
 		if(not flag):
 			fullSent.append(aux)
 			validWords.append(validTags)
@@ -386,4 +386,4 @@ def generate():
 		features,sentSubj,words = sentToFeat(subjFile[i-1],i,1)
 		#print("Oración", 125+i , "procesada, sentidos juntos")
 		#printFeat(features,'S')
-
+	
