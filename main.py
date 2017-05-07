@@ -175,9 +175,10 @@ class AnsScreen(tkinter.Frame):
 		quit.pack( side=tkinter.RIGHT,padx=100, pady=0)	
 	
 def main():
-	app = Application()
-	app.mainloop()
-
+	#app = Application()
+	#app.mainloop()
+	#features,sentSubj,words = fe.sentToFeat('Un festival, de caracterizaciones cachoNDAS')
+	#print(sentSubj,words)
 
 if __name__ == "__main__":
     

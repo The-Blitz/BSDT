@@ -359,7 +359,7 @@ def printFeat(feat,kind):
 	f.close()
 
 	
-def sentToFeat(sentence,cont,flag): #cont: sentence in corpus , flag: 0 NOT WSD, 1 with WSD
+def sentToFeat(sentence,cont=0,flag=1): #cont: sentence in corpus , flag: 0 NOT WSD, 1 with WSD
 	words,wordSet,sentences  = procTextFile(sentence,0)
 	procSentences =  s.sentenceSenses (words,wordSet)
 	if (flag):
