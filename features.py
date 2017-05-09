@@ -179,7 +179,7 @@ def createSenseGraph(sentences , procSentences):
 def listToStr(auxList):
 	return " ".join(str(x) for x in auxList)
 
-def meanFeatures(sentences,procSentences,words,cont):
+def meanFeatures(sentences,procSentences,words,counter):
 	result= []
 	dicts = mergeSenses(procSentences,2)
 	cont=0
@@ -201,9 +201,9 @@ def meanFeatures(sentences,procSentences,words,cont):
 				relation = word[0][0] # relation between words
 				if((w1+" "+str(p1)) in di and (w2+" "+str(p2)) in di): 
 					result.append((words[cont][2][p1-1][0]+"-"+di[(w1+" "+str(p1))],words[cont][2][p2-1][0]+"-"+di[(w2+" "+str(p2))],relation))
-					#f.write("%s\t%s\n" % ( ( str(cont)+" "+ w1 +"-"+str(p1)+" "+ w2 +"-"+str(p2) ), 
-							words[cont][2][p1-1][0]+"-"+di[(w1+" "+str(p1))] +" " + 
-							words[cont][2][p2-1][0]+"-"+di[(w2+" "+str(p2))] ) )
+					#f.write("%s\t%s\n" % ( ( str(counter)+" "+ w1 +"-"+str(p1)+" "+ w2 +"-"+str(p2) ), 
+					#		words[cont][2][p1-1][0]+"-"+di[(w1+" "+str(p1))] +" " + 
+					#		words[cont][2][p2-1][0]+"-"+di[(w2+" "+str(p2))] ) )
 					dictSubj[p1] = di[(w1+" "+str(p1))] ; dictSubj[p2] = di[(w2+" "+str(p2))] ; #each word subjectivity
 				q.put(word[0])
 		cont=cont+1	
@@ -392,4 +392,4 @@ def generate():
 	for i in range(1,len(subjFile)+1):
 		features,sentSubj,words = sentToFeat(subjFile[i-1],i,1)
 		#print("Oración", 250+i , "procesada, sentidos juntos")
-		#printFeat(features,'S')
+		#printFeat(features,'S')	
