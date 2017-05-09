@@ -123,9 +123,6 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 						conta = conta+1
 					if(total>0):
 						offsetDict[word[0]+" "+str(pos)] = getCategory('',meanS/total)
-						#f = open('prList1.txt','a+')
-						#f.write("%s\n" % ( word[0]+" "+str(pos)+" "+getCategory('',meanS/total) ) )	
-						#f.close()
 			pos=pos+1													 
 		dicts.append(offsetDict)
 	return dicts
@@ -187,6 +184,7 @@ def meanFeatures(sentences,procSentences,words,cont):
 	dicts = mergeSenses(procSentences,2)
 	cont=0
 	sentSubj= []
+	#f = open('relations3.txt','a+')
 	for se in sentences:
 		dictSubj = dict()
 		di = dicts[cont]
@@ -203,10 +201,14 @@ def meanFeatures(sentences,procSentences,words,cont):
 				relation = word[0][0] # relation between words
 				if((w1+" "+str(p1)) in di and (w2+" "+str(p2)) in di): 
 					result.append((words[cont][2][p1-1][0]+"-"+di[(w1+" "+str(p1))],words[cont][2][p2-1][0]+"-"+di[(w2+" "+str(p2))],relation))
+					#f.write("%s\t%s\n" % ( ( str(cont)+" "+ w1 +"-"+str(p1)+" "+ w2 +"-"+str(p2) ), 
+							words[cont][2][p1-1][0]+"-"+di[(w1+" "+str(p1))] +" " + 
+							words[cont][2][p2-1][0]+"-"+di[(w2+" "+str(p2))] ) )
 					dictSubj[p1] = di[(w1+" "+str(p1))] ; dictSubj[p2] = di[(w2+" "+str(p2))] ; #each word subjectivity
 				q.put(word[0])
 		cont=cont+1	
 		sentSubj.append(dictSubj)
+	#f.close()
 								
 	featDict = createDict()
 	for feat in result:
@@ -308,6 +310,7 @@ def addTags(auxFeat, auxWords,auxPos):
 	cont=1
 	result = []
 	sentSubj= []
+	#f = open('relations1.txt','a+')
 	for i in range(len(auxWords)):
 		tags   = auxWords[i][2]
 		dictSubj = dict()
@@ -316,10 +319,10 @@ def addTags(auxFeat, auxWords,auxPos):
 			w2 = auxFeat[i][k][3]; p2 = auxFeat[i][k][4]; c2 = auxFeat[i][k][5]
 			r  = auxFeat[i][k][6]
 			result.append((tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2,r))
-			#print(i,auxPos,r,w1,w2, (tags[p1-1][0]+"-"+c1,tags[p2-1][0]+"-"+c2))
+			#f.write("%s\t%s\n" % ((str(auxPos)+" "+ w1 +"-"+str(p1)  +" "+ w2+"-"+str(p2)) , (tags[p1-1][0]+"-"+c1) +" " + (tags[p2-1][0]+"-"+c2) ) )
 			dictSubj[p1]=c1 ; dictSubj[p2]=c2 ;#each word subjectivity
 		sentSubj.append(dictSubj)
-		
+	#f.close()		
 	return result,sentSubj
 
 def createDict():
@@ -390,4 +393,3 @@ def generate():
 		features,sentSubj,words = sentToFeat(subjFile[i-1],i,1)
 		#print("Oración", 250+i , "procesada, sentidos juntos")
 		#printFeat(features,'S')
-
