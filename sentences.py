@@ -146,6 +146,7 @@ def splitSentence(sentence,flag):  # flag: 0 separate opinion in sentences, 1 se
 				aux.append(words[j]) 
 			aux.append(".")
 		else:
+			words.append(".")
 			ans.append(words)
 	if(flag):
 		ans.append(aux)	

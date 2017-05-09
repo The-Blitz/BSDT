@@ -148,7 +148,6 @@ class resultBox(tkinter.Frame):
 		for s in range(len(words)):
 			for w in range(len(words[s][0])):
 				self.text.insert('end',words[s][0][w]+" ",sentSubj[s].get(w+1, "NS"))
-			self.text.insert('end',".")	
 		self.text.config(state='disabled')
 		self.text.pack()
 	
