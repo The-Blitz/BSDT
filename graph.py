@@ -71,6 +71,7 @@ class Graph:
         return n in self.vertList
 
     def addEdge(self,f,fword,fpos,ffreq,fs,fcat,t,tword,tpos,tfreq,ts,tcat,cost=0,relation=''):
+        if(cost <0.0):	return
         if (f+"-"+str(fpos)) not in self.vertList:
             nv = self.addVertex(f,fword,fpos,ffreq,fs,fcat)
         if (t+"-"+str(tpos)) not in self.vertList:

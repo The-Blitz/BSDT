@@ -121,7 +121,11 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 						else:
 							meanS=meanS+subj	
 						conta = conta+1
-					offsetDict[word[0]+" "+str(pos)] = getCategory('',meanS/total)
+					if(total>0):
+						offsetDict[word[0]+" "+str(pos)] = getCategory('',meanS/total)
+						#f = open('prList1.txt','a+')
+						#f.write("%s\n" % ( word[0]+" "+str(pos)+" "+getCategory('',meanS/total) ) )	
+						#f.close()
 			pos=pos+1													 
 		dicts.append(offsetDict)
 	return dicts
@@ -384,6 +388,6 @@ def generate():
 
 	for i in range(1,len(subjFile)+1):
 		features,sentSubj,words = sentToFeat(subjFile[i-1],i,1)
-		#print("Oración", 125+i , "procesada, sentidos juntos")
+		#print("Oración", 250+i , "procesada, sentidos juntos")
 		#printFeat(features,'S')
-	
+
