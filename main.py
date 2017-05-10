@@ -33,12 +33,12 @@ def readData(fileName):
 			feat = [l for l in line.split() if l]
 			auxList = fe.createDict()
 			target.append(feat[0])
-			for i in range(1,len(feat),4):
-				feature = feat[i]+" " + feat[i+1] + " "+ feat[i+2]
-				auxList[feature] = int(feat[i+3])	
+			for i in range(1,len(feat),3):
+				feature = feat[i]+" " + feat[i+1]
+				auxList[feature] = int(feat[i+2])	
 			data.append(auxList)	
 			cont+=1
-	
+
 	npData=pd.DataFrame(data).values
 	return npData,target
 
@@ -185,10 +185,9 @@ class AnsScreen(tkinter.Frame):
 		quit.pack( side=tkinter.RIGHT,padx=100, pady=0)	
 	
 def main():
-	app = Application()
-	app.mainloop()
-	#features,sentSubj,words = fe.sentToFeat('Humor inteligentemente de baja estofa. Un festival, de caracterizaciones cachoNDAS')
-	#print(sentSubj,words)
+	#app = Application()
+	#app.mainloop()
+
 
 if __name__ == "__main__":
     
