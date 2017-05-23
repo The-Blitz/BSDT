@@ -11,6 +11,8 @@ from sklearn.metrics import classification_report,confusion_matrix
 from sklearn.decomposition import PCA
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
 
 import numpy as np
 import pandas as pd
@@ -25,7 +27,7 @@ warnings.filterwarnings('ignore')
 
 def readData(fileName):
 	data=[]
-	featList=[]
+	featList=list(fe.createDict().keys())
 	target=[]
 	cont=0
 	with open(fileName,'r',encoding='utf-8') as f:
@@ -40,38 +42,93 @@ def readData(fileName):
 			cont+=1
 
 	npData=pd.DataFrame(data).values
-	return npData,target
+	return npData,target,featList
 
-def test_clasif(name,clasi,data,target):
+def test_clasif(name,clasi,X_test,X_train,Y_test,Y_train,parameters,classes):
 	with warnings.catch_warnings():
-		result = ms.cross_val_predict(clasi, data, target, cv=5)
+		gridCV = GridSearchCV(clasi,parameters,scoring='accuracy', cv = 5)
+		gridCV.fit(X_train,Y_train)
+		result = gridCV.predict(X_test)
 		print(name)
-		print(classification_report(result,target))
-		print(confusion_matrix(result,target))
+		print(classification_report(result,Y_test,target_names=classes))
+		print(confusion_matrix(result,Y_test))
+
+def get_importances(clf,data,featList):
+	importance=clf.feature_importances_
+	indices = np.argsort(importance)[::-1]
+
+	for f in range(data.shape[1]):
+		print("%d. feature %s (%f)" % (f + 1, featList[indices[f]], importance[indices[f]]))
+
+def mySplit(data,target):
+	X_test=[];X_train=[];Y_test=[];Y_train=[];
+	for i in range(data.shape[0]):# 500 
+		if(i<88):
+			X_train.append(data[i])
+			Y_train.append(target[i])
+		elif(i<163):
+			X_test.append(data[i])
+			Y_test.append(target[i])	
+		elif(i<250):
+			X_train.append(data[i])
+			Y_train.append(target[i])
+		elif(i<337):
+			X_train.append(data[i])
+			Y_train.append(target[i])
+		elif(i<412):
+			X_test.append(data[i])
+			Y_test.append(target[i])	
+		else:
+			X_train.append(data[i])
+			Y_train.append(target[i])
+	
+	X_test=pd.DataFrame(X_test).values
+	X_train=pd.DataFrame(X_train).values		
+	return X_test,X_train,Y_test,Y_train
 
 def clasif_results():
-	fileName  = 'test.txt'
-	data,target=readData(fileName)
-	clf = ExtraTreesClassifier()
-	clf.fit(data,target)
+	fileName  = 'Results/featList1.txt'
+	data,target,featList=readData(fileName)
+	clf = ExtraTreesClassifier(n_estimators=10,random_state=0)
+	clf = clf.fit(data,target)
 	model=SelectFromModel(clf,prefit=True)
 	ex_data=model.transform(data)
-	#print(clf.feature_importances_)
-	#print(ex_data.shape)
-	'''
-	svc = svm.SVC(kernel='linear', C=1)
-	lr  = LogisticRegression()
-	lda = LinearDiscriminantAnalysis()
-	knn = KNeighborsClassifier()
-	tree= DecisionTreeClassifier()
-	bayes= GaussianNB()
-	sgd = SGDClassifier()
+	#get_importances(clf,data,featList)
+	X_test,X_train,Y_test,Y_train= mySplit(ex_data,target)
 	
-
-	test_clasif('svm',svc,data,target);test_clasif('logistic',lr,data,target);test_clasif('lda',lda,data,target);
-	test_clasif('k neighbors',knn,data,target);test_clasif('decision tree',tree,data,target);test_clasif('naive bayes',bayes,data,target);
-	test_clasif('sgd',sgd,data,target);
-	'''
+	#svc = svm.SVC()
+	#parameters={'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000],	'kernel': ['linear','poly','rbf'],'gamma' : 10.0**-np.arange(1,4),'random_state':[0]}
+	#test_clasif('svm',svc,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	#lr  = LogisticRegression()
+	#parameters={'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000],'random_state':[0]}
+	#test_clasif('logistic',lr,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	#lda = LinearDiscriminantAnalysis()
+	#parameters={'solver':['svd','lsqr','eigen']}
+	#test_clasif('lda',lda,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective']);
+	
+	#knn = KNeighborsClassifier()
+	#parameters={'n_neighbors':[1,3,5,7,9,11],'weights':['uniform','distance'],'algorithm': ['auto', 'ball_tree', 'kd_tree', 'brute']}
+	#test_clasif('k neighbors',knn,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	#tree= DecisionTreeClassifier()
+	#parameters={'criterion':['gini','entropy'],'splitter':['random','best'],'max_features':['sqrt','log2',None],'random_state':[0]}
+	#test_clasif('decision tree',tree,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	#bayes= GaussianNB()
+	#parameters={'priors':[None]}
+	#test_clasif('naive bayes',bayes,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	#sgd = SGDClassifier()
+	#parameters={'loss':['hinge', 'log', 'modified_huber', 'squared_hinge', 'perceptron', 'squared_loss', 
+	#'huber','epsilon_insensitive','squared_epsilon_insensitive'],'alpha':[0.0001,0.001,0.01,0.1,1],'epsilon':[0.01,0.1,1],'random_state':[0]}
+	#test_clasif('sgd',sgd,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	random= RandomForestClassifier()
+	parameters={'n_estimators':[5,10,15,20,25,30],'criterion':['gini','entropy'],'max_features':['sqrt','log2',None],'random_state':[0]}
+	test_clasif('random forest',random,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
 
 sentence = ''
 
@@ -187,7 +244,7 @@ class AnsScreen(tkinter.Frame):
 def main():
 	#app = Application()
 	#app.mainloop()
-
+	clasif_results()
 
 if __name__ == "__main__":
     
