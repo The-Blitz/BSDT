@@ -81,7 +81,6 @@ def mySplit(data,target):
 		else:
 			X_train.append(data[i])
 			Y_train.append(target[i])
-	
 	X_test=pd.DataFrame(X_test).values
 	X_train=pd.DataFrame(X_train).values		
 	return X_test,X_train,Y_test,Y_train
@@ -125,12 +124,53 @@ def clasif_results():
 	#'huber','epsilon_insensitive','squared_epsilon_insensitive'],'alpha':[0.0001,0.001,0.01,0.1,1],'epsilon':[0.01,0.1,1],'random_state':[0]}
 	#test_clasif('sgd',sgd,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
 	
-	random= RandomForestClassifier()
-	parameters={'n_estimators':[5,10,15,20,25,30],'criterion':['gini','entropy'],'max_features':['sqrt','log2',None],'random_state':[0]}
-	test_clasif('random forest',random,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	#random= RandomForestClassifier()
+	#parameters={'n_estimators':[5,10,15,20,25,30],'criterion':['gini','entropy'],'max_features':['sqrt','log2',None],'random_state':[0]}
+	#test_clasif('random forest',random,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
 	
 
+def init_clasif():
+	fileName  = 'Results/featList1.txt'
+	data,target,featList=readData(fileName)
+	clf = ExtraTreesClassifier(n_estimators=10,random_state=0)
+	clf = clf.fit(data,target)
+	
+	model=SelectFromModel(clf,prefit=True)
+	ex_data=model.transform(data)
+	X_test,X_train,Y_test,Y_train= mySplit(ex_data,target)
+	
+	#sgd = SGDClassifier()
+	#parameters={'loss':['hinge', 'log', 'modified_huber', 'squared_hinge', 'perceptron', 'squared_loss', 
+	#'huber','epsilon_insensitive','squared_epsilon_insensitive'],'alpha':[0.0001,0.001,0.01,0.1,1],'epsilon':[0.01,0.1,1],'random_state':[0]}
+	
+	bayes= GaussianNB()
+	parameters={'priors':[None]}
+	
+	gridCV = GridSearchCV(bayes,parameters,scoring='accuracy', cv = 5)
+	gridCV.fit(X_train,Y_train)	
+
+
+	print('se inicializo el clasificador')
+	return gridCV,model
+
+def clasif_sent(features):
+	app_clasif,model = init_clasif()
+	listFeat= []
+	listFeat.append(features)
+	
+	realFeat=model.transform(pd.DataFrame(listFeat))
+	print(realFeat)
+	
+	result = app_clasif.predict(realFeat)
+	print(result)
+	if(result[0]=='O'):	return 'objetivo'	
+	if(result[0]=='S'):	return 'subjetivo'
+
+
+
+
 sentence = ''
+
 
 class Application(tkinter.Tk):
 	def __init__(self):
@@ -173,10 +213,10 @@ class Application(tkinter.Tk):
 class entryBox(tkinter.Frame):
 	def __init__(self,parent):
 		tkinter.Frame.__init__(self,parent)
-		text = tkinter.Text(self,bg=parent.cget('bg'), bd=0,fg='black',height=1, width=80)
-		text.insert('1.0', "Por favor escriba la oración que desee evaluar:")
-		text.config(state='disabled')
-		text.pack()
+		self.text = tkinter.Text(self,bg=parent.cget('bg'), bd=0,fg='black',height=1, width=80)
+		self.text.insert('1.0', "Por favor escriba la oración que desee evaluar:")
+		self.text.config(state='disabled')
+		self.text.pack()
 		self.entry = tkinter.Entry(self, width=70)
 		self.entry.pack()
 		
@@ -192,25 +232,34 @@ class resultBox(tkinter.Frame):
 	def __init__(self,parent):
 		tkinter.Frame.__init__(self,parent)
 		scroll = tkinter.Scrollbar(self)
-		scroll.pack(side = 'bottom')
+		scroll.pack(side = 'top')
 		self.text = tkinter.Text(self,bg="white", bd=0,fg='black',height=1, width=80,yscrollcommand =scroll.set)
 		scroll.config(command = self.text.yview, orient='horizontal')
 		self.text.tag_configure("NS", background="white")
 		self.text.tag_configure("LS", background="green", foreground="white")
 		self.text.tag_configure("MS", background="yellow", foreground="white")
 		self.text.tag_configure("HS", background="red", foreground="white")
+		self.typeText=tkinter.Text(self,bg=parent.cget('bg'), bd=0,fg='black',height=1, width=80)
 	
 	def showText(self):
 		features,sentSubj,words = fe.sentToFeat(sentence)
+
 		for s in range(len(words)):
 			for w in range(len(words[s][0])):
 				self.text.insert('end',words[s][0][w]+" ",sentSubj[s].get(w+1, "NS"))
 		self.text.config(state='disabled')
 		self.text.pack()
-	
+		
+		result = clasif_sent(features)
+		
+		self.typeText.insert('end',"La oración es de tipo "+result+".")
+		self.typeText.config(state='disabled')
+		self.typeText.pack()
+		
 	def clear(self):
 		self.text.config(state='normal')
-		self.text.delete(1.0,'end')		
+		self.text.delete(1.0,'end')
+		self.typeText.delete(1.0,'end')	
 		
 class FirstScreen(tkinter.Frame):
 	def __init__(self, parent, controller):
@@ -242,10 +291,11 @@ class AnsScreen(tkinter.Frame):
 		quit.pack( side=tkinter.RIGHT,padx=100, pady=0)	
 	
 def main():
-	#app = Application()
-	#app.mainloop()
-	clasif_results()
-
+	app = Application()
+	app.mainloop()
+	#clasif_results()
+	
+	
 if __name__ == "__main__":
     
     main()
