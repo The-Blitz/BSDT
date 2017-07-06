@@ -154,15 +154,14 @@ def init_clasif():
 	return gridCV,model
 
 def clasif_sent(features):
-	app_clasif,model = init_clasif()
 	listFeat= []
 	listFeat.append(features)
 	
 	realFeat=model.transform(pd.DataFrame(listFeat))
-	print(realFeat)
+	#print(realFeat)
 	
 	result = app_clasif.predict(realFeat)
-	print(result)
+	#print(result)
 	if(result[0]=='O'):	return 'objetivo'	
 	if(result[0]=='S'):	return 'subjetivo'
 
@@ -170,7 +169,8 @@ def clasif_sent(features):
 
 
 sentence = ''
-
+app_clasif = None
+model = None
 
 class Application(tkinter.Tk):
 	def __init__(self):
@@ -251,7 +251,7 @@ class resultBox(tkinter.Frame):
 		self.text.pack()
 		
 		result = clasif_sent(features)
-		
+		#print(result)
 		self.typeText.insert('end',"La oración es de tipo "+result+".")
 		self.typeText.config(state='disabled')
 		self.typeText.pack()
@@ -259,6 +259,7 @@ class resultBox(tkinter.Frame):
 	def clear(self):
 		self.text.config(state='normal')
 		self.text.delete(1.0,'end')
+		self.typeText.config(state='normal')
 		self.typeText.delete(1.0,'end')	
 		
 class FirstScreen(tkinter.Frame):
@@ -291,6 +292,8 @@ class AnsScreen(tkinter.Frame):
 		quit.pack( side=tkinter.RIGHT,padx=100, pady=0)	
 	
 def main():
+	global app_clasif,model
+	app_clasif,model = init_clasif()
 	app = Application()
 	app.mainloop()
 	#clasif_results()
