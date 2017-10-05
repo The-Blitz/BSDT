@@ -30,7 +30,7 @@ def verif(cont, text):
 def existSense(senses, auxSense):
 	for i in range(len(senses)):
 		#print(senses[i][0])
-		if(auxSense==senses[i][0]):	return True;
+		if(auxSense.lower()==senses[i][0].lower()):	return True;
 	return False;
 
 def procSentence(text):
