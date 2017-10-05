@@ -2,7 +2,7 @@
 import sentences as s
 import freelingUser as fu
 import graph as g
-import pandas as pd
+import corpusGenerator as cg
 from queue import *
 
 
@@ -350,4 +350,26 @@ def generate():
 	for i in range(1,len(subjFile)+1):
 		features,sentSubj,words = sentToFeat(subjFile[i-1],i,1)
 		#print("Oración", 250+i , "procesada, sentidos juntos")
-		#printFeat(features,'S')	
+		#printFeat(features,'S')
+		
+def corpusExcel():
+	fileName  = 'Corpus/objTest.txt'
+	objFile = s.readFile(fileName,'utf-8')
+	fileName  = 'Corpus/subjTest.txt'
+	subjFile  =s.readFile(fileName,'utf-8')
+	objProcSentences = []
+	subjProcSentences= []
+	
+	for i in range(1,len(objFile)+1):
+		words,wordSet,sentences  = procTextFile(objFile[i-1],0)
+		procSentences =  s.sentenceSenses (words,wordSet)
+		objProcSentences.append(procSentences)
+	
+	for i in range(1,len(subjFile)+1):	
+		words,wordSet,sentences  = procTextFile(subjFile[i-1],0)
+		procSentences =  s.sentenceSenses (words,wordSet)
+		subjProcSentences.append(procSentences)
+	
+	cg.generateExcelCorpus(objProcSentences,subjProcSentences)
+	
+	
