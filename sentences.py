@@ -11,7 +11,7 @@ def verif(cont, text):
 			senses= dbc.senseSearch(text[i])
 		else:
 			senses= dbc.senseSearch(auxSense+"_" +text[i])	
-		if( (len(senses)==0 ) or (i>cont and senses[0][0][len(auxSense)] != "_" )  ):
+		if( (len(senses)==0 ) or (i>cont and noSense(senses,auxSense))  ):
 			if(i==cont):	#unchecked words
 				return text[i],i+1
 				
@@ -27,11 +27,17 @@ def verif(cont, text):
 			auxSense= auxSense+"_" +text[i]
 	return auxSense, len(text)
 
-def existSense(senses, auxSense):
+def existSense(senses, auxSense): #if the exact sense exist
 	for i in range(len(senses)):
 		#print(senses[i][0])
 		if(auxSense.lower()==senses[i][0].lower()):	return True;
 	return False;
+
+def noSense(senses,auxSense): # if the current sense or possible connections with it doesn't exist
+	for i in range(len(senses)):
+		auxi = senses[i][0][:len(auxSense)]
+		if(auxSense.lower()==auxi.lower()):	return False;
+	return True;
 
 def procSentence(text):
     sz= len(text)
