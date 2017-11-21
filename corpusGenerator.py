@@ -43,5 +43,5 @@ def generateExcelCorpus(objSent,subjSent):
 					
 	df = pd.DataFrame({'sentence': numlist,'position':poslist ,'word': wordlist , 'lemma': lemmalist  , 'tag': taglist  , 'sense': senselist })
 	df = df[['sentence','position', 'word','lemma','tag','sense']]
-	df.to_excel('corpusExcel2.xlsx', sheet_name='sheet1', index=False)		
+	df.to_excel('corpusExcel5.xlsx', sheet_name='50 oraciones', index=False)		
 	
