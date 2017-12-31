@@ -27,7 +27,6 @@ warnings.filterwarnings('ignore')
 
 def readData(fileName):
 	data=[]
-	featList=list(fe.createDict().keys())
 	target=[]
 	cont=0
 	with open(fileName,'r',encoding='utf-8') as f:
@@ -42,7 +41,7 @@ def readData(fileName):
 			cont+=1
 
 	npData=pd.DataFrame(data).values
-	return npData,target,featList
+	return npData,target
 
 def test_clasif(name,clasi,X_test,X_train,Y_test,Y_train,parameters,classes):
 	with warnings.catch_warnings():
@@ -60,40 +59,20 @@ def get_importances(clf,data,featList):
 	for f in range(data.shape[1]):
 		print("%d. feature %s (%f)" % (f + 1, featList[indices[f]], importance[indices[f]]))
 
-def mySplit(data,target):
-	X_test=[];X_train=[];Y_test=[];Y_train=[];
-	for i in range(data.shape[0]):# 500 
-		if(i<88):
-			X_train.append(data[i])
-			Y_train.append(target[i])
-		elif(i<163):
-			X_test.append(data[i])
-			Y_test.append(target[i])	
-		elif(i<250):
-			X_train.append(data[i])
-			Y_train.append(target[i])
-		elif(i<337):
-			X_train.append(data[i])
-			Y_train.append(target[i])
-		elif(i<412):
-			X_test.append(data[i])
-			Y_test.append(target[i])	
-		else:
-			X_train.append(data[i])
-			Y_train.append(target[i])
-	X_test=pd.DataFrame(X_test).values
-	X_train=pd.DataFrame(X_train).values		
-	return X_test,X_train,Y_test,Y_train
-
 def clasif_results():
-	fileName  = 'Results/featList1.txt'
-	data,target,featList=readData(fileName)
+	featList=list(fe.createDict().keys())
+	trainFile  = 'Semcor/featSemcor.txt'
+	trainData,trainTarget=readData(trainFile)
 	clf = ExtraTreesClassifier(n_estimators=10,random_state=0)
-	clf = clf.fit(data,target)
+	clf = clf.fit(trainData,trainTarget)
 	model=SelectFromModel(clf,prefit=True)
-	ex_data=model.transform(data)
-	#get_importances(clf,data,featList)
-	X_test,X_train,Y_test,Y_train= mySplit(ex_data,target)
+	ex_trainData=model.transform(trainData)
+	#get_importances(clf,trainData,featList)
+	
+	#X_test = 
+	X_train = ex_trainData
+	#Y_test =
+	Y_train = trainTarget
 	
 	#svc = svm.SVC()
 	#parameters={'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000],	'kernel': ['linear','poly','rbf'],'gamma' : 10.0**-np.arange(1,4),'random_state':[0]}
@@ -130,14 +109,14 @@ def clasif_results():
 	
 
 def init_clasif():
-	fileName  = 'Results/featList1.txt'
-	data,target,featList=readData(fileName)
+	featList=sorted(list(fe.createDict().keys()))
+	trainFile  = 'Semcor/featSemcor.txt'
+	data,target=readData(trainFile)
 	clf = ExtraTreesClassifier(n_estimators=10,random_state=0)
 	clf = clf.fit(data,target)
 	
 	model=SelectFromModel(clf,prefit=True)
 	ex_data=model.transform(data)
-	X_test,X_train,Y_test,Y_train= mySplit(ex_data,target)
 	
 	#sgd = SGDClassifier()
 	#parameters={'loss':['hinge', 'log', 'modified_huber', 'squared_hinge', 'perceptron', 'squared_loss', 
@@ -147,7 +126,7 @@ def init_clasif():
 	parameters={'priors':[None]}
 	
 	gridCV = GridSearchCV(bayes,parameters,scoring='accuracy', cv = 5)
-	gridCV.fit(X_train,Y_train)	
+	gridCV.fit(ex_data,target)	
 
 
 	print('se inicializo el clasificador')
