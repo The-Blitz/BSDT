@@ -52,7 +52,8 @@ def test_clasif(name,clasi,X_test,X_train,Y_test,Y_train,parameters,classes):
 		print(classification_report(result,Y_test,target_names=classes))
 		print(confusion_matrix(result,Y_test))
 
-def get_importances(clf,data,featList):
+def get_importances(clf,data):
+	featList=sorted(list(fe.createDict().keys()))
 	importance=clf.feature_importances_
 	indices = np.argsort(importance)[::-1]
 
@@ -60,14 +61,13 @@ def get_importances(clf,data,featList):
 		print("%d. feature %s (%f)" % (f + 1, featList[indices[f]], importance[indices[f]]))
 
 def clasif_results():
-	featList=list(fe.createDict().keys())
 	trainFile  = 'Semcor/featSemcor.txt'
 	trainData,trainTarget=readData(trainFile)
 	clf = ExtraTreesClassifier(n_estimators=10,random_state=0)
 	clf = clf.fit(trainData,trainTarget)
 	model=SelectFromModel(clf,prefit=True)
 	ex_trainData=model.transform(trainData)
-	#get_importances(clf,trainData,featList)
+	#get_importances(clf,trainData)
 	
 	#X_test = 
 	X_train = ex_trainData
@@ -109,7 +109,6 @@ def clasif_results():
 	
 
 def init_clasif():
-	featList=sorted(list(fe.createDict().keys()))
 	trainFile  = 'Semcor/featSemcor.txt'
 	data,target=readData(trainFile)
 	clf = ExtraTreesClassifier(n_estimators=10,random_state=0)
