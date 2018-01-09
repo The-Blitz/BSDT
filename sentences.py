@@ -11,7 +11,7 @@ def verif(cont, text):
 			senses= dbc.senseSearch(text[i])
 		else:
 			senses= dbc.senseSearch(auxSense+"_" +text[i])	
-		if( (len(senses)==0 ) or (i>cont and noSense(senses,auxSense) or (text[i]=='.'))  ):
+		if( (len(senses)==0 ) or (i>cont and noSense(senses,auxSense) ) or (text[i]=='.') ):
 			if(i==cont):	#unchecked words
 				return text[i],i+1
 				
