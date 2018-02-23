@@ -72,7 +72,10 @@ def sentenceSenses(sentences, wordSets):
 						auxOffset.append(offset[l][0])
 						ontology = (dbc.ontologySearch(offset[l][0]))
 						if (len(ontology)): # if there is an ontology
-							auxOntology.append(ontology[0][0])
+							auxiOnt = []
+							for m in range( len(ontology) ):
+								auxiOnt.append(ontology[m][0])
+							auxOntology.append(auxiOnt)
 						else:
 							auxOntology.append('-')	
 							

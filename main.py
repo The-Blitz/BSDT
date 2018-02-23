@@ -13,6 +13,7 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 
 import numpy as np
 import pandas as pd
@@ -45,9 +46,10 @@ def readData(fileName):
 
 def test_clasif(name,clasi,X_test,X_train,Y_test,Y_train,parameters,classes):
 	with warnings.catch_warnings():
-		gridCV = GridSearchCV(clasi,parameters,scoring='accuracy', cv = 5)
+		gridCV = GridSearchCV(clasi,parameters,scoring='accuracy', cv = 10)
 		gridCV.fit(X_train,Y_train)
 		result = gridCV.predict(X_test)
+		print(gridCV.best_params_)
 		print(name)
 		print(classification_report(result,Y_test,target_names=classes))
 		print(confusion_matrix(result,Y_test))
@@ -68,7 +70,7 @@ def clasif_results():
 	model=SelectFromModel(clf,prefit=True)
 	ex_trainData=model.transform(trainData)
 	#get_importances(clf,trainData)
-	
+
 	#X_test = 
 	X_train = ex_trainData
 	#Y_test =
@@ -270,11 +272,11 @@ class AnsScreen(tkinter.Frame):
 		quit.pack( side=tkinter.RIGHT,padx=100, pady=0)	
 	
 def main():
-	global app_clasif,model
-	app_clasif,model = init_clasif()
-	app = Application()
-	app.mainloop()
-	#clasif_results()
+	#global app_clasif,model
+	#app_clasif,model = init_clasif()
+	#app = Application()
+	#app.mainloop()
+	clasif_results()
 	
 	
 if __name__ == "__main__":

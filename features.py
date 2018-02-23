@@ -31,7 +31,7 @@ def procTextFile (filesent,flag): # flag: 0 separate opinion in sentences, 1 sen
 	return ans,validWords,fullSent
 
 def getCategory(attr , subj):
-	if(attr=='SubjectiveAssessmentAttribute'): 
+	if('SubjectiveAssessmentAttribute' in attr): 
 		return 'HS'
 	elif(subj==0.0):
 		return 'NS'
@@ -66,7 +66,7 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 							if(subj==-1): 
 								conta = conta+1	
 								continue; #ignore sense
-							if(ontology[conta]=='SubjectiveAssessmentAttribute'): 
+							if('SubjectiveAssessmentAttribute' in ontology[conta] ): 
 								HS.append(sense) #the ontology adds subjectivity value
 								HSFreq.append(freq)
 								contaH=min(contaH,conta+1)
@@ -116,13 +116,13 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 							conta = conta+1	
 							continue; #ignore sense
 						total = total+1	
-						if(ontology[conta]=='SubjectiveAssessmentAttribute'): 
+						if('SubjectiveAssessmentAttribute' in ontology[conta]): 
 							meanS= meanS+1.0
 						else:
 							meanS=meanS+subj	
 						conta = conta+1
 					if(total>0):
-						offsetDict[word[0]+" "+str(pos)] = getCategory('',meanS/total)
+						offsetDict[word[0]+" "+str(pos)] = getCategory(['NONACATEGORY'],meanS/total)
 			pos=pos+1													 
 		dicts.append(offsetDict)
 	return dicts
@@ -349,7 +349,7 @@ def generate():
 
 	for i in range(1,len(subjFile)+1):
 		features,sentSubj,words = sentToFeat(subjFile[i-1],i,1)
-		#print("Oración", 250+i , "procesada, sentidos juntos")
+		#print("Oración", 200+i , "procesada, sentidos juntos")
 		#printFeat(features,'S')
 		
 def corpusExcel():
@@ -372,4 +372,4 @@ def corpusExcel():
 	
 	cg.generateExcelCorpus(objProcSentences,subjProcSentences)
 	
-	
+
