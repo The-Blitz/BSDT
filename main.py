@@ -14,7 +14,12 @@ from sklearn.feature_selection import SelectFromModel
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import validation_curve
+from sklearn.preprocessing import normalize
+from sklearn.metrics import roc_curve, auc
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import features as fe
@@ -24,7 +29,7 @@ from tkinter import messagebox
 import warnings
 warnings.filterwarnings('ignore')
 
-#np.set_printoptions(threshold=np.nan) show full dataset
+np.set_printoptions(threshold=np.nan) #show full dataset
 
 def readData(fileName):
 	data=[]
@@ -50,9 +55,17 @@ def test_clasif(name,clasi,X_test,X_train,Y_test,Y_train,parameters,classes):
 		gridCV.fit(X_train,Y_train)
 		result = gridCV.predict(X_test)
 		print(gridCV.best_params_)
+		
+		#means = gridCV.cv_results_['mean_test_score']
+		#stds = gridCV.cv_results_['std_test_score']
+		#for mean, std, params in zip(means, stds, gridCV.cv_results_['params']):
+		#	print("%0.3f (+/-%0.03f) for %r"
+		#	% (mean, std * 2, params))
+		
 		print(name)
 		print(classification_report(result,Y_test,target_names=classes))
 		print(confusion_matrix(result,Y_test))
+	return gridCV.predict_proba(X_test)[:,1]	
 
 def get_importances(clf,data):
 	featList=sorted(list(fe.createDict().keys()))
@@ -62,53 +75,167 @@ def get_importances(clf,data):
 	for f in range(data.shape[1]):
 		print("%d. feature %s (%f)" % (f + 1, featList[indices[f]], importance[indices[f]]))
 
+def plotValidationCurve(name,param,clf,X,y):
+	#param_range = [1,10,100]
+	param_range = np.logspace(-6, 6, 4)
+	train_scores, test_scores = validation_curve(clf, X, y, param_name=param, param_range=param_range, cv=10,scoring="accuracy",n_jobs=1)
+	train_scores_mean = np.mean(train_scores, axis=1)
+	train_scores_std = np.std(train_scores, axis=1)
+	test_scores_mean = np.mean(test_scores, axis=1)
+	test_scores_std = np.std(test_scores, axis=1)
+
+	plt.title("Validation Curve with " + name)
+	plt.xlabel(param)
+	plt.ylabel("Score")
+	plt.ylim(0.0, 1.1)
+	lw = 2
+	plt.semilogx(param_range, train_scores_mean, label="Training score",
+    	         color="darkorange", lw=lw)
+	plt.fill_between(param_range, train_scores_mean - train_scores_std,
+                 train_scores_mean + train_scores_std, alpha=0.2,
+                 color="darkorange", lw=lw)
+	plt.semilogx(param_range, test_scores_mean, label="Cross-validation score",
+             	color="navy", lw=lw)
+	plt.fill_between(param_range, test_scores_mean - test_scores_std,
+                 test_scores_mean + test_scores_std, alpha=0.2,
+                 color="navy", lw=lw)
+	plt.legend(loc="best")
+	#plt.show()
+	plt.savefig('image.jpg')
+
+def plotROCCurve(models , predictions , test):
+	for i in range(len(models)):
+		fpr, tpr, thresholds = roc_curve(test, predictions[i], pos_label='S')
+		roc_auc  = auc(fpr, tpr)
+		plt.plot(fpr, tpr, label='%s ROC (area = %0.2f)' % (models[i], roc_auc))
+		
+	plt.plot([0, 1], [0, 1], 'k--')
+	plt.xlim([0.0, 1.0])
+	plt.ylim([0.0, 1.0])
+	plt.xlabel('False Positive Rate')
+	plt.ylabel('True Positive Rate')
+	plt.legend(loc=0, fontsize='small')
+	#plt.show()
+	plt.savefig('image.jpg')
+	
+
+def showParameters(X_test,X_train,Y_test,Y_train):
+	mlp  = MLPClassifier()
+	parameters={'hidden_layer_sizes': [(12,)], 'activation': ["tanh"], 'solver' : ['adam'],'alpha':[0.01], 'learning_rate': ["adaptive"]}
+	prob=test_clasif('mlp',mlp,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	svc = svm.SVC()
+	parameters={'C': [1],	'kernel': ['linear'],	'gamma' : [0.001],'random_state':[0] , 'probability':[True]}
+	prob=test_clasif('svm',svc,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	lr  = LogisticRegression()
+	parameters={'C':[100],'random_state':[0]}
+	prob=test_clasif('logistic',lr,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	lda = LinearDiscriminantAnalysis()
+	parameters={'solver':['svd']}
+	prob=test_clasif('lda',lda,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective']);
+	
+	knn = KNeighborsClassifier()
+	parameters={'n_neighbors':[25],'weights':['uniform'],'algorithm': ['brute']}
+	prob=test_clasif('k neighbors',knn,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	tree= DecisionTreeClassifier()
+	parameters={'criterion':['gini'],'splitter':['random'],'max_features':[None],'random_state':[0]}
+	prob=test_clasif('decision tree',tree,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	bayes= GaussianNB()
+	parameters={'priors':[None]}
+	prob=test_clasif('naive bayes',bayes,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	sgd = SGDClassifier()
+	parameters={'loss':['log'],'alpha':[0.001],'epsilon':[0.01],'random_state':[0]}
+	prob=test_clasif('sgd',sgd,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	random= RandomForestClassifier()
+	parameters={'n_estimators':[25],'criterion':['entropy'],'max_features':[None],'random_state':[0]}
+	prob=test_clasif('random forest',random,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+def searchParameters(X_test,X_train,Y_test,Y_train):	
+	#plotValidationCurve('random' , 'n_estimators' , random , X_train, Y_train)
+	
+	#predictions = []
+	
+	mlp  = MLPClassifier()
+	parameters={'hidden_layer_sizes': [(12),(8,4,2),(9,3)], 'activation': ["logistic", "relu", "tanh"], 
+	'solver' : ['adam'],'alpha':[0.01,0.1,1,10,100], 'learning_rate': ["constant", "invscaling", "adaptive"]}
+	prob=test_clasif('mlp',mlp,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	#predictions.append(prob)
+	
+	svc = svm.SVC()
+	parameters={'C': [0.00001, 0.0001,0.001, 0.01, 0.1, 1],	'kernel': ['linear','poly','rbf'],
+	'gamma' : [0.001 , 0.01 , 0.1],'random_state':[0] , 'probability':[True]}
+	prob=test_clasif('svm',svc,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	#predictions.append(prob)
+	
+	lr  = LogisticRegression()
+	parameters={'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000],'random_state':[0]}
+	prob=test_clasif('logistic',lr,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	#predictions.append(prob)
+	
+	lda = LinearDiscriminantAnalysis()
+	parameters={'solver':['svd','lsqr']}
+	prob=test_clasif('lda',lda,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective']);
+	#predictions.append(prob)
+	
+	knn = KNeighborsClassifier()
+	parameters={'n_neighbors':[5,9,11,15,20,25,33],'weights':['uniform','distance'],'algorithm': ['auto', 'ball_tree', 'kd_tree', 'brute']}
+	prob=test_clasif('k neighbors',knn,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	#predictions.append(prob)
+	
+	tree= DecisionTreeClassifier()
+	parameters={'criterion':['gini','entropy'],'splitter':['random','best'],'max_features':['sqrt','log2',None],'random_state':[0]}
+	prob=test_clasif('decision tree',tree,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	#predictions.append(prob)
+	
+	bayes= GaussianNB()
+	parameters={'priors':[None]}
+	prob=test_clasif('naive bayes',bayes,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	#predictions.append(prob)
+	
+	sgd = SGDClassifier()
+	parameters={'loss':['log', 'modified_huber'],'alpha':[0.00001,0.0001,0.001,0.01,0.1,1],'epsilon':[0.01,0.1,1],'random_state':[0]}
+	prob=test_clasif('sgd',sgd,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	#predictions.append(prob)
+	
+	random= RandomForestClassifier()
+	parameters={'n_estimators':[5,10,15,20,25,30],'criterion':['gini','entropy'],'max_features':['sqrt','log2',None],'random_state':[0]}
+	prob=test_clasif('random forest',random,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	#predictions.append(prob)
+	
+	#plotROCCurve(['mlp','svm','logistic' , 'lda', 'knn','decision tree','Naive Bayes' , 'sgd' , 'random forest'], predictions,Y_test)
+	
 def clasif_results():
 	trainFile  = 'Semcor/featSemcor.txt'
+	testFile = 'Results/featList1.txt'	
 	trainData,trainTarget=readData(trainFile)
-	clf = ExtraTreesClassifier(n_estimators=10,random_state=0)
-	clf = clf.fit(trainData,trainTarget)
-	model=SelectFromModel(clf,prefit=True)
-	ex_trainData=model.transform(trainData)
+	testData,testTarget=readData(testFile)
+	
+	norm_train = normalize(trainData)#normalization
+	norm_test = normalize(testData)#normalization
+	
+	clf = ExtraTreesClassifier(n_estimators=10,random_state=0)	#dim Reduct
+	clf = clf.fit(norm_train,trainTarget) #dim Reduct
+	model=SelectFromModel(clf,prefit=True) #dim Reduct
+	ex_trainData=model.transform(norm_train) #dim Reduct
+	ex_testData=model.transform(norm_test) #dim Reduct
+
 	#get_importances(clf,trainData)
 
-	#X_test = 
-	X_train = ex_trainData
-	#Y_test =
+	X_test = ex_testData #dim Reduct
+	X_train = ex_trainData #dim Reduct
+	Y_test = testTarget
 	Y_train = trainTarget
 	
-	#svc = svm.SVC()
-	#parameters={'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000],	'kernel': ['linear','poly','rbf'],'gamma' : 10.0**-np.arange(1,4),'random_state':[0]}
-	#test_clasif('svm',svc,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	#lr  = LogisticRegression()
-	#parameters={'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000],'random_state':[0]}
-	#test_clasif('logistic',lr,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	#lda = LinearDiscriminantAnalysis()
-	#parameters={'solver':['svd','lsqr','eigen']}
-	#test_clasif('lda',lda,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective']);
-	
-	#knn = KNeighborsClassifier()
-	#parameters={'n_neighbors':[1,3,5,7,9,11],'weights':['uniform','distance'],'algorithm': ['auto', 'ball_tree', 'kd_tree', 'brute']}
-	#test_clasif('k neighbors',knn,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	#tree= DecisionTreeClassifier()
-	#parameters={'criterion':['gini','entropy'],'splitter':['random','best'],'max_features':['sqrt','log2',None],'random_state':[0]}
-	#test_clasif('decision tree',tree,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	#bayes= GaussianNB()
-	#parameters={'priors':[None]}
-	#test_clasif('naive bayes',bayes,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	#sgd = SGDClassifier()
-	#parameters={'loss':['hinge', 'log', 'modified_huber', 'squared_hinge', 'perceptron', 'squared_loss', 
-	#'huber','epsilon_insensitive','squared_epsilon_insensitive'],'alpha':[0.0001,0.001,0.01,0.1,1],'epsilon':[0.01,0.1,1],'random_state':[0]}
-	#test_clasif('sgd',sgd,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	#random= RandomForestClassifier()
-	#parameters={'n_estimators':[5,10,15,20,25,30],'criterion':['gini','entropy'],'max_features':['sqrt','log2',None],'random_state':[0]}
-	#test_clasif('random forest',random,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
+	showParameters(X_test,X_train,Y_test,Y_train)
+	#searchParameters(X_test,X_train,Y_test,Y_train)
+
+
 
 def init_clasif():
 	trainFile  = 'Semcor/featSemcor.txt'

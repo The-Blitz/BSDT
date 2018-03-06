@@ -58,15 +58,14 @@ def searchSubjectivity(text): # text = sense ID
 		
 def senseCategory(offset):
 	ontology = ontologySearch(offset)
-	if(len(ontology)):
-		onto=ontology[0][0]
-	else:
-		onto='-'	
+	ontoList = [o[0] for o in ontology ]
+	
+	if('SubjectiveAssessmentAttribute' in ontoList): 
+		return 'HS'
+				
 	subj,obj = searchSubjectivity(offset)
 	if(subj==-1):
 		return ('Error en el sentido ingresado:',offset)
-	if(onto=='SubjectiveAssessmentAttribute'): 
-		return 'HS'
 	elif(subj==0.0):
 		return 'NS'
 	elif(subj<=0.25):

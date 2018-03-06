@@ -63,10 +63,11 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 						if(sense != '-' and sense != None):
 							freq= len(offset) - conta
 							subj,obj = s.dbc.searchSubjectivity(sense)
-							if(subj==-1): 
+							subjOnto = 'SubjectiveAssessmentAttribute' in ontology[conta]
+							if(subj==-1 and not(subjOnto)): 
 								conta = conta+1	
 								continue; #ignore sense
-							if('SubjectiveAssessmentAttribute' in ontology[conta] ): 
+							if(subjOnto ): 
 								HS.append(sense) #the ontology adds subjectivity value
 								HSFreq.append(freq)
 								contaH=min(contaH,conta+1)
@@ -98,7 +99,8 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 						auxFreq = []
 						freq= len(offset) - conta
 						subj,obj = s.dbc.searchSubjectivity(sense)
-						if(subj==-1): 
+						subjOnto = 'SubjectiveAssessmentAttribute' in ontology[conta]
+						if(subj==-1 and not(subjOnto)): 
 							conta = conta+1	
 							continue; #ignore sense
 						auxSense.append(sense) #kind of necessary because of the sum of list in the next function, which calls this one
@@ -112,11 +114,12 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 					meanS=0.0
 					for sense in offset:
 						subj,obj = s.dbc.searchSubjectivity(sense)
-						if(subj==-1): 
+						subjOnto = 'SubjectiveAssessmentAttribute' in ontology[conta]
+						if(subj==-1 and not(subjOnto)): 
 							conta = conta+1	
 							continue; #ignore sense
 						total = total+1	
-						if('SubjectiveAssessmentAttribute' in ontology[conta]): 
+						if(subjOnto): 
 							meanS= meanS+1.0
 						else:
 							meanS=meanS+subj	
@@ -127,8 +130,8 @@ def mergeSenses(procSentences,flag): # this is related to subjectivity flag: 0 s
 		dicts.append(offsetDict)
 	return dicts
 	
-def createSenseGraph(sentences , procSentences):
-	dicts = mergeSenses(procSentences,1)
+def createSenseGraph(sentences , procSentences, mergeFlag):
+	dicts = mergeSenses(procSentences,mergeFlag)
 	cont=0
 	graphs = [] # '-' connect sentences , '*' replaces sentence root
 
@@ -179,7 +182,7 @@ def createSenseGraph(sentences , procSentences):
 def listToStr(auxList):
 	return " ".join(str(x) for x in auxList)
 
-def meanFeatures(sentences,procSentences,words,counter):
+def meanFeatures(sentences,procSentences,words,wordSet,counter):
 	result= []
 	dicts = mergeSenses(procSentences,2)
 	cont=0
@@ -218,30 +221,57 @@ def meanFeatures(sentences,procSentences,words,counter):
 			featDict[auxF1] = featDict[auxF1] +1
 		elif (auxF2 in featDict):	
 			featDict[auxF2] = featDict[auxF2] +1	
-										
+	
+	dictWord = createWordDict()
+	cont=0
+	for se in sentences:
+		di = dicts[cont]
+		word = words[cont][0]
+		tags = words[cont][2]
+		validWords = wordSet[cont]
+		
+		for n in validWords:
+			p = int(n.split()[1])
+			w = word[p-1];
+			aux = w + " " + str(p)
+			if aux in di:
+				dictWord[tags[p-1][0] + "-" + di[aux]] +=1
+		cont=cont+1
+	
+	#printFeat(dictWord,'X','wordList3.txt')		
+											
 	return featDict,sentSubj						
 							
-def findVertices(auxList , w1, p1, w2,p2):
-	v1 = None
-	val1=0.0
-	v2 = None
-	val2=0.0
+def findVertice(auxList , w,p):
+	v = None
+	val=0.0
+	
 	sortkeys = sorted(auxList.keys(),key=g.operator.attrgetter('pos','Nsense','id'))
 	
 	for i in range(len(sortkeys)):
 		key=sortkeys[i];	value=auxList[sortkeys[i]];
-		if (key.getWord()== w1 and key.getPos()==p1 and ( (val1==value and abs(val1-value) > 1e-6) or (val1<value) ) ):
-			v1 = key
-			val1 = value
-	
-	for i in range(len(sortkeys)):
-		key=sortkeys[i];	value=auxList[sortkeys[i]];
-		if (key.getWord()== w2 and key.getPos()==p2 and ( (val2==value and abs(val2-value) > 1e-6) or (val2<value) ) ):
-			v2 = key
-			val2 = value
-	
-	return v1,v2		
+		if (key.getWord()== w and key.getPos()==p and ( (val==value and abs(val-value) > 1e-6) or (val<value) ) ):
+			v = key
+			val = value
+			
+	return v		
 
+def wordsSubjPR(gr,dictWord,auxWords,validWords,pos):
+	pageRank= gr.pageRank()
+	#printPageRank(pageRank,pos)
+	dictSubj = dict()
+	words  = auxWords[0]
+	tags   = auxWords[2]
+
+	for n in validWords:
+		p = int(n.split()[1])
+		w = words[p-1];
+		vert = findVertice(pageRank,w,p)
+		if vert is not None:
+			dictSubj[w + " " + str(p)] = vert
+			dictWord[tags[p-1][0] + "-" + vert.getCat()] +=1
+
+	return dictSubj			
 
 def printPageRank (pr,cont):
 	f = open('prList1.txt','a+')
@@ -250,17 +280,21 @@ def printPageRank (pr,cont):
 		f.write("%d %s %f\n" % (cont,sortkeys[i],pr[sortkeys[i]]))	
 	f.close()
 
-def getGraphInfo (sentGraphs,pos):
+def getGraphInfo (sentGraphs,words,wordSet,pos):
 	features = []
+	cont = 0
+	dictWord = createWordDict()
 	for gr in sentGraphs:
 		auxFeature = []
-		pageRank= gr.pageRank()
-		#printPageRank(pageRank,pos)
+		vertDict = wordsSubjPR(gr , dictWord, words[cont], wordSet[cont], pos)
 		edges = gr.getEdges()
 		for (word1,pos1,word2,pos2,relation) in edges:
-			vert1 , vert2 = findVertices(pageRank,word1,pos1,word2,pos2)
+			vert1  = vertDict[word1 +" " + str(pos1)]
+			vert2  = vertDict[word2 +" " + str(pos2)]
 			auxFeature.append( (vert1.getWord() , vert1.getPos() , vert1.getCat() , vert2.getWord() , vert2.getPos() , vert2.getCat() , relation) )
 		features.append(auxFeature)
+		cont +=1
+	#printFeat(dictWord,'X','wordList1.txt')	# will be changed to O or S in the file		
 	return features		
 
 
@@ -298,9 +332,16 @@ def createDict():
 					result[auxF1] = 0
 	return result			
 
-def getFeatures(auxGraphs,auxWords, pos):
+def createWordDict():
+	features = ['N-NS' , 'N-LS' ,'N-MS' ,'N-HS' ,'A-NS' ,'A-LS' ,'A-MS' ,'A-HS' ,'R-NS' ,'R-LS' ,'R-MS' ,'R-HS' ,'V-NS' ,'V-LS' ,'V-MS' ,'V-HS'] #possibilities
+	result = dict()
+	for f1 in features:
+		result[f1] = 0
+	return result
 
-	auxInfo  =getGraphInfo(auxGraphs,pos)
+def getFeatures(auxGraphs,auxWords,wordSet, pos):
+
+	auxInfo  =getGraphInfo(auxGraphs,auxWords,wordSet,pos)
 
 	auxFeatures,sentSubj =  addTags(auxInfo , auxWords,pos)
 	
@@ -315,8 +356,8 @@ def getFeatures(auxGraphs,auxWords, pos):
 									
 	return featDict,sentSubj
 
-def printFeat(feat,kind):
-	f = open('featList1.txt','a+')
+def printFeat(feat,kind,nameFile):
+	f = open(nameFile,'a+')
 	f.write("%s\t"% (kind))	
 	for aux in sorted(feat):
 		if(feat[aux]):	f.write("%s\t%d\t" % (aux,feat[aux]))	
@@ -328,10 +369,10 @@ def sentToFeat(sentence,cont=0,flag=1): #cont: sentence in corpus , flag: 0 NOT 
 	words,wordSet,sentences  = procTextFile(sentence,0)
 	procSentences =  s.sentenceSenses (words,wordSet)
 	if (flag):
-		graphs  = createSenseGraph(sentences,procSentences)
-		features,sentSubj = getFeatures(graphs,words,cont)
+		graphs  = createSenseGraph(sentences,procSentences,1)
+		features,sentSubj = getFeatures(graphs,words,wordSet,cont)
 	else:
-		features,sentSubj = meanFeatures(sentences,procSentences,words,cont) # get features with subjectivity's mean
+		features,sentSubj = meanFeatures(sentences,procSentences,words,wordSet,cont) # get features with subjectivity's mean
 	
 	return features,sentSubj,words
 
@@ -344,13 +385,13 @@ def generate():
 	for i in range(1,len(objFile)+1):
 		features,sentSubj,words = sentToFeat(objFile[i-1],i,1)
 		#print("Oración", i , "procesada , sentidos juntos")
-		#printFeat(features,'O')
+		#printFeat(features,'O','featList1.txt')
 
 
 	for i in range(1,len(subjFile)+1):
 		features,sentSubj,words = sentToFeat(subjFile[i-1],i,1)
-		#print("Oración", 200+i , "procesada, sentidos juntos")
-		#printFeat(features,'S')
+		#print("Oración", 450+i , "procesada, sentidos juntos")
+		#printFeat(features,'S','featList1.txt')
 		
 def corpusExcel():
 	fileName  = 'Corpus/objTest.txt'
