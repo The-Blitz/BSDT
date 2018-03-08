@@ -18,6 +18,8 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import validation_curve
 from sklearn.preprocessing import normalize
 from sklearn.metrics import roc_curve, auc
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import LabelEncoder
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -31,7 +33,7 @@ warnings.filterwarnings('ignore')
 
 np.set_printoptions(threshold=np.nan) #show full dataset
 
-def readData(fileName):
+def readData(fileName): # relations as features
 	data=[]
 	target=[]
 	cont=0
@@ -48,27 +50,74 @@ def readData(fileName):
 
 	npData=pd.DataFrame(data).values
 	return npData,target
+	
+def readData2(fileName): # words as features
+	data=[]
+	target=[]
+	cont=0
+	with open(fileName,'r',encoding='utf-8') as f:
+		for line in f:
+			feat = [l for l in line.split() if l]
+			auxList = fe.createWordDict()
+			target.append(feat[0])
+			for i in range(1,len(feat),2):
+				feature = feat[i]
+				auxList[feature] = int(feat[i+1])	
+			data.append(auxList)	
+			cont+=1
+
+	npData=pd.DataFrame(data).values
+	return npData,target
+
+def readData3(fileName1,fileName2): # relations and words together as features
+	data=[]
+	target=[]
+	cont=0
+	with open(fileName1,'r',encoding='utf-8') as f1, open(fileName2,'r',encoding='utf-8') as f2:
+		for line1,line2 in zip(f1,f2):
+			feat1 = [l for l in line1.split() if l]
+			feat2 = [l for l in line2.split() if l]
+			auxList1 = fe.createDict()
+			auxList2 = fe.createWordDict()
+			target.append(feat1[0]) # feat1[0] and feat2[0] are the same
+			for i in range(1,len(feat1),3):
+				feature = feat1[i]+" " + feat1[i+1]
+				auxList1[feature] = int(feat1[i+2])	
+			for i in range(1,len(feat2),2):
+				feature = feat2[i]
+				auxList2[feature] = int(feat2[i+1])
+			auxList={**auxList1, **auxList2}			
+			data.append(auxList)	
+			cont+=1
+
+	npData=pd.DataFrame(data).values
+	return npData,target		
 
 def test_clasif(name,clasi,X_test,X_train,Y_test,Y_train,parameters,classes):
+	le = LabelEncoder()
+	Y_train=le.fit_transform(Y_train)
 	with warnings.catch_warnings():
 		gridCV = GridSearchCV(clasi,parameters,scoring='accuracy', cv = 10)
 		gridCV.fit(X_train,Y_train)
 		result = gridCV.predict(X_test)
-		print(gridCV.best_params_)
+		bestParams=gridCV.best_params_
+		#print(bestParams)
 		
-		#means = gridCV.cv_results_['mean_test_score']
-		#stds = gridCV.cv_results_['std_test_score']
-		#for mean, std, params in zip(means, stds, gridCV.cv_results_['params']):
-		#	print("%0.3f (+/-%0.03f) for %r"
-		#	% (mean, std * 2, params))
+		means = gridCV.cv_results_['mean_test_score']
+		stds = gridCV.cv_results_['std_test_score']
+		for mean, std, params in zip(means, stds, gridCV.cv_results_['params']):
+			if(params==bestParams):
+				print("%0.3f (+/-%0.03f) for %r"
+				% (mean, std * 2, params))
 		
-		print(name)
-		print(classification_report(result,Y_test,target_names=classes))
-		print(confusion_matrix(result,Y_test))
+		#print(name)
+		#print(classification_report(result,Y_test,target_names=classes))
+		#print(confusion_matrix(result,Y_test))
 	return gridCV.predict_proba(X_test)[:,1]	
 
 def get_importances(clf,data):
-	featList=sorted(list(fe.createDict().keys()))
+	#featList=sorted(list(fe.createDict().keys()))
+	featList=sorted( list(fe.createDict().keys()) + list(fe.createWordDict().keys()) )
 	importance=clf.feature_importances_
 	indices = np.argsort(importance)[::-1]
 
@@ -121,7 +170,7 @@ def plotROCCurve(models , predictions , test):
 
 def showParameters(X_test,X_train,Y_test,Y_train):
 	mlp  = MLPClassifier()
-	parameters={'hidden_layer_sizes': [(12,)], 'activation': ["tanh"], 'solver' : ['adam'],'alpha':[0.01], 'learning_rate': ["adaptive"]}
+	parameters={'hidden_layer_sizes': [(12,)], 'activation': ["tanh"], 'solver' : ['adam'],'alpha':[0.01], 'learning_rate': ["adaptive"],'random_state': [42]}
 	prob=test_clasif('mlp',mlp,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
 	
 	svc = svm.SVC()
@@ -163,7 +212,7 @@ def searchParameters(X_test,X_train,Y_test,Y_train):
 	
 	mlp  = MLPClassifier()
 	parameters={'hidden_layer_sizes': [(12),(8,4,2),(9,3)], 'activation': ["logistic", "relu", "tanh"], 
-	'solver' : ['adam'],'alpha':[0.01,0.1,1,10,100], 'learning_rate': ["constant", "invscaling", "adaptive"]}
+	'solver' : ['adam'],'alpha':[0.01,0.1,1,10,100], 'learning_rate': ["constant", "invscaling", "adaptive"],'random_state': [42]}
 	prob=test_clasif('mlp',mlp,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
 	#predictions.append(prob)
 	
@@ -209,33 +258,51 @@ def searchParameters(X_test,X_train,Y_test,Y_train):
 	#predictions.append(prob)
 	
 	#plotROCCurve(['mlp','svm','logistic' , 'lda', 'knn','decision tree','Naive Bayes' , 'sgd' , 'random forest'], predictions,Y_test)
+
+def normalization(trainData,testData):
+	scaler = StandardScaler()
+	norm_train = scaler.fit_transform(trainData)
+	norm_test = scaler.transform(testData)
+	return norm_train,norm_test
+
+def dimReduction(trainData,testData,trainTarget):
+	clf = ExtraTreesClassifier(n_estimators=10,random_state=0)	
+	clf = clf.fit(trainData,trainTarget) 
+	model=SelectFromModel(clf,prefit=True) 
+	ex_trainData=model.transform(trainData) 
+	ex_testData=model.transform(testData) 
+	#get_importances(clf,trainData)
+	return ex_trainData,ex_testData
+
+def normAndRed(trainData,testData,trainTarget):
+	norm_train,norm_test=normalization(trainData,testData)
+	ex_trainData,ex_testData=dimReduction(norm_train,norm_test,trainTarget)	
+	return ex_trainData,ex_testData
 	
 def clasif_results():
-	trainFile  = 'Semcor/featSemcor.txt'
-	testFile = 'Results/featList1.txt'	
-	trainData,trainTarget=readData(trainFile)
-	testData,testTarget=readData(testFile)
+	trainFile1  = 'Semcor/featSemcor.txt'
+	trainFile2  = 'Semcor/wordSemcor.txt'
+	testFile1   = 'Results/Labeled/featList1.txt'
+	testFile2   = 'Results/Labeled/wordList1.txt'
 	
-	norm_train = normalize(trainData)#normalization
-	norm_test = normalize(testData)#normalization
+	#trainData,trainTarget=readData(trainFile1)
+	#testData,testTarget=readData(testFile1)	
+	#trainData,trainTarget=readData2(trainFile2)
+	#testData,testTarget=readData2(testFile2)	
+	trainData,trainTarget=readData3(trainFile1,trainFile2)
+	testData,testTarget=readData3(testFile1,testFile2)
 	
-	clf = ExtraTreesClassifier(n_estimators=10,random_state=0)	#dim Reduct
-	clf = clf.fit(norm_train,trainTarget) #dim Reduct
-	model=SelectFromModel(clf,prefit=True) #dim Reduct
-	ex_trainData=model.transform(norm_train) #dim Reduct
-	ex_testData=model.transform(norm_test) #dim Reduct
-
-	#get_importances(clf,trainData)
-
-	X_test = ex_testData #dim Reduct
-	X_train = ex_trainData #dim Reduct
+	X_test = testData 
+	X_train = trainData
 	Y_test = testTarget
 	Y_train = trainTarget
 	
-	showParameters(X_test,X_train,Y_test,Y_train)
-	#searchParameters(X_test,X_train,Y_test,Y_train)
-
-
+	#X_train,X_test=normalization(X_train,X_test)
+	#X_train,X_test=dimReduction(X_train,X_test,Y_train)
+	#X_train,X_test=normAndRed(X_train,X_test,Y_train)
+	
+	#showParameters(X_test,X_train,Y_test,Y_train)
+	searchParameters(X_test,X_train,Y_test,Y_train)
 
 def init_clasif():
 	trainFile  = 'Semcor/featSemcor.txt'

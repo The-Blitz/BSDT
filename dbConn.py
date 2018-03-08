@@ -62,7 +62,7 @@ def senseCategory(offset):
 	
 	if('SubjectiveAssessmentAttribute' in ontoList): 
 		return 'HS'
-				
+	
 	subj,obj = searchSubjectivity(offset)
 	if(subj==-1):
 		return ('Error en el sentido ingresado:',offset)
@@ -74,4 +74,17 @@ def senseCategory(offset):
 		return 'MS'
 	else:
 		return 'HS'
-					
+
+#print(senseCategory('spa-30-80001160-n'))
+#print(senseSearch('volver_a_casa'))
+#with open('anotacion.txt','r',encoding='utf-8') as f:
+#	for line in f:
+#		line = line.strip('\n')
+#		line = line.split(' ')
+#		print(line[0],line[1],line[2],line[3],senseCategory(line[3]))
+
+#with open('prList1.txt','r',encoding='utf-8') as f: # read prlist 
+#	for line in f:
+#		line = line.strip('\n')
+#		line = line.split(' ')
+#		print(line[0],line[1],line[len(line)-6],line[len(line)-5],line[len(line)-4],line[len(line)-3],line[len(line)-2],line[len(line)-1])											
