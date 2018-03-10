@@ -62,6 +62,7 @@ def readData2(fileName): # words as features
 			target.append(feat[0])
 			for i in range(1,len(feat),2):
 				feature = feat[i]
+				#if(feature[2:]=='NS'):continue #ignore NS
 				auxList[feature] = int(feat[i+1])	
 			data.append(auxList)	
 			cont+=1
@@ -280,8 +281,10 @@ def normAndRed(trainData,testData,trainTarget):
 	return ex_trainData,ex_testData
 	
 def clasif_results():
-	trainFile1  = 'Semcor/featSemcor.txt'
-	trainFile2  = 'Semcor/wordSemcor.txt'
+	trainFile1S  = 'Semcor/featSemcor.txt'
+	trainFile2S  = 'Semcor/wordSemcor.txt'
+	trainFile1A  = 'Record/Results/featListA.txt'
+	trainFile2A  = 'Record/Results/wordListA.txt'	
 	testFile1   = 'Results/Labeled/featList1.txt'
 	testFile2   = 'Results/Labeled/wordList1.txt'
 	
@@ -289,8 +292,15 @@ def clasif_results():
 	#testData,testTarget=readData(testFile1)	
 	#trainData,trainTarget=readData2(trainFile2)
 	#testData,testTarget=readData2(testFile2)	
-	trainData,trainTarget=readData3(trainFile1,trainFile2)
-	testData,testTarget=readData3(testFile1,testFile2)
+	#trainData,trainTarget=readData3(trainFile1,trainFile2)
+	#testData,testTarget=readData3(testFile1,testFile2)
+	
+	trainData1,trainTarget1=readData3(trainFile1S,trainFile2S)
+	trainData2,trainTarget2=readData3(trainFile1A,trainFile2A)
+	testData,testTarget=readData3(testFile1,testFile2)	
+	
+	trainData   = np.concatenate((trainData1,trainData2))
+	trainTarget = trainTarget1 + trainTarget2	
 	
 	X_test = testData 
 	X_train = trainData
@@ -320,7 +330,7 @@ def init_clasif():
 	bayes= GaussianNB()
 	parameters={'priors':[None]}
 	
-	gridCV = GridSearchCV(bayes,parameters,scoring='accuracy', cv = 5)
+	gridCV = GridSearchCV(bayes,parameters,scoring='accuracy', cv = 10)
 	gridCV.fit(ex_data,target)	
 
 

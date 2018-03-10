@@ -1,0 +1,166 @@
+Orden:
+MLPClassifier,SVM,LogisticRegression,LinearDiscriminantAnalysis,KNeighborsClassifier,DecisionTreeClassifier,GaussianNB,SGDClassifier,RandomForestClassifier
+
+Accuracy
+
+I) NO NORMALIZACION Y NO REDUCCION
+
+0.648 (+/-0.198) for {'solver': 'adam', 'alpha': 1, 'activation': 'relu', 'hidden_layer_sizes': 12, 'learning_rate': 'constant'}
+0.660 (+/-0.163) for {'C': 1, 'kernel': 'rbf', 'random_state': 0, 'gamma': 0.1, 'probability': True}
+0.620 (+/-0.230) for {'C': 0.1, 'random_state': 0}
+0.605 (+/-0.199) for {'solver': 'svd'}
+0.579 (+/-0.174) for {'n_neighbors': 15, 'algorithm': 'brute', 'weights': 'uniform'}
+0.588 (+/-0.095) for {'max_features': 'sqrt', 'random_state': 0, 'criterion': 'entropy', 'splitter': 'best'}
+0.578 (+/-0.186) for {'priors': None}
+0.575 (+/-0.166) for {'epsilon': 0.01, 'alpha': 1e-05, 'loss': 'log', 'random_state': 0}
+0.650 (+/-0.132) for {'max_features': 'sqrt', 'random_state': 0, 'n_estimators': 25, 'criterion': 'entropy'}
+
+II) NOMRALIZACION
+
+0.646 (+/-0.130) for {'random_state': 42, 'learning_rate': 'constant', 'alpha': 1, 'hidden_layer_sizes': 12, 'activation': 'tanh', 'solver': 'adam'}
+0.635 (+/-0.173) for {'kernel': 'rbf', 'random_state': 0, 'gamma': 0.1, 'probability': True, 'C': 1}
+0.623 (+/-0.246) for {'random_state': 0, 'C': 0.001}
+0.607 (+/-0.200) for {'solver': 'lsqr'}
+0.596 (+/-0.130) for {'algorithm': 'brute', 'n_neighbors': 11, 'weights': 'uniform'}
+0.588 (+/-0.092) for {'max_features': 'sqrt', 'random_state': 0, 'criterion': 'entropy', 'splitter': 'best'}
+0.567 (+/-0.159) for {'priors': None}
+0.621 (+/-0.233) for {'random_state': 0, 'alpha': 1, 'loss': 'log', 'epsilon': 0.01}
+0.647 (+/-0.137) for {'max_features': 'sqrt', 'random_state': 0, 'criterion': 'entropy', 'n_estimators': 30}
+
+
+III) REDUCCION DE DIMENSIONES
+
+0.616 (+/-0.156) for {'hidden_layer_sizes': (9, 3), 'learning_rate': 'constant', 'solver': 'adam', 'activation': 'tanh', 'alpha': 0.1}
+0.606 (+/-0.167) for {'probability': True, 'C': 1, 'gamma': 0.1, 'kernel': 'rbf', 'random_state': 0}
+0.609 (+/-0.165) for {'C': 0.1, 'random_state': 0}
+0.617 (+/-0.167) for {'solver': 'svd'}
+0.596 (+/-0.127) for {'algorithm': 'brute', 'n_neighbors': 11, 'weights': 'uniform'}
+0.572 (+/-0.060) for {'random_state': 0, 'splitter': 'random', 'max_features': None, 'criterion': 'gini'}
+0.587 (+/-0.098) for {'priors': None}
+0.599 (+/-0.165) for {'epsilon': 0.01, 'loss': 'modified_huber', 'random_state': 0, 'alpha': 0.1}
+0.617 (+/-0.093) for {'n_estimators': 25, 'random_state': 0, 'max_features': 'sqrt', 'criterion': 'gini'}
+
+
+IV) NORMALIZACION Y LUEGO REDUCCION
+
+0.656 (+/-0.132) for {'hidden_layer_sizes': 12, 'random_state': 42, 'solver': 'adam', 'alpha': 1, 'learning_rate': 'constant', 'activation': 'relu'}
+0.649 (+/-0.125) for {'C': 1, 'gamma': 0.1, 'random_state': 0, 'probability': True, 'kernel': 'rbf'}
+0.616 (+/-0.200) for {'C': 0.001, 'random_state': 0}
+0.609 (+/-0.210) for {'solver': 'svd'}
+0.609 (+/-0.158) for {'weights': 'uniform', 'algorithm': 'brute', 'n_neighbors': 33}
+0.588 (+/-0.074) for {'splitter': 'random', 'max_features': None, 'criterion': 'gini', 'random_state': 0}
+0.603 (+/-0.165) for {'priors': None}
+0.609 (+/-0.208) for {'loss': 'modified_huber', 'random_state': 0, 'epsilon': 0.01, 'alpha': 1}
+0.629 (+/-0.162) for {'max_features': 'sqrt', 'criterion': 'gini', 'random_state': 0, 'n_estimators': 25}
+
+
+Precision
+
+I) NO NORMALIZACION Y NO REDUCCION
+
+0.675 (+/-0.212) for {'random_state': 42, 'alpha': 0.1, 'solver': 'adam', 'hidden_layer_sizes': 12, 'activation': 'tanh', 'learning_rate': 'constant'}
+0.659 (+/-0.173) for {'C': 1, 'random_state': 0, 'probability': True, 'gamma': 0.1, 'kernel': 'rbf'}
+0.640 (+/-0.232) for {'C': 1, 'random_state': 0}
+0.635 (+/-0.224) for {'solver': 'svd'}
+0.636 (+/-0.292) for {'n_neighbors': 15, 'algorithm': 'ball_tree', 'weights': 'uniform'}
+0.592 (+/-0.113) for {'random_state': 0, 'criterion': 'gini', 'splitter': 'random', 'max_features': 'log2'}
+0.700 (+/-0.389) for {'priors': None}
+0.631 (+/-0.226) for {'random_state': 0, 'loss': 'modified_huber', 'alpha': 1e-05, 'epsilon': 0.01}
+0.670 (+/-0.160) for {'random_state': 0, 'n_estimators': 30, 'criterion': 'entropy', 'max_features': 'sqrt'}
+
+
+II) NOMRALIZACION
+
+0.665 (+/-0.275) for {'alpha': 10, 'random_state': 42, 'learning_rate': 'constant', 'solver': 'adam', 'activation': 'logistic', 'hidden_layer_sizes': 12}
+0.881 (+/-0.342) for {'C': 1e-05, 'probability': True, 'kernel': 'poly', 'random_state': 0, 'gamma': 0.1}
+0.656 (+/-0.263) for {'C': 0.001, 'random_state': 0}
+0.636 (+/-0.226) for {'solver': 'lsqr'}
+0.706 (+/-0.242) for {'weights': 'uniform', 'n_neighbors': 20, 'algorithm': 'auto'}
+0.592 (+/-0.113) for {'criterion': 'gini', 'splitter': 'random', 'random_state': 0, 'max_features': 'log2'}
+0.704 (+/-0.395) for {'priors': None}
+0.673 (+/-0.296) for {'alpha': 1, 'random_state': 0, 'loss': 'log', 'epsilon': 0.01}
+0.669 (+/-0.162) for {'criterion': 'entropy', 'n_estimators': 30, 'max_features': 'sqrt', 'random_state': 0}
+
+
+III) REDUCCION DE DIMENSIONES
+
+0.669 (+/-0.166) for {'learning_rate': 'constant', 'activation': 'relu', 'random_state': 42, 'hidden_layer_sizes': (9, 3), 'solver': 'adam', 'alpha': 0.01}
+0.644 (+/-0.175) for {'C': 1, 'probability': True, 'random_state': 0, 'gamma': 0.1, 'kernel': 'rbf'}
+0.620 (+/-0.216) for {'C': 0.1, 'random_state': 0}
+0.625 (+/-0.223) for {'solver': 'svd'}
+0.644 (+/-0.277) for {'algorithm': 'auto', 'weights': 'uniform', 'n_neighbors': 20}
+0.594 (+/-0.089) for {'criterion': 'gini', 'max_features': None, 'random_state': 0, 'splitter': 'random'}
+0.658 (+/-0.216) for {'priors': None}
+0.630 (+/-0.260) for {'random_state': 0, 'alpha': 1e-05, 'loss': 'log', 'epsilon': 0.01}
+0.641 (+/-0.186) for {'criterion': 'gini', 'n_estimators': 25, 'max_features': 'sqrt', 'random_state': 0}
+
+
+IV) NORMALIZACION Y LUEGO REDUCCION
+
+0.665 (+/-0.152) for {'learning_rate': 'constant', 'random_state': 42, 'hidden_layer_sizes': 12, 'activation': 'relu', 'solver': 'adam', 'alpha': 1}
+0.875 (+/-0.601) for {'C': 0.0001, 'kernel': 'poly', 'gamma': 0.1, 'random_state': 0, 'probability': True}
+0.639 (+/-0.205) for {'C': 0.001, 'random_state': 0}
+0.625 (+/-0.223) for {'solver': 'svd'}
+0.669 (+/-0.214) for {'n_neighbors': 33, 'weights': 'uniform', 'algorithm': 'ball_tree'}
+0.594 (+/-0.089) for {'criterion': 'gini', 'splitter': 'random', 'max_features': None, 'random_state': 0}
+0.658 (+/-0.216) for {'priors': None}
+0.660 (+/-0.272) for {'loss': 'log', 'random_state': 0, 'epsilon': 0.01, 'alpha': 1}
+0.638 (+/-0.182) for {'criterion': 'gini', 'max_features': 'sqrt', 'n_estimators': 25, 'random_state': 0}
+
+
+Recall
+
+I) NO NORMALIZACION Y NO REDUCCION
+
+1.000 (+/-0.000) for {'learning_rate': 'constant', 'solver': 'adam', 'activation': 'logistic', 'random_state': 42, 'hidden_layer_sizes': 12, 'alpha': 100}
+0.998 (+/-0.009) for {'C': 1e-05, 'kernel': 'linear', 'probability': True, 'gamma': 0.001, 'random_state': 0}
+0.628 (+/-0.243) for {'C': 0.001, 'random_state': 0}
+0.485 (+/-0.284) for {'solver': 'svd'}
+0.420 (+/-0.151) for {'weights': 'uniform', 'n_neighbors': 5, 'algorithm': 'brute'}
+0.582 (+/-0.159) for {'criterion': 'entropy', 'random_state': 0, 'max_features': 'sqrt', 'splitter': 'best'}
+0.238 (+/-0.299) for {'priors': None}
+0.658 (+/-0.232) for {'random_state': 0, 'epsilon': 0.01, 'alpha': 1, 'loss': 'modified_huber'}
+0.623 (+/-0.157) for {'criterion': 'entropy', 'random_state': 0, 'max_features': 'sqrt', 'n_estimators': 25}
+
+
+II) NOMRALIZACION
+
+1.000 (+/-0.000) for {'alpha': 100, 'activation': 'logistic', 'hidden_layer_sizes': 12, 'random_state': 42, 'solver': 'adam', 'learning_rate': 'constant'}
+0.873 (+/-0.169) for {'random_state': 0, 'kernel': 'rbf', 'gamma': 0.1, 'probability': True, 'C': 0.1}
+0.504 (+/-0.258) for {'random_state': 0, 'C': 10}
+0.486 (+/-0.283) for {'solver': 'lsqr'}
+0.463 (+/-0.182) for {'algorithm': 'brute', 'weights': 'uniform', 'n_neighbors': 11}
+0.581 (+/-0.157) for {'criterion': 'entropy', 'max_features': 'sqrt', 'random_state': 0, 'splitter': 'best'}
+0.201 (+/-0.259) for {'priors': None}
+0.622 (+/-0.186) for {'loss': 'log', 'alpha': 1e-05, 'random_state': 0, 'epsilon': 0.01}
+0.618 (+/-0.152) for {'criterion': 'entropy', 'max_features': 'sqrt', 'random_state': 0, 'n_estimators': 25}
+
+
+III) REDUCCION DE DIMENSIONES
+
+1.000 (+/-0.000) for {'solver': 'adam', 'hidden_layer_sizes': (8, 4, 2), 'alpha': 0.1, 'activation': 'logistic', 'learning_rate': 'constant', 'random_state': 42}
+0.998 (+/-0.009) for {'C': 1e-05, 'kernel': 'linear', 'random_state': 0, 'gamma': 0.001, 'probability': True}
+0.616 (+/-0.233) for {'C': 0.001, 'random_state': 0}
+0.533 (+/-0.261) for {'solver': 'svd'}
+0.454 (+/-0.176) for {'weights': 'uniform', 'n_neighbors': 9, 'algorithm': 'brute'}
+0.577 (+/-0.164) for {'splitter': 'best', 'random_state': 0, 'max_features': 'sqrt', 'criterion': 'gini'}
+0.405 (+/-0.289) for {'priors': None}
+0.664 (+/-0.237) for {'epsilon': 0.01, 'random_state': 0, 'alpha': 1, 'loss': 'modified_huber'}
+0.618 (+/-0.185) for {'n_estimators': 25, 'random_state': 0, 'max_features': 'sqrt', 'criterion': 'gini'}
+
+
+IV) NORMALIZACION Y LUEGO REDUCCION
+
+1.000 (+/-0.000) for {'activation': 'logistic', 'learning_rate': 'constant', 'solver': 'adam', 'hidden_layer_sizes': (8, 4, 2), 'random_state': 42, 'alpha': 0.01}
+0.864 (+/-0.221) for {'random_state': 0, 'probability': True, 'C': 1e-05, 'kernel': 'rbf', 'gamma': 0.1}
+0.535 (+/-0.266) for {'C': 1, 'random_state': 0}
+0.533 (+/-0.261) for {'solver': 'svd'}
+0.512 (+/-0.130) for {'n_neighbors': 9, 'algorithm': 'brute', 'weights': 'uniform'}
+0.576 (+/-0.164) for {'splitter': 'best', 'criterion': 'gini', 'random_state': 0, 'max_features': 'sqrt'}
+0.405 (+/-0.289) for {'priors': None}
+0.536 (+/-0.250) for {'epsilon': 0.01, 'loss': 'log', 'random_state': 0, 'alpha': 0.01}
+0.613 (+/-0.190) for {'criterion': 'gini', 'n_estimators': 25, 'random_state': 0, 'max_features': 'sqrt'}
+
+
+
+
