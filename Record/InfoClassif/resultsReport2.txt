@@ -1,0 +1,332 @@
+Separados
+Semcor
+
+Relaciones -> NO NORMALIZACION Y NO REDUCCION mlp , svm , random :
+
+mlp
+             precision    recall  f1-score   support
+
+  objective       0.60      0.70      0.65       215
+ subjective       0.74      0.65      0.69       285
+
+avg / total       0.68      0.67      0.67       500
+
+[[150  65]
+ [100 185]]
+
+svm
+             precision    recall  f1-score   support
+
+  objective       0.44      0.66      0.53       166
+ subjective       0.78      0.58      0.66       334
+
+avg / total       0.66      0.61      0.62       500
+
+[[110  56]
+ [140 194]]
+
+random forest
+             precision    recall  f1-score   support
+
+  objective       0.43      0.60      0.50       180
+ subjective       0.71      0.56      0.62       320
+
+avg / total       0.61      0.57      0.58       500
+
+[[108  72]
+ [142 178]]
+
+
+Palabras   -> NORMALIZACION mlp , svm , random  
+
+
+mlp
+             precision    recall  f1-score   support
+
+  objective       0.47      0.75      0.58       155
+ subjective       0.85      0.61      0.71       345
+
+avg / total       0.73      0.66      0.67       500
+
+[[117  38]
+ [133 212]]
+
+svm
+             precision    recall  f1-score   support
+
+  objective       0.44      0.73      0.55       150
+ subjective       0.84      0.60      0.70       350
+
+avg / total       0.72      0.64      0.66       500
+
+[[110  40]
+ [140 210]]
+
+random forest
+             precision    recall  f1-score   support
+
+  objective       0.42      0.69      0.53       153
+ subjective       0.81      0.59      0.68       347
+
+avg / total       0.69      0.62      0.63       500
+
+[[106  47]
+ [144 203]]
+
+Relaciones y Palabras ->  NO NORMALIZACION Y NO REDUCCION mlp , svm , random 
+
+
+mlp
+             precision    recall  f1-score   support
+
+  objective       0.53      0.71      0.60       187
+ subjective       0.78      0.62      0.69       313
+
+avg / total       0.69      0.65      0.66       500
+
+[[132  55]
+ [118 195]]
+
+svm
+             precision    recall  f1-score   support
+
+  objective       0.46      0.76      0.57       150
+ subjective       0.86      0.61      0.71       350
+
+avg / total       0.74      0.66      0.67       500
+
+[[114  36]
+ [136 214]]
+
+random forest
+             precision    recall  f1-score   support
+
+  objective       0.42      0.68      0.52       152
+ subjective       0.81      0.58      0.68       348
+
+avg / total       0.69      0.61      0.63       500
+
+[[104  48]
+ [146 202]]
+
+
+Oraciones Anotadas (400)
+
+Relaciones -> NO NORMALIZACION Y NO REDUCCION mlp , svm , lda 
+
+mlp
+             precision    recall  f1-score   support
+
+  objective       0.80      0.77      0.79       259
+ subjective       0.76      0.79      0.78       241
+
+avg / total       0.78      0.78      0.78       500
+
+[[200  59]
+ [ 50 191]]
+
+svm
+             precision    recall  f1-score   support
+
+  objective       0.85      0.71      0.77       298
+ subjective       0.66      0.81      0.73       202
+
+avg / total       0.77      0.75      0.75       500
+
+[[212  86]
+ [ 38 164]]
+
+lda
+             precision    recall  f1-score   support
+
+  objective       0.86      0.69      0.77       313
+ subjective       0.61      0.82      0.70       187
+
+avg / total       0.77      0.74      0.74       500
+
+[[216  97]
+ [ 34 153]]
+
+
+Palabras   -> NO NORMALIZACION Y NO REDUCCION mlp , svm , lr  
+
+mlp
+             precision    recall  f1-score   support
+
+  objective       0.74      0.81      0.77       226
+ subjective       0.83      0.76      0.79       274
+
+avg / total       0.79      0.78      0.78       500
+
+[[184  42]
+ [ 66 208]]
+
+svm
+             precision    recall  f1-score   support
+
+  objective       0.80      0.77      0.78       258
+ subjective       0.76      0.79      0.78       242
+
+avg / total       0.78      0.78      0.78       500
+
+[[199  59]
+ [ 51 191]]
+
+logistic
+             precision    recall  f1-score   support
+
+  objective       0.76      0.80      0.78       237
+ subjective       0.81      0.77      0.79       263
+
+avg / total       0.79      0.79      0.79       500
+
+[[190  47]
+ [ 60 203]]
+
+Relaciones y Palabras -> REDUCCION DE DIMENSIONES mlp, lr, random 
+
+mlp
+             precision    recall  f1-score   support
+
+  objective       0.77      0.77      0.77       249
+ subjective       0.77      0.77      0.77       251
+
+avg / total       0.77      0.77      0.77       500
+
+[[192  57]
+ [ 58 193]]
+
+logistic
+             precision    recall  f1-score   support
+
+  objective       0.76      0.77      0.77       244
+ subjective       0.78      0.76      0.77       256
+
+avg / total       0.77      0.77      0.77       500
+
+[[189  55]
+ [ 61 195]]
+
+random forest
+             precision    recall  f1-score   support
+
+  objective       0.68      0.78      0.73       216
+ subjective       0.81      0.71      0.76       284
+
+avg / total       0.75      0.74      0.75       500
+
+[[169  47]
+ [ 81 203]]
+
+
+Semcor + Oraciones Anotadas
+
+Relaciones -> NO NORMALIZACION Y NO REDUCCION mlp, svm , lr 
+
+mlp
+             precision    recall  f1-score   support
+
+  objective       0.67      0.75      0.71       223
+ subjective       0.78      0.70      0.74       277
+
+avg / total       0.73      0.73      0.73       500
+
+[[168  55]
+ [ 82 195]]
+
+svm
+             precision    recall  f1-score   support
+
+  objective       0.66      0.72      0.69       230
+ subjective       0.74      0.69      0.71       270
+
+avg / total       0.70      0.70      0.70       500
+
+[[165  65]
+ [ 85 185]]
+
+logistic
+             precision    recall  f1-score   support
+
+  objective       0.65      0.77      0.70       211
+ subjective       0.80      0.70      0.75       289
+
+avg / total       0.74      0.73      0.73       500
+
+[[162  49]
+ [ 88 201]]
+
+
+Palabras   -> NOMRALIZACION mlp,svc,sgd 
+
+mlp
+             precision    recall  f1-score   support
+
+  objective       0.53      0.80      0.64       165
+ subjective       0.87      0.65      0.74       335
+
+avg / total       0.76      0.70      0.71       500
+
+[[132  33]
+ [118 217]]
+
+svm
+             precision    recall  f1-score   support
+
+  objective       0.56      0.79      0.66       179
+ subjective       0.85      0.66      0.74       321
+
+avg / total       0.75      0.71      0.71       500
+
+[[141  38]
+ [109 212]]
+
+sgd
+             precision    recall  f1-score   support
+
+  objective       0.62      0.79      0.70       196
+ subjective       0.84      0.69      0.75       304
+
+avg / total       0.75      0.73      0.73       500
+
+[[155  41]
+ [ 95 209]]
+
+
+Relaciones y Palabras -> NO NORMALIZACION Y NO REDUCCION mlp,svc,sgd 
+
+mlp
+             precision    recall  f1-score   support
+
+  objective       0.56      0.77      0.65       181
+ subjective       0.84      0.66      0.73       319
+
+avg / total       0.74      0.70      0.70       500
+
+[[140  41]
+ [110 209]]
+
+svm
+             precision    recall  f1-score   support
+
+  objective       0.50      0.81      0.62       155
+ subjective       0.88      0.64      0.74       345
+
+avg / total       0.76      0.69      0.70       500
+
+[[125  30]
+ [125 220]]
+
+sgd
+             precision    recall  f1-score   support
+
+  objective       0.56      0.82      0.67       170
+ subjective       0.88      0.67      0.76       330
+
+avg / total       0.77      0.72      0.73       500
+
+[[140  30]
+ [110 220]]
+
+
+

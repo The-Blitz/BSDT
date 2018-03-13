@@ -1,0 +1,19 @@
+Accuracy (soft ,hard)
+
+Semcor
+
+Relaciones -> NO NORMALIZACION Y NO REDUCCION mlp , svm , random -> 0.678 (+/-0.183) ; 0.664 (+/-0.190) 
+Palabras   -> NORMALIZACION mlp , svm , random  -> 0.661 (+/-0.176) ; 0.670 (+/-0.176) 
+Relaciones y Palabras ->  NO NORMALIZACION Y NO REDUCCION mlp , svm , random -> 0.669 (+/-0.209) ; 0.682 (+/-0.192) 
+
+Oraciones Anotadas (400)
+
+Relaciones -> NO NORMALIZACION Y NO REDUCCION mlp , svm , lda ->  0.793 (+/-0.074) ; 0.798 (+/-0.052) 
+Palabras   -> NO NORMALIZACION Y NO REDUCCION mlp , svm , lr  ->  0.855 (+/-0.116) ; 0.853 (+/-0.101) 
+Relaciones y Palabras -> REDUCCION DE DIMENSIONES mlp, lr, random -> 0.840 (+/-0.133);0.847 (+/-0.123)
+
+Semcor + Oraciones Anotadas
+
+Relaciones -> NO NORMALIZACION Y NO REDUCCION mlp, svm , lr -> 0.664 (+/-0.183) ; 0.662 (+/-0.190) 
+Palabras   -> NOMRALIZACION mlp,svc,sgd -> 0.679 (+/-0.197) ; 0.686 (+/-0.196) 
+Relaciones y Palabras -> NO NORMALIZACION Y NO REDUCCION mlp,svc,sgd -> 0.694 (+/-0.216) ; 0.698 (+/-0.211) 

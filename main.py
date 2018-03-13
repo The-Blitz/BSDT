@@ -12,7 +12,7 @@ from sklearn.decomposition import PCA
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn.model_selection import GridSearchCV
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, VotingClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import validation_curve
@@ -20,6 +20,7 @@ from sklearn.preprocessing import normalize
 from sklearn.metrics import roc_curve, auc
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import cross_val_score
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -97,6 +98,7 @@ def readData3(fileName1,fileName2): # relations and words together as features
 def test_clasif(name,clasi,X_test,X_train,Y_test,Y_train,parameters,classes):
 	le = LabelEncoder()
 	Y_train=le.fit_transform(Y_train)
+	Y_test=le.transform(Y_test)
 	with warnings.catch_warnings():
 		gridCV = GridSearchCV(clasi,parameters,scoring='accuracy', cv = 10)
 		gridCV.fit(X_train,Y_train)
@@ -111,9 +113,9 @@ def test_clasif(name,clasi,X_test,X_train,Y_test,Y_train,parameters,classes):
 				print("%0.3f (+/-%0.03f) for %r"
 				% (mean, std * 2, params))
 		
-		#print(name)
-		#print(classification_report(result,Y_test,target_names=classes))
-		#print(confusion_matrix(result,Y_test))
+		print(name)
+		print(classification_report(result,Y_test,target_names=classes))
+		print(confusion_matrix(result,Y_test))
 	return gridCV.predict_proba(X_test)[:,1]	
 
 def get_importances(clf,data):
@@ -168,43 +170,6 @@ def plotROCCurve(models , predictions , test):
 	#plt.show()
 	plt.savefig('image.jpg')
 	
-
-def showParameters(X_test,X_train,Y_test,Y_train):
-	mlp  = MLPClassifier()
-	parameters={'hidden_layer_sizes': [(12,)], 'activation': ["tanh"], 'solver' : ['adam'],'alpha':[0.01], 'learning_rate': ["adaptive"],'random_state': [42]}
-	prob=test_clasif('mlp',mlp,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	svc = svm.SVC()
-	parameters={'C': [1],	'kernel': ['linear'],	'gamma' : [0.001],'random_state':[0] , 'probability':[True]}
-	prob=test_clasif('svm',svc,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	lr  = LogisticRegression()
-	parameters={'C':[100],'random_state':[0]}
-	prob=test_clasif('logistic',lr,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	lda = LinearDiscriminantAnalysis()
-	parameters={'solver':['svd']}
-	prob=test_clasif('lda',lda,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective']);
-	
-	knn = KNeighborsClassifier()
-	parameters={'n_neighbors':[25],'weights':['uniform'],'algorithm': ['brute']}
-	prob=test_clasif('k neighbors',knn,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	tree= DecisionTreeClassifier()
-	parameters={'criterion':['gini'],'splitter':['random'],'max_features':[None],'random_state':[0]}
-	prob=test_clasif('decision tree',tree,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	bayes= GaussianNB()
-	parameters={'priors':[None]}
-	prob=test_clasif('naive bayes',bayes,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	sgd = SGDClassifier()
-	parameters={'loss':['log'],'alpha':[0.001],'epsilon':[0.01],'random_state':[0]}
-	prob=test_clasif('sgd',sgd,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
-	
-	random= RandomForestClassifier()
-	parameters={'n_estimators':[25],'criterion':['entropy'],'max_features':[None],'random_state':[0]}
-	prob=test_clasif('random forest',random,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
 	
 def searchParameters(X_test,X_train,Y_test,Y_train):	
 	#plotValidationCurve('random' , 'n_estimators' , random , X_train, Y_train)
@@ -260,6 +225,25 @@ def searchParameters(X_test,X_train,Y_test,Y_train):
 	
 	#plotROCCurve(['mlp','svm','logistic' , 'lda', 'knn','decision tree','Naive Bayes' , 'sgd' , 'random forest'], predictions,Y_test)
 
+def showResults(X_test,X_train,Y_test,Y_train):
+
+	mlp  = MLPClassifier()
+	parameters={'hidden_layer_sizes': [(12,)], 'activation': ["tanh"], 'solver' : ['adam'],'alpha':[0.1], 'learning_rate': ["constant"],'random_state': [42]}
+	prob=test_clasif('mlp',mlp,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+	
+	svc = svm.SVC()
+	parameters={'C': [1],	'kernel': ['rbf'],'gamma' : [0.01],'random_state':[0] , 'probability':[True]}
+	prob=test_clasif('svm',svc,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])	
+	
+	sgd = SGDClassifier()
+	parameters={'loss':['modified_huber'],'alpha':[1],'epsilon':[0.01],'random_state':[0]}
+	prob=test_clasif('sgd',sgd,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])
+
+	#vclf = VotingClassifier(estimators=[('mlp', mlp), ('svm', svc), ('sgd', sgd)], voting='soft')
+	#scores = cross_val_score(vclf,X_train,Y_train,scoring='accuracy', cv = 10)
+	#print("%0.3f (+/-%0.03f) "% (scores.mean(), scores.std() * 2))
+	
+
 def normalization(trainData,testData):
 	scaler = StandardScaler()
 	norm_train = scaler.fit_transform(trainData)
@@ -285,14 +269,14 @@ def clasif_results():
 	trainFile2S  = 'Semcor/wordSemcor.txt'
 	trainFile1A  = 'Record/Results/featListA.txt'
 	trainFile2A  = 'Record/Results/wordListA.txt'	
-	testFile1   = 'Results/Labeled/featList1.txt'
-	testFile2   = 'Results/Labeled/wordList1.txt'
+	testFile1   = 'Results/Test/featList1.txt'
+	testFile2   = 'Results/Test/wordList1.txt'
 	
-	#trainData,trainTarget=readData(trainFile1)
+	#trainData,trainTarget=readData(trainFile1A)
 	#testData,testTarget=readData(testFile1)	
-	#trainData,trainTarget=readData2(trainFile2)
+	#trainData,trainTarget=readData2(trainFile2A)
 	#testData,testTarget=readData2(testFile2)	
-	#trainData,trainTarget=readData3(trainFile1,trainFile2)
+	#trainData,trainTarget=readData3(trainFile1A,trainFile2A)
 	#testData,testTarget=readData3(testFile1,testFile2)
 	
 	trainData1,trainTarget1=readData3(trainFile1S,trainFile2S)
@@ -311,8 +295,8 @@ def clasif_results():
 	#X_train,X_test=dimReduction(X_train,X_test,Y_train)
 	#X_train,X_test=normAndRed(X_train,X_test,Y_train)
 	
-	#showParameters(X_test,X_train,Y_test,Y_train)
-	searchParameters(X_test,X_train,Y_test,Y_train)
+	#searchParameters(X_test,X_train,Y_test,Y_train)
+	showResults(X_test,X_train,Y_test,Y_train)
 
 def init_clasif():
 	trainFile  = 'Semcor/featSemcor.txt'
