@@ -1,0 +1,400 @@
+O	A-HS A-HS grup.a	1	N-HS V-MS cd	1	N-LS A-HS s.a	2	N-LS V-MS S	1	N-LS V-NS cd	1	N-NS A-HS s.a	2	N-NS V-NS S	1	N-NS V-NS cd	3	V-MS V-HS cc	1	V-NS V-NS S	1	
+O	N-NS A-NS s.a	2	N-NS R-HS sadv	1	N-NS V-MS S	1	N-NS V-MS atr	1	N-NS V-NS S	1	N-NS V-NS cd	1	N-NS V-NS suj	1	
+O	A-NS V-MS atr	1	N-NS N-HS grup.nom	1	
+O	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS V-MS atr	1	N-NS V-NS S	2	N-NS V-NS cd	2	
+O	N-NS A-HS s.a	3	N-NS A-NS s.a	1	N-NS N-NS sn	1	N-NS V-HS S	1	N-NS V-LS S	1	
+O	N-HS A-HS s.a	1	N-HS N-HS sn	1	N-HS V-NS cd	1	N-NS N-HS sn	1	
+O	N-NS V-MS S	1	N-NS V-NS S	1	
+O	N-NS N-NS sn	1	N-NS V-MS cd	1	N-NS V-MS suj	2	N-NS V-NS S	1	R-HS V-MS cc	1	V-MS V-MS atr	1	V-NS V-NS S	1	
+O	
+O	N-LS A-HS s.a	1	N-LS V-NS S	1	N-NS V-MS suj	1	V-NS V-MS cd	1	
+O	N-NS V-LS cd	1	N-NS V-NS suj	1	
+O	N-NS V-MS atr	1	N-NS V-MS suj	1	R-HS V-NS mod	1	V-NS V-MS S	1	V-NS V-MS cd	1	
+O	A-MS V-MS cpred	1	N-NS A-HS S	1	N-NS V-MS suj	1	N-NS V-NS cd	1	V-NS V-MS cc	1	
+O	A-HS A-HS grup.a	1	A-HS R-NS sadv	1	A-HS R-NS spec	1	N-HS V-NS s.a	1	N-NS A-HS s.a	1	N-NS A-NS s.a	2	V-NS V-NS S	1	
+O	A-HS R-HS spec	1	N-HS A-HS s.a	1	N-LS A-HS s.a	2	N-LS V-NS cd	2	N-MS A-MS s.a	1	N-NS V-LS S	1	N-NS V-MS atr	1	R-HS V-NS mod	1	R-NS V-NS cc	1	V-NS V-LS S	1	V-NS V-LS cd	1	V-NS V-NS S	1	V-NS V-NS cd	1	
+O	N-NS N-NS sn	1	N-NS V-NS suj	1	
+O	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS V-NS cd	1	
+O	A-MS V-MS v	1	N-NS A-HS s.a	1	N-NS A-NS S	1	N-NS A-NS s.a	1	N-NS V-NS S	1	V-NS V-MS v	1	
+O	N-LS V-NS S	1	N-NS N-NS s.a	1	N-NS V-NS S	1	N-NS V-NS cd	1	
+O	A-HS R-NS spec	1	N-NS A-HS s.a	1	N-NS N-NS grup.nom	1	N-NS V-MS S	1	N-NS V-MS atr	1	N-NS V-NS S	1	N-NS V-NS cd	1	V-NS V-MS cc	1	
+O	N-LS N-HS sn	1	N-MS N-HS sn	1	N-NS V-MS atr	1	
+O	N-NS A-HS s.a	2	N-NS V-NS S	1	N-NS V-NS cd	1	
+O	N-MS A-NS s.a	1	N-NS A-NS s.a	1	
+O	N-NS A-HS s.a	1	N-NS V-NS suj	1	
+O	N-HS V-NS cd	1	N-LS V-LS S	1	N-LS V-LS suj	1	N-MS V-LS cd	1	V-NS V-LS S	1	V-NS V-LS cd	2	
+O	N-NS A-HS s.a	1	N-NS N-MS sn	1	N-NS V-MS atr	1	N-NS V-NS S	1	
+O	N-MS N-HS grup.nom	1	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS V-MS S	1	N-NS V-NS S	1	N-NS V-NS cd	1	N-NS V-NS suj	2	
+O	N-HS A-HS s.a	1	N-HS N-HS grup.nom	1	N-HS V-HS cd	1	N-LS V-NS S	1	N-NS V-LS cd	1	N-NS V-NS cd	1	N-NS V-NS suj	1	R-NS V-NS cc	1	V-NS V-HS S	1	
+O	N-LS V-MS S	1	N-NS A-HS s.a	1	N-NS A-LS s.a	1	N-NS A-NS s.a	1	N-NS N-HS sn	1	N-NS N-LS sn	1	N-NS N-NS sn	2	N-NS V-MS atr	1	
+O	N-NS A-MS s.a	1	N-NS N-NS sn	1	N-NS V-NS S	1	
+O	A-NS V-LS S	1	N-NS A-HS s.a	2	N-NS A-NS s.a	3	N-NS N-NS grup.nom	1	N-NS N-NS sn	1	N-NS V-NS S	2	N-NS V-NS cd	2	
+O	N-NS A-NS s.a	1	N-NS V-NS S	2	N-NS V-NS cd	1	N-NS V-NS suj	1	V-NS V-NS v	1	
+O	N-NS A-HS s.a	3	N-NS A-LS s.a	1	N-NS V-NS S	1	N-NS V-NS suj	3	V-NS V-NS S	1	V-NS V-NS v	1	
+O	N-NS A-HS s.a	1	N-NS A-LS S	1	N-NS V-NS cd	1	N-NS V-NS suj	1	R-HS V-LS mod	1	V-LS V-MS cd	1	V-NS V-LS ao	1	V-NS V-NS S	1	
+O	A-HS V-MS S	1	A-LS R-HS cc	1	A-MS R-HS spec	1	A-MS V-MS atr	1	N-NS A-LS S	1	N-NS A-MS s.a	1	N-NS V-MS S	2	N-NS V-MS suj	1	N-NS V-NS cd	3	R-HS V-MS atr	1	R-HS V-MS mod	1	V-NS V-LS infinitiu	1	
+O	A-HS V-LS cpred	1	N-HS A-HS s.a	1	N-NS N-NS grup.nom	1	N-NS V-LS S	1	N-NS V-LS cd	1	N-NS V-NS S	1	N-NS V-NS cpred	1	V-NS V-NS S	1	
+O	
+O	N-NS A-LS s.a	1	N-NS N-NS s.a	1	
+O	N-NS V-LS S	1	N-NS V-MS suj	1	N-NS V-NS cd	1	V-LS V-MS cd	1	
+O	N-HS A-NS s.a	1	N-HS V-MS suj	1	N-NS A-HS s.a	3	N-NS A-NS s.a	1	N-NS N-NS s.a	1	N-NS N-NS sn	1	N-NS V-MS suj	2	N-NS V-NS S	1	N-NS V-NS cd	1	R-HS V-HS cc	1	V-MS V-HS cpred	1	V-NS V-MS cc	1	V-NS V-NS cd	1	
+O	N-LS V-MS suj	1	N-NS A-HS s.a	1	N-NS A-NS s.a	2	N-NS N-NS sn	1	N-NS V-MS atr	1	N-NS V-NS S	1	
+O	N-NS A-HS s.a	2	N-NS A-NS S	1	N-NS A-NS s.a	1	N-NS V-NS S	1	N-NS V-NS cd	1	N-NS V-NS suj	1	
+O	N-HS A-NS s.a	1	N-NS A-HS s.a	1	N-NS N-NS grup.nom	3	
+O	A-NS A-NS grup.a	1	N-MS A-HS s.a	1	N-MS V-NS suj	1	N-NS A-NS s.a	1	N-NS N-NS s.a	1	N-NS V-NS S	1	
+O	N-NS A-NS s.a	1	N-NS V-NS cd	1	R-HS V-HS cc	1	V-NS V-HS cc	1	
+O	N-MS A-HS s.a	1	N-NS A-HS s.a	1	N-NS V-LS suj	1	
+O	N-LS V-LS suj	1	N-NS A-NS s.a	2	V-NS V-LS S	1	
+O	
+O	A-HS V-MS atr	1	N-MS V-NS S	1	N-MS V-NS cd	1	N-NS V-MS S	1	N-NS V-NS suj	1	R-NS V-NS cc	1	
+O	A-MS R-NS spec	1	N-NS A-MS s.a	1	N-NS N-NS s.a	1	N-NS N-NS sn	5	N-NS V-MS atr	1	N-NS V-NS S	1	V-NS V-MS v	1	
+O	N-LS A-HS S	1	N-NS N-NS s.a	1	N-NS V-LS cd	1	N-NS V-LS suj	1	N-NS V-NS S	1	
+O	A-HS R-NS spec	1	N-MS N-HS grup.nom	2	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS N-HS grup.nom	1	N-NS N-HS sn	1	N-NS N-NS sn	1	
+O	N-NS A-HS s.a	3	N-NS N-NS s.a	1	N-NS V-HS s.a	1	N-NS V-LS cd	1	N-NS V-MS S	1	N-NS V-MS suj	1	N-NS V-NS S	1	R-HS V-NS cc	1	V-LS V-MS cd	1	
+O	A-NS V-NS cpred	1	N-NS A-HS s.a	2	N-NS N-NS s.a	1	N-NS V-LS cd	1	N-NS V-NS suj	1	V-NS V-LS S	1	V-NS V-LS cd	1	V-NS V-LS infinitiu	1	
+O	A-LS V-HS s.a	1	A-NS A-NS grup.a	1	N-LS N-HS s.a	1	N-NS A-HS s.a	2	N-NS A-NS s.a	3	N-NS N-NS sn	1	N-NS V-HS suj	1	N-NS V-NS S	1	N-NS V-NS cd	1	V-NS V-HS S	1	
+O	N-HS A-HS s.a	1	N-NS V-NS suj	2	V-NS V-HS cc	1	V-NS V-HS cd	1	V-NS V-MS v	1	V-NS V-NS S	1	V-NS V-NS cc	1	
+O	A-MS A-HS cc	1	N-NS N-HS grup.nom	1	N-NS N-HS sn	1	N-NS N-NS sn	1	
+O	N-NS A-HS s.a	1	N-NS V-NS cd	1	N-NS V-NS suj	1	R-HS V-NS cc	1	
+O	A-HS V-LS suj	1	N-HS V-NS S	1	N-HS V-NS cd	1	N-NS A-HS s.a	1	N-NS V-NS suj	1	V-MS V-MS v	1	V-NS V-LS cc	1	V-NS V-LS v	1	V-NS V-NS v	1	
+O	N-NS A-HS s.a	1	
+O	A-HS V-MS atr	1	N-LS A-NS s.a	1	N-LS V-MS suj	1	N-MS A-HS s.a	1	N-MS V-MS S	1	N-NS N-MS sn	1	N-NS V-MS atr	1	N-NS V-MS cd	1	N-NS V-MS suj	1	V-LS V-MS S	1	V-LS V-MS infinitiu	1	V-MS V-MS cd	1	
+O	N-NS A-HS s.a	1	N-NS A-NS S	1	N-NS A-NS s.a	2	N-NS V-NS S	1	
+O	N-HS V-MS cd	1	N-NS A-HS s.a	2	N-NS N-NS sn	2	N-NS V-HS S	1	N-NS V-NS S	2	N-NS V-NS cd	1	N-NS V-NS suj	1	
+O	N-NS A-HS s.a	1	N-NS N-LS s.a	1	N-NS V-NS cd	2	V-NS V-NS cc	1	
+O	N-HS A-MS s.a	1	N-NS A-HS s.a	1	N-NS N-NS S	1	N-NS N-NS cd	1	N-NS V-NS cc	1	N-NS V-NS suj	1	V-NS V-MS v	1	
+O	
+O	N-NS A-LS s.a	1	N-NS A-NS s.a	1	
+O	N-NS V-NS S	1	N-NS V-NS cd	2	N-NS V-NS suj	1	V-NS V-NS S	1	
+O	N-MS N-HS s.a	1	N-MS V-NS cd	1	N-NS V-NS S	2	V-NS V-HS cc	1	
+O	N-HS V-NS cd	1	N-LS A-NS s.a	1	N-NS A-NS s.a	3	N-NS V-NS S	1	V-NS V-MS cc	1	V-NS V-NS v	1	
+O	N-LS V-NS grup.nom	1	N-NS V-MS suj	1	V-NS V-HS suj	1	V-NS V-MS cd	1	
+O	N-HS A-NS s.a	1	N-HS V-NS suj	1	N-NS A-HS s.a	1	N-NS N-HS sn	1	
+O	
+O	N-NS V-LS S	1	N-NS V-NS cd	2	
+O	N-LS A-HS s.a	1	N-MS A-HS S	1	N-MS V-HS cd	1	N-NS A-HS s.a	3	N-NS V-HS S	1	
+O	N-HS A-HS s.a	1	N-HS V-LS cd	1	N-MS N-HS sn	1	N-NS V-NS suj	1	V-NS V-LS S	1	
+O	N-LS A-HS s.a	1	N-LS V-LS S	1	N-LS V-NS S	1	N-NS A-HS S	1	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS V-HS suj	1	N-NS V-NS S	2	N-NS V-NS cd	2	R-NS V-NS cc	1	V-NS V-HS S	1	V-NS V-LS cd	1	
+O	A-HS R-HS spec	1	A-HS V-MS atr	1	N-LS A-HS S	1	N-LS V-MS atr	1	N-LS V-NS S	1	N-NS V-MS suj	1	R-HS V-MS mod	1	
+O	N-LS A-HS s.a	1	N-NS V-LS suj	2	R-HS V-LS cc	1	V-LS V-LS cc	1	V-NS V-LS v	1	
+O	
+O	N-NS N-HS sn	1	N-NS N-NS sn	2	N-NS V-MS suj	1	
+O	N-NS A-NS s.a	1	N-NS V-LS S	1	N-NS V-LS suj	1	N-NS V-NS S	1	V-NS V-NS S	1	
+O	N-NS A-LS S	1	N-NS V-MS suj	1	
+O	N-LS A-NS s.a	1	N-NS N-NS grup.nom	1	N-NS N-NS s.a	1	N-NS V-NS S	1	
+O	N-HS V-NS S	1	N-NS A-HS s.a	1	N-NS V-LS S	1	N-NS V-NS cd	1	V-NS V-LS cd	1	V-NS V-NS cd	1	
+O	N-NS V-NS cd	1	N-NS V-NS suj	1	V-NS V-NS suj	1	
+O	N-NS V-NS S	1	N-NS V-NS cd	2	N-NS V-NS suj	1	V-NS V-NS S	1	
+O	N-NS V-NS cd	1	N-NS V-NS suj	2	
+O	N-NS V-NS cd	1	
+O	N-LS V-NS cd	1	N-MS V-LS cd	1	N-NS V-LS suj	1	
+O	N-NS A-HS s.a	1	N-NS N-NS sn	1	N-NS V-NS cd	1	N-NS V-NS suj	3	V-NS V-LS cc	1	V-NS V-NS cc	1	
+O	N-HS A-LS s.a	1	N-HS V-MS S	1	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS V-MS atr	1	
+O	A-HS V-HS s.a	1	N-HS V-NS cd	1	N-LS V-HS sn	1	N-NS A-NS s.a	1	N-NS N-NS grup.nom	1	N-NS N-NS sn	1	N-NS V-LS suj	1	N-NS V-NS S	1	N-NS V-NS cd	1	N-NS V-NS suj	1	V-LS V-MS v	1	V-NS V-NS cc	1	
+O	N-LS V-LS suj	1	N-NS V-LS suj	1	N-NS V-NS cd	1	R-NS V-LS cc	1	V-LS V-MS v	1	
+O	N-NS V-MS atr	1	N-NS V-NS S	1	N-NS V-NS suj	1	V-NS V-NS v	1	
+O	N-NS A-HS s.a	1	N-NS V-NS suj	1	V-NS V-NS cc	1	
+O	N-NS A-NS spec	1	N-NS V-MS S	1	N-NS V-NS S	2	N-NS V-NS cd	1	
+O	A-HS R-HS cc	1	N-NS A-HS S	1	N-NS A-NS S	1	N-NS N-NS sn	2	N-NS V-NS S	1	N-NS V-NS cd	1	
+O	N-NS A-HS s.a	1	N-NS V-MS atr	2	N-NS V-NS S	1	V-MS V-MS S	1	V-NS V-MS v	1	
+O	N-NS V-NS S	1	
+O	N-NS A-HS s.a	2	N-NS A-NS s.a	2	N-NS N-NS sn	1	N-NS V-LS cd	1	N-NS V-LS suj	1	V-NS V-LS v	1	
+O	N-HS A-HS s.a	1	N-LS A-HS s.a	1	N-NS N-LS sn	1	N-NS N-NS sn	1	N-NS V-NS cd	1	
+O	N-NS A-HS s.a	1	N-NS N-NS S	1	N-NS N-NS grup.nom	3	N-NS V-NS cc	1	
+O	N-NS A-NS S	1	N-NS A-NS s.a	1	
+O	N-NS V-NS S	1	N-NS V-NS cd	2	
+O	A-MS V-MS v	1	N-HS A-NS S	1	N-HS V-NS S	1	N-NS A-NS s.a	1	N-NS N-NS sn	1	N-NS V-NS cd	2	V-NS V-NS cd	1	
+O	N-NS A-HS s.a	1	N-NS V-LS S	1	N-NS V-LS cd	1	
+O	A-HS V-MS atr	1	N-LS A-NS s.a	1	N-LS V-LS cd	1	N-NS V-LS suj	1	N-NS V-NS cd	1	N-NS V-NS suj	1	R-HS V-LS mod	1	V-LS V-MS S	1	V-NS V-LS S	1	V-NS V-NS S	1	
+O	N-NS V-HS suj	1	V-NS V-HS S	1	
+O	N-NS V-NS cd	1	
+O	N-LS V-NS cd	1	N-NS A-HS s.a	1	N-NS V-MS suj	1	N-NS V-NS suj	2	V-NS V-MS cd	1	V-NS V-NS S	1	
+O	N-NS A-NS s.a	1	N-NS N-LS grup.nom	1	N-NS N-NS grup.nom	1	N-NS V-HS S	1	N-NS V-NS cd	1	V-NS V-HS cd	1	
+O	N-NS A-NS s.a	1	
+O	N-NS A-HS s.a	1	N-NS A-MS s.a	1	N-NS V-NS suj	1	
+O	N-HS V-NS cd	1	N-NS A-NS s.a	1	N-NS N-NS sn	1	N-NS V-LS S	1	N-NS V-MS atr	1	N-NS V-NS suj	1	V-NS V-NS cd	1	
+O	N-LS A-HS s.a	1	N-NS V-MS suj	1	V-NS V-MS cd	1	V-NS V-MS v	1	
+O	
+O	A-HS V-HS S	1	N-NS A-HS s.a	1	N-NS A-LS s.a	1	N-NS A-LS sn	1	N-NS V-NS cd	1	V-NS V-NS S	1	
+O	A-HS R-HS spec	1	N-HS A-MS s.a	1	N-NS A-HS s.a	2	N-NS A-NS s.a	1	N-NS V-MS S	1	N-NS V-NS S	1	N-NS V-NS cd	2	N-NS V-NS suj	1	V-NS V-NS S	1	
+O	
+O	N-LS N-MS sn	1	N-LS V-HS suj	1	N-LS V-NS S	1	N-NS A-HS s.a	1	N-NS A-MS s.a	1	N-NS N-HS grup.nom	1	N-NS N-LS sn	1	N-NS V-HS cd	1	N-NS V-MS cd	1	
+O	N-HS V-HS cd	1	N-MS N-HS sn	1	N-MS V-NS S	1	N-NS A-NS s.a	1	N-NS V-LS S	1	
+O	A-NS V-MS atr	1	N-NS A-HS s.a	2	N-NS A-LS S	1	N-NS N-NS sn	2	N-NS V-HS S	1	N-NS V-HS suj	1	N-NS V-MS S	1	N-NS V-NS suj	1	
+O	N-NS A-HS S	1	N-NS A-HS s.a	1	N-NS V-LS cc	1	N-NS V-LS suj	1	
+O	N-LS A-HS s.a	1	N-NS V-MS S	1	N-NS V-NS S	1	N-NS V-NS suj	2	R-HS V-NS cc	1	
+O	N-NS A-HS s.a	1	N-NS V-NS suj	1	
+O	A-NS A-HS s.a	1	N-NS N-NS sn	1	N-NS V-NS cd	1	N-NS V-NS suj	1	
+O	N-NS V-NS suj	1	
+O	N-NS V-NS cd	1	
+O	N-NS A-HS s.a	1	N-NS N-HS sn	1	N-NS V-NS S	1	N-NS V-NS cd	1	
+O	N-NS A-MS s.a	1	N-NS R-NS sn	1	N-NS V-HS S	1	N-NS V-LS S	1	N-NS V-NS S	1	N-NS V-NS suj	1	R-NS V-NS cc	1	
+O	N-LS A-HS s.a	1	N-LS V-NS suj	1	N-NS R-NS v	1	N-NS V-HS cc	1	N-NS V-NS S	1	V-NS V-HS S	1	
+O	N-HS A-HS s.a	1	N-HS A-MS s.a	1	N-HS N-HS grup.nom	1	N-HS V-LS S	1	N-HS V-NS suj	1	N-NS V-LS cd	1	N-NS V-NS S	1	N-NS V-NS suj	1	V-NS V-LS S	1	
+O	N-HS A-HS s.a	1	N-HS V-NS S	1	N-HS V-NS cd	1	N-NS N-NS grup.nom	1	N-NS N-NS sn	1	N-NS V-NS S	2	N-NS V-NS cd	2	N-NS V-NS suj	1	V-NS V-NS cpred	1	
+O	N-LS A-HS s.a	1	N-NS N-LS grup.nom	1	N-NS N-LS sn	2	N-NS V-NS S	1	
+O	N-NS A-HS s.a	1	N-NS A-MS s.a	1	N-NS V-NS suj	1	V-NS V-HS suj	1	V-NS V-NS S	2	
+O	N-NS A-HS s.a	1	
+O	N-MS V-NS S	1	N-NS A-NS s.a	1	N-NS N-NS grup.nom	1	N-NS V-NS S	1	
+O	N-NS A-HS s.a	1	N-NS R-NS S	1	N-NS V-HS S	1	N-NS V-NS suj	1	R-NS V-NS cc	1	
+O	N-HS V-NS S	1	N-NS A-HS s.a	1	N-NS A-LS s.a	1	N-NS A-NS s.a	1	N-NS N-HS sn	1	N-NS V-NS S	1	N-NS V-NS suj	1	V-NS V-NS v	1	
+O	N-NS V-NS S	1	N-NS V-NS cd	1	
+O	N-LS V-NS S	1	N-LS V-NS cd	1	
+O	N-LS A-HS s.a	1	N-LS A-NS s.a	1	N-NS A-HS s.a	1	N-NS V-MS cd	1	N-NS V-NS suj	1	V-NS V-LS cd	1	
+O	N-NS A-HS s.a	1	N-NS N-HS spec	1	N-NS N-NS s.a	1	N-NS N-NS sn	1	N-NS V-HS S	1	N-NS V-HS suj	1	N-NS V-NS S	2	N-NS V-NS cd	1	
+O	A-HS R-NS spec	1	N-HS V-LS S	1	N-NS A-HS s.a	2	N-NS N-HS sn	1	N-NS N-NS sn	1	N-NS V-NS S	3	N-NS V-NS suj	2	
+O	N-LS V-NS suj	1	N-MS A-NS s.a	1	N-NS A-HS s.a	1	N-NS A-LS s.a	1	N-NS N-LS grup.nom	1	N-NS V-LS S	1	N-NS V-NS suj	1	
+O	N-NS A-NS s.a	3	N-NS V-NS S	1	N-NS V-NS cd	1	
+O	N-LS A-HS s.a	1	N-NS A-HS s.a	1	N-NS A-NS s.a	2	N-NS N-HS sn	1	N-NS V-HS cd	1	N-NS V-NS S	1	N-NS V-NS cd	2	
+O	N-NS N-NS sn	1	
+O	
+O	N-NS V-NS cd	1	V-NS V-NS S	1	
+O	N-NS A-HS s.a	1	N-NS N-LS sn	1	N-NS V-NS S	1	N-NS V-NS suj	1	
+O	
+O	N-NS A-NS s.a	1	N-NS V-NS cd	1	N-NS V-NS suj	2	V-NS V-NS v	1	
+O	A-HS R-NS spec	1	N-HS A-HS s.a	1	N-HS V-NS cd	1	N-LS A-HS s.a	1	N-LS A-NS s.a	1	N-NS N-LS sn	1	N-NS V-LS S	1	V-NS V-NS S	1	
+O	
+O	N-HS A-LS s.a	1	N-HS V-NS cd	1	N-LS N-LS sn	1	N-NS V-NS S	1	R-HS V-NS mod	1	V-MS V-HS suj	1	V-NS V-MS cd	1	V-NS V-NS S	2	V-NS V-NS v	1	
+O	N-LS V-LS suj	1	N-NS N-NS sn	2	N-NS V-MS atr	1	N-NS V-NS S	1	N-NS V-NS cd	1	V-NS V-LS S	1	
+O	N-NS A-HS s.a	1	N-NS A-LS s.a	1	N-NS V-NS cd	1	N-NS V-NS suj	1	
+O	A-NS A-HS s.a	1	N-MS V-MS suj	1	N-NS V-LS cd	1	
+O	N-NS A-NS s.a	1	N-NS V-NS S	1	N-NS V-NS suj	1	R-NS R-HS spec	1	R-NS V-NS cc	1	
+O	N-LS A-NS s.a	1	N-NS N-NS sn	1	
+O	A-HS V-NS cpred	1	N-NS N-NS sn	1	N-NS V-MS cd	1	N-NS V-NS S	1	N-NS V-NS suj	1	V-NS V-MS cd	1	V-NS V-NS S	1	V-NS V-NS v	1	
+O	N-LS V-NS suj	1	N-MS A-NS s.a	1	N-NS A-HS s.a	1	V-NS V-HS cpred	1	
+O	A-HS V-MS atr	1	N-LS V-MS suj	1	N-NS V-HS S	1	N-NS V-NS S	1	N-NS V-NS suj	1	V-MS V-HS cc	1	V-NS V-NS cd	1	
+O	N-NS A-HS s.a	1	N-NS A-NS s.a	1	
+O	N-NS A-HS s.a	1	N-NS A-LS s.a	1	N-NS V-NS S	1	N-NS V-NS cd	1	N-NS V-NS suj	1	R-NS V-NS mod	1	V-NS V-HS atr	1	V-NS V-NS S	2	
+O	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS N-NS s.a	1	N-NS V-HS cd	1	N-NS V-HS suj	1	N-NS V-LS cd	1	N-NS V-NS cd	1	N-NS V-NS suj	1	V-LS V-HS S	1	V-NS V-HS S	1	
+O	N-LS N-LS s.a	1	N-LS V-NS suj	1	
+O	N-NS A-HS S	1	N-NS A-HS s.a	2	N-NS A-NS s.a	1	N-NS N-NS s.a	1	N-NS V-NS S	1	N-NS V-NS cd	1	
+O	N-NS V-NS S	1	N-NS V-NS suj	1	
+O	A-NS V-NS suj	1	N-NS A-HS s.a	1	N-NS N-NS grup.nom	2	N-NS V-HS S	1	N-NS V-NS S	1	
+O	N-HS V-NS cd	1	N-NS A-MS s.a	1	N-NS V-NS cd	1	N-NS V-NS suj	1	R-HS V-NS mod	1	
+O	N-NS A-NS s.a	1	N-NS N-NS sn	1	N-NS V-HS cd	1	N-NS V-NS cd	1	
+O	N-NS A-HS s.a	4	N-NS N-LS sn	1	N-NS N-NS sn	1	N-NS V-MS S	1	V-NS V-MS cpred	1	
+O	N-NS N-HS sn	1	N-NS V-NS S	1	
+O	N-MS V-LS S	1	N-NS A-LS s.a	1	N-NS V-LS cd	1	V-NS V-LS v	1	
+O	A-LS A-MS S	1	N-NS A-MS s.a	1	N-NS V-NS S	1	N-NS V-NS cd	1	V-NS V-NS S	1	
+O	A-MS R-HS spec	1	N-NS A-HS S	1	N-NS A-HS s.a	1	N-NS A-MS s.a	1	N-NS A-NS s.a	1	V-NS V-HS v	1	
+O	A-HS V-NS atr	1	A-LS A-HS grup.a	1	N-NS A-HS s.a	1	N-NS V-LS suj	1	N-NS V-MS cd	1	N-NS V-NS suj	1	V-NS V-LS S	1	V-NS V-LS v	1	V-NS V-MS S	1	
+O	N-NS V-LS cd	1	N-NS V-NS S	1	V-NS V-LS S	1	V-NS V-NS v	1	
+O	N-NS A-HS s.a	1	N-NS V-LS suj	1	R-HS V-HS cc	1	V-LS V-HS S	1	
+O	N-NS A-MS s.a	1	N-NS A-NS s.a	1	N-NS V-HS cd	1	N-NS V-HS suj	1	
+O	N-NS V-NS S	2	N-NS V-NS cd	2	N-NS V-NS suj	1	V-NS V-NS S	1	V-NS V-NS infinitiu	1	V-NS V-NS v	1	
+O	N-NS A-NS s.a	1	N-NS N-LS s.a	1	N-NS V-NS S	1	N-NS V-NS cd	1	
+O	N-HS R-NS spec	1	N-HS V-LS cd	1	N-NS V-LS S	1	
+O	A-LS V-NS cpred	1	N-HS A-HS s.a	1	N-HS V-NS cd	1	N-NS A-HS s.a	1	N-NS V-NS S	2	N-NS V-NS cd	1	V-NS V-NS S	1	
+O	N-LS V-NS cd	1	N-NS A-MS S	1	N-NS N-NS sn	1	N-NS V-NS suj	2	V-NS V-NS cc	1	
+O	N-LS A-HS s.a	1	N-NS A-NS s.a	2	N-NS V-NS S	1	N-NS V-NS suj	1	V-LS V-HS cc	1	
+O	N-LS V-MS cd	1	N-NS N-NS s.a	1	N-NS V-NS S	1	N-NS V-NS suj	1	
+O	N-NS A-HS s.a	1	N-NS N-NS s.a	1	N-NS V-NS cc	1	N-NS V-NS cd	1	N-NS V-NS suj	1	
+O	
+O	N-NS A-MS s.a	1	N-NS V-NS atr	1	
+O	N-NS A-HS S	1	N-NS A-HS s.a	1	N-NS A-MS s.a	1	N-NS A-NS S	1	N-NS A-NS s.a	1	N-NS N-NS s.a	1	N-NS V-NS suj	1	V-NS V-NS cd	1	
+O	A-MS A-HS S	1	A-MS V-MS atr	1	N-NS A-LS s.a	1	N-NS N-LS sn	1	N-NS N-NS sn	1	
+O	N-NS V-MS cd	1	N-NS V-NS suj	1	R-NS V-MS cc	1	V-MS V-MS S	1	V-NS V-NS v	1	
+O	N-NS A-HS S	1	N-NS A-NS s.a	1	N-NS V-NS cd	1	R-LS V-NS cc	1	V-NS V-NS S	1	V-NS V-NS cc	1	V-NS V-NS cd	1	
+O	A-HS V-NS cpred	1	N-LS A-HS s.a	1	N-NS A-HS s.a	1	N-NS N-NS S	1	N-NS N-NS s.a	1	N-NS R-NS cc	1	N-NS V-NS suj	2	
+O	A-LS V-NS v	2	N-NS A-LS sp	1	N-NS N-NS s.a	2	N-NS V-NS cd	1	N-NS V-NS suj	1	
+O	N-NS N-HS sn	1	
+S	A-HS R-NS spec	1	A-MS A-HS grup.a	1	A-MS A-MS grup.a	1	A-MS R-NS spec	1	N-MS V-MS atr	1	N-NS A-MS s.a	1	N-NS A-NS s.a	1	N-NS V-NS suj	1	R-HS V-NS mod	1	R-NS V-MS cc	1	V-NS V-NS ao	1	V-NS V-NS v	1	
+S	A-HS A-HS grup.a	3	N-NS V-MS atr	2	N-NS V-MS suj	1	R-HS V-MS mod	1	R-HS V-NS mod	1	R-MS V-MS cc	1	R-NS V-NS cc	1	V-MS V-MS S	1	
+S	A-HS A-HS grup.a	1	A-HS V-MS sn	1	N-HS V-NS cd	1	N-NS A-LS s.a	1	N-NS N-HS sn	1	N-NS V-NS suj	1	R-HS V-MS S	1	R-HS V-NS cc	2	
+S	A-HS V-MS atr	1	N-HS A-HS s.a	1	N-HS V-MS inc	1	N-LS A-HS s.a	1	N-LS V-MS suj	1	N-NS A-HS s.a	1	N-NS A-LS s.a	1	N-NS N-LS sn	1	R-HS V-MS mod	1	
+S	A-HS R-HS spec	1	N-MS A-HS s.a	1	N-MS A-NS s.a	1	
+S	N-HS V-MS atr	1	N-HS V-NS S	1	R-HS V-NS cc	1	V-NS V-MS v	1	
+S	A-HS R-HS spec	1	A-LS R-NS spec	1	A-LS V-HS atr	1	N-LS A-NS s.a	1	N-LS V-MS suj	1	N-NS A-HS s.a	1	N-NS V-NS cd	1	R-MS V-HS cc	1	
+S	N-MS V-HS cd	1	N-NS V-NS cd	1	N-NS V-NS suj	1	V-HS V-HS atr	1	V-NS V-HS cd	2	
+S	A-HS A-HS S	1	A-HS A-HS grup.a	2	A-HS R-HS cc	1	A-HS V-MS atr	1	
+S	A-HS V-LS S	1	A-HS V-MS atr	1	N-NS A-HS s.a	1	N-NS V-LS suj	1	R-HS V-MS mod	1	
+S	A-HS A-HS grup.a	1	N-HS V-NS cd	1	N-NS A-HS s.a	3	N-NS N-NS sn	1	
+S	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS N-NS grup.nom	1	V-NS V-MS S	1	V-NS V-MS cd	1	
+S	A-HS A-HS grup.a	1	A-HS R-HS spec	1	A-HS V-HS cpred	1	N-NS A-HS s.a	1	N-NS N-NS grup.nom	1	N-NS R-NS sadv	1	N-NS V-HS cc	1	N-NS V-HS suj	1	R-NS R-HS sadv	1	
+S	A-HS A-HS S	1	A-HS A-HS s.a	1	A-HS R-HS cc	1	A-LS V-MS cc	1	N-NS A-HS s.a	1	N-NS A-LS S	1	N-NS A-NS s.a	2	
+S	N-MS V-MS suj	1	N-NS A-HS s.a	1	N-NS N-HS sn	1	N-NS V-MS suj	1	
+S	A-NS V-MS atr	1	N-NS V-MS suj	1	
+S	A-HS V-MS atr	1	A-LS V-MS atr	1	N-NS V-MS suj	2	R-HS V-MS mod	1	
+S	N-HS A-HS s.a	1	N-HS A-LS s.a	1	N-NS A-HS s.a	3	N-NS R-HS sadv	1	N-NS V-LS cd	1	N-NS V-MS S	1	N-NS V-MS atr	1	N-NS V-NS S	1	N-NS V-NS cd	1	R-HS V-MS mod	1	
+S	N-LS N-MS grup.nom	1	
+S	A-NS R-HS cc	1	N-HS A-HS s.a	1	N-NS A-HS s.a	1	N-NS A-NS S	1	N-NS N-HS sn	1	N-NS N-LS s.a	1	
+S	A-HS R-HS sadv	1	A-MS A-HS grup.a	1	N-HS V-NS cd	1	N-NS A-HS s.a	1	N-NS N-NS s.a	1	N-NS V-NS cd	1	R-HS V-NS cc	1	R-HS V-NS mod	1	R-NS V-NS mod	1	V-NS V-NS S	1	V-NS V-NS cd	1	
+S	N-NS V-NS S	2	R-HS V-NS cc	1	V-NS V-NS cd	1	
+S	A-HS R-HS spec	2	A-HS V-NS cpred	1	N-NS A-HS s.a	3	N-NS V-LS cd	1	N-NS V-MS atr	1	R-HS V-MS cc	1	V-NS V-LS ao	1	
+S	A-NS A-HS grup.a	1	N-HS A-HS s.a	1	N-HS V-NS S	1	N-MS A-HS s.a	1	N-MS V-NS cd	1	N-NS A-NS s.a	2	N-NS V-HS S	1	N-NS V-HS cd	1	N-NS V-MS suj	1	N-NS V-NS cd	1	
+S	N-LS A-MS s.a	1	N-NS A-HS s.a	1	N-NS N-LS grup.nom	1	N-NS N-NS sn	1	N-NS V-NS S	1	N-NS V-NS suj	1	
+S	A-NS R-HS spec	1	N-LS A-HS s.a	1	N-LS V-MS suj	1	N-NS A-NS S	1	N-NS A-NS s.a	2	N-NS V-LS suj	1	R-NS V-LS cd	1	V-LS V-MS S	1	
+S	A-HS A-HS S	1	A-HS A-HS s.a	1	A-HS R-HS cc	1	A-NS A-HS S	1	A-NS R-HS sadv	1	V-NS V-MS v	1	
+S	A-HS A-HS S	1	A-HS R-HS cc	1	A-HS R-HS spec	1	N-NS A-HS s.a	1	N-NS N-HS sn	1	N-NS N-NS sn	1	N-NS V-MS S	1	N-NS V-MS suj	1	N-NS V-NS S	1	R-HS V-MS cc	1	R-HS V-MS mod	1	
+S	A-HS A-HS grup.a	1	N-HS A-HS s.a	1	N-NS A-HS s.a	2	N-NS A-LS S	1	N-NS A-NS S	1	
+S	N-LS V-NS cd	1	
+S	A-HS V-NS cpred	1	N-NS A-HS s.a	1	N-NS V-MS atr	1	R-HS V-LS mod	1	R-HS V-NS cc	1	R-HS V-NS mod	1	R-NS V-NS cc	1	V-LS V-MS atr	1	V-NS V-MS ao	1	
+S	A-HS A-HS sn	1	N-HS A-HS s.a	1	N-HS V-NS cd	1	V-MS V-HS cd	1	V-NS V-HS S	1	
+S	N-HS A-HS s.a	1	N-LS A-HS s.a	1	N-LS V-NS S	1	N-NS A-MS s.a	1	N-NS V-NS suj	1	R-HS V-NS mod	1	V-NS V-NS cd	1	
+S	A-HS R-HS spec	1	A-HS V-LS cpred	1	N-HS V-MS atr	1	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS V-MS atr	1	N-NS V-MS suj	1	N-NS V-NS S	1	N-NS V-NS cd	1	R-HS V-LS mod	1	V-LS V-MS S	1	
+S	N-MS A-HS s.a	1	V-MS V-MS atr	1	V-NS V-MS S	1	
+S	A-HS R-LS cc	1	N-HS V-NS S	1	N-MS V-NS cd	1	N-NS A-HS S	1	N-NS A-HS s.a	1	N-NS N-HS sn	1	N-NS N-NS grup.nom	1	
+S	A-HS R-HS spec	1	A-HS V-MS atr	1	N-HS A-HS s.a	2	N-LS A-MS s.a	1	N-LS N-HS sn	1	N-LS R-HS sadv	1	N-NS A-HS s.a	3	N-NS N-NS S	1	N-NS R-HS cc	1	N-NS V-MS suj	1	
+S	N-NS A-NS s.a	1	N-NS V-LS S	1	N-NS V-NS cd	1	N-NS V-NS suj	1	V-NS V-LS S	1	V-NS V-NS S	1	
+S	A-HS R-HS spec	1	N-MS A-MS s.a	1	N-NS A-HS s.a	1	
+S	A-LS A-MS grup.a	1	A-MS A-HS grup.a	1	A-MS R-NS spec	1	N-NS A-HS s.a	1	N-NS A-MS s.a	1	N-NS A-NS s.a	1	N-NS R-MS sadv	1	N-NS V-NS cd	1	
+S	A-HS R-HS spec	1	A-HS R-NS sadv	1	A-HS V-LS cpred	1	A-LS V-LS s.a	1	A-MS R-NS spec	1	N-HS V-MS atr	1	N-NS A-HS S	1	N-NS R-NS sadv	1	N-NS V-LS cd	1	N-NS V-LS suj	1	R-NS V-MS cc	1	
+S	A-HS V-MS atr	1	N-LS A-HS s.a	1	N-LS V-HS suj	1	N-LS V-NS cd	1	N-NS V-NS suj	1	R-HS V-HS cc	1	R-HS V-HS mod	1	V-NS V-HS S	1	V-NS V-MS cc	1	V-NS V-NS cc	1	
+S	N-LS A-HS s.a	1	N-LS N-HS grup.nom	1	N-NS A-HS s.a	2	N-NS A-NS s.a	1	N-NS V-MS suj	1	
+S	N-NS A-HS s.a	1	N-NS V-NS suj	1	R-HS V-NS mod	1	R-MS V-NS cc	1	R-NS V-NS cc	1	V-NS V-MS S	1	V-NS V-MS atr	1	
+S	A-HS R-HS spec	1	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS V-MS atr	1	N-NS V-NS suj	1	R-HS V-NS cc	1	
+S	N-NS A-HS s.a	1	N-NS V-NS cd	1	N-NS V-NS suj	1	R-HS V-NS cc	1	R-HS V-NS mod	1	
+S	A-HS A-HS grup.a	1	N-HS A-NS s.a	1	N-LS V-NS S	1	N-LS V-NS cd	1	N-NS A-HS s.a	3	N-NS A-MS s.a	1	N-NS N-LS sn	1	N-NS N-NS sn	1	
+S	A-HS R-HS cc	1	A-HS R-HS spec	1	A-HS V-MS atr	1	N-LS N-MS sn	1	N-MS N-HS sn	1	N-MS V-HS cd	1	N-NS A-HS s.a	2	N-NS V-HS suj	1	N-NS V-MS atr	1	N-NS V-MS suj	1	R-HS R-HS spec	1	R-HS V-HS cc	1	R-MS V-NS cc	1	V-MS V-HS S	1	V-NS V-MS atr	1	
+S	N-HS A-MS s.a	1	N-HS V-MS atr	1	N-NS N-NS grup.nom	1	N-NS V-LS S	1	N-NS V-MS atr	1	V-LS V-MS suj	2	
+S	
+S	A-HS R-HS spec	1	A-NS V-MS cpred	1	N-NS A-HS s.a	1	N-NS A-LS s.a	1	N-NS A-NS S	1	N-NS V-LS cd	1	N-NS V-MS suj	1	N-NS V-NS S	1	V-MS V-HS v	1	
+S	A-HS A-HS grup.a	1	A-HS V-MS atr	1	N-LS A-MS spec	1	N-LS V-LS cd	1	N-NS A-HS s.a	3	N-NS N-NS grup.nom	1	N-NS V-LS cd	1	V-MS V-MS S	1	
+S	A-HS A-HS grup.a	1	A-HS V-MS atr	1	A-LS A-HS S	1	A-MS A-HS s.a	1	A-MS V-MS atr	1	N-HS V-MS suj	1	N-MS V-MS suj	1	
+S	A-HS A-HS S	1	A-HS A-HS grup.a	3	A-HS A-HS s.a	1	A-HS R-HS spec	1	A-HS R-LS cc	1	A-HS R-NS sadv	1	A-HS V-NS v	1	N-MS A-HS s.a	1	N-MS V-LS cd	1	N-NS A-HS s.a	1	V-NS V-NS infinitiu	1	
+S	A-HS A-HS grup.a	1	A-HS R-NS sadv	1	A-HS V-NS S	1	A-HS V-NS cpred	1	N-NS A-HS s.a	2	N-NS V-MS atr	1	N-NS V-NS S	1	
+S	A-HS R-HS spec	1	A-HS V-NS cpred	2	A-NS R-HS spec	1	N-NS A-NS s.a	1	N-NS V-NS S	1	R-NS V-MS mod	1	R-NS V-NS cc	1	V-MS V-HS atr	1	V-NS V-MS S	1	
+S	A-HS R-NS spec	1	A-HS V-MS atr	1	N-LS V-MS suj	1	N-NS N-NS grup.nom	1	N-NS R-NS sadv	1	N-NS V-LS cd	1	N-NS V-NS suj	2	R-NS V-LS cc	1	V-NS V-LS S	1	
+S	N-NS A-HS s.a	1	N-NS V-NS S	1	
+S	A-HS R-MS spec	1	A-HS V-MS atr	1	A-HS V-NS cpred	1	N-NS V-MS cd	1	N-NS V-NS S	2	N-NS V-NS suj	1	R-HS V-NS mod	1	V-MS V-MS v	1	V-NS V-MS ao	1	V-NS V-MS v	1	
+S	A-HS V-MS atr	2	A-NS R-NS spec	1	N-LS A-NS s.a	1	R-HS V-MS atr	1	R-HS V-MS mod	1	R-LS V-MS mod	1	V-MS V-MS S	1	V-MS V-MS v	1	V-NS V-MS S	1	
+S	N-HS A-MS s.a	1	N-HS V-NS cd	1	N-LS A-NS s.a	1	N-LS V-MS S	1	N-NS N-HS sn	1	N-NS V-NS cd	1	
+S	A-NS R-HS cc	1	N-NS A-HS s.a	1	N-NS A-NS suj	1	R-HS R-HS spec	1	R-HS V-NS cc	1	
+S	A-LS A-HS s.a	1	N-NS A-HS s.a	2	N-NS A-HS sn	1	N-NS A-NS s.a	1	N-NS N-NS sn	1	N-NS V-LS cd	1	N-NS V-MS suj	1	N-NS V-NS suj	1	R-HS V-NS cc	1	V-LS V-LS cd	1	V-NS V-MS atr	1	
+S	A-NS A-MS grup.a	1	N-NS A-MS s.a	1	N-NS V-NS S	2	N-NS V-NS suj	1	R-HS V-MS S	1	R-HS V-NS cc	1	R-MS V-NS cc	1	V-NS V-NS v	1	
+S	A-HS A-HS grup.a	3	A-HS R-NS sadv	1	A-HS V-MS atr	1	N-HS A-HS s.a	1	N-NS V-LS cd	1	N-NS V-LS suj	1	R-NS R-HS spec	1	
+S	A-HS V-NS cpred	1	N-LS A-HS s.a	2	N-LS V-NS cd	1	N-NS A-HS s.a	1	N-NS N-HS sn	1	R-HS V-NS mod	1	V-NS V-LS cd	1	V-NS V-NS S	1	
+S	N-NS N-NS grup.nom	1	N-NS V-NS S	1	N-NS V-NS cd	2	N-NS V-NS suj	1	
+S	A-NS V-HS atr	1	N-NS A-HS s.a	1	N-NS V-HS suj	1	
+S	A-HS R-NS spec	1	A-HS V-NS cpred	1	N-NS A-HS s.a	2	N-NS V-NS suj	1	
+S	N-HS V-HS cd	1	N-MS V-HS S	1	N-NS A-HS s.a	1	N-NS N-NS grup.nom	1	N-NS N-NS sn	1	N-NS V-NS S	1	N-NS V-NS cd	1	V-MS V-HS v	1	
+S	N-NS A-HS s.a	2	N-NS V-NS cd	1	R-HS V-MS mod	1	R-HS V-NS cc	1	
+S	N-HS A-HS s.a	1	N-HS N-HS sn	1	N-NS A-HS s.a	1	N-NS V-HS S	1	N-NS V-NS suj	1	
+S	N-NS A-HS s.a	1	N-NS V-NS suj	1	R-HS V-NS sadv	1	
+S	A-HS V-NS suj	1	N-NS A-HS s.a	1	
+S	A-HS R-HS cc	1	N-NS A-HS S	1	N-NS A-HS s.a	1	N-NS V-LS suj	1	N-NS V-NS cd	1	R-HS V-NS mod	1	V-NS V-LS cc	1	V-NS V-LS cd	1	
+S	A-HS R-HS spec	1	N-NS A-HS s.a	2	N-NS N-HS grup.nom	1	N-NS V-MS suj	1	
+S	A-HS A-HS grup.a	1	A-HS R-HS spec	1	A-HS V-NS S	1	N-HS V-MS atr	1	N-NS A-HS s.a	2	N-NS V-MS suj	1	
+S	N-HS A-NS s.a	1	N-HS V-NS cd	1	N-MS A-HS s.a	1	N-MS V-HS S	1	N-NS V-NS suj	2	R-HS V-LS cc	1	R-HS V-NS et	1	V-LS V-HS atr	1	V-NS V-LS v	1	
+S	N-HS V-NS cd	1	N-LS V-NS suj	1	N-NS A-HS s.a	1	N-NS V-LS S	1	N-NS V-MS atr	1	N-NS V-MS suj	1	N-NS V-NS suj	1	R-HS V-HS cc	1	R-HS V-LS cc	1	R-HS V-NS cc	1	R-HS V-NS mod	1	V-MS V-HS atr	1	V-NS V-LS suj	1	V-NS V-NS S	1	V-NS V-NS cd	1	
+S	A-HS R-HS spec	1	A-HS V-MS atr	1	N-HS A-NS s.a	1	N-HS V-NS cd	1	N-NS A-HS s.a	2	N-NS A-MS S	1	N-NS A-NS s.a	2	N-NS N-NS sn	1	N-NS V-NS cd	1	
+S	N-NS A-HS s.a	2	N-NS N-NS sn	1	N-NS R-HS sadv	1	N-NS V-MS atr	1	
+S	A-HS R-HS spec	1	N-HS A-HS sn	1	N-MS A-HS s.a	1	N-MS V-LS cd	1	N-NS A-HS s.a	1	
+S	A-HS R-HS spec	1	A-HS V-MS atr	1	N-HS V-MS suj	1	N-NS A-HS s.a	1	N-NS V-HS cd	1	N-NS V-LS S	1	N-NS V-LS cd	1	N-NS V-LS suj	1	R-HS V-HS mod	1	V-LS V-MS ao	1	V-MS V-HS cd	1	
+S	A-HS R-HS spec	2	A-HS V-MS atr	2	N-NS A-HS s.a	1	N-NS V-MS suj	1	R-HS R-HS r	1	V-LS V-MS cc	1	V-LS V-MS cd	1	
+S	A-HS R-LS spec	1	A-HS V-NS S	1	N-NS A-HS s.a	1	N-NS V-MS atr	1	V-NS V-MS cd	1	
+S	A-HS R-NS spec	1	A-HS V-MS suj	1	N-HS V-LS cd	1	N-HS V-MS cd	1	N-NS A-NS s.a	1	N-NS N-LS s.a	1	N-NS V-MS atr	1	N-NS V-MS suj	2	R-HS V-MS mod	1	R-HS V-NS mod	1	R-NS V-MS cc	1	V-NS V-LS cc	1	V-NS V-LS v	1	V-NS V-MS ao	1	V-NS V-NS cd	1	
+S	A-HS V-NS v	1	N-NS N-NS grup.nom	1	N-NS V-LS suj	1	N-NS V-MS suj	1	N-NS V-NS cd	1	R-HS V-LS mod	1	R-HS V-MS cd	1	R-MS V-LS mod	1	V-LS V-MS S	1	
+S	N-LS A-HS s.a	1	N-LS A-HS sn	1	N-LS V-NS S	1	N-NS N-NS sn	2	N-NS V-LS cd	1	N-NS V-NS suj	1	R-HS V-LS mod	1	R-HS V-NS S	1	R-HS V-NS mod	1	V-NS V-NS cc	1	
+S	A-HS A-HS grup.a	1	A-HS V-NS s.a	1	N-HS V-NS S	1	N-HS V-NS cd	1	N-NS A-HS s.a	1	N-NS V-NS suj	1	
+S	A-HS A-HS grup.a	1	N-MS A-HS s.a	1	N-NS A-HS s.a	1	N-NS N-MS grup.nom	1	
+S	A-HS V-MS atr	1	A-LS R-HS spec	1	N-HS A-NS s.a	1	N-HS V-LS cd	1	N-LS N-HS sn	1	N-NS A-LS s.a	1	N-NS N-HS grup.nom	1	N-NS V-LS S	2	N-NS V-LS cd	1	N-NS V-LS suj	1	
+S	A-HS A-HS s.a	1	A-HS R-NS sadv	1	N-NS A-HS s.a	1	N-NS V-NS cd	1	R-HS V-NS mod	1	R-NS R-HS spec	1	
+S	A-HS V-MS atr	1	N-NS A-HS s.a	1	N-NS V-NS cd	1	R-HS V-HS cc	1	R-HS V-MS atr	1	R-HS V-MS mod	1	V-MS V-HS atr	1	V-MS V-MS S	1	V-MS V-MS ao	1	
+S	A-HS A-HS grup.a	1	N-NS A-LS S	1	N-NS A-NS s.a	1	N-NS V-NS cd	2	R-HS V-LS mod	1	R-HS V-NS mod	1	V-NS V-LS S	1	V-NS V-LS ao	1	V-NS V-MS S	1	V-NS V-NS S	1	
+S	N-HS A-HS s.a	1	N-HS V-NS cd	2	N-NS V-HS cd	1	N-NS V-NS S	1	R-HS V-NS cc	1	
+S	N-HS A-HS s.a	1	N-HS V-NS S	1	N-NS A-HS s.a	1	N-NS A-MS s.a	1	N-NS A-NS s.a	1	N-NS N-HS sn	1	N-NS N-NS grup.nom	1	N-NS N-NS sn	1	N-NS V-NS cd	1	N-NS V-NS suj	4	R-HS V-NS cc	1	V-NS V-NS S	1	
+S	N-HS A-NS s.a	1	N-HS V-NS cd	2	N-LS A-NS s.a	1	N-LS V-NS S	1	N-NS A-MS s.a	1	N-NS N-LS grup.nom	1	N-NS N-NS grup.nom	1	N-NS V-NS cd	1	V-NS V-NS S	1	
+S	A-HS R-NS cc	1	A-HS V-MS v	1	A-MS V-MS atr	1	N-NS A-HS s.a	1	N-NS V-MS atr	1	R-HS V-MS mod	1	
+S	N-NS A-HS s.a	1	N-NS V-NS S	1	
+S	N-HS V-LS cd	1	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS V-MS atr	1	
+S	N-NS A-HS s.a	1	N-NS A-MS s.a	1	N-NS V-NS S	1	N-NS V-NS cd	1	N-NS V-NS sn	1	N-NS V-NS suj	1	V-NS V-NS v	1	
+S	N-LS V-NS S	1	N-NS A-HS s.a	1	N-NS A-MS S	1	N-NS A-NS s.a	1	N-NS V-MS atr	1	R-NS V-HS cc	1	V-NS V-HS cd	1	
+S	A-HS A-HS grup.a	1	A-HS R-NS spec	1	N-HS V-NS cd	1	N-LS A-HS s.a	1	N-NS V-LS cd	1	R-HS V-NS mod	2	V-NS V-LS ao	1	V-NS V-MS cd	2	
+S	N-LS V-LS cd	1	N-NS A-HS s.a	1	N-NS A-NS s.a	2	N-NS N-NS sn	1	V-MS V-HS atr	1	V-NS V-LS cc	1	V-NS V-LS cd	1	
+S	A-HS A-HS S	1	N-LS A-HS sn	1	N-NS A-HS s.a	1	N-NS V-NS cd	2	
+S	N-NS A-HS s.a	1	R-HS V-HS mod	1	
+S	A-HS A-HS S	1	A-HS A-HS s.a	1	A-HS V-MS atr	1	R-HS R-HS S	1	R-HS V-MS mod	1	V-MS V-MS S	1	
+S	A-HS R-NS spec	1	A-HS V-MS atr	1	N-MS A-HS s.a	1	N-MS V-NS cd	1	N-NS A-HS s.a	1	N-NS N-NS s.a	1	N-NS V-LS cd	1	N-NS V-LS suj	1	V-LS V-MS cd	1	V-NS V-LS cc	1	V-NS V-NS v	1	
+S	A-MS A-HS grup.a	1	N-NS A-HS S	1	N-NS A-HS s.a	2	N-NS N-NS s.a	2	N-NS V-MS suj	1	
+S	A-NS R-NS spec	1	N-HS A-NS s.a	1	N-HS V-NS cd	1	N-LS A-HS s.a	1	N-LS V-NS S	1	N-NS A-HS s.a	2	N-NS V-LS cd	1	N-NS V-NS cd	1	N-NS V-NS suj	1	R-HS V-NS mod	1	V-LS V-LS cd	1	V-NS V-MS atr	1	
+S	N-HS A-HS s.a	1	N-HS V-NS cd	2	N-NS A-HS s.a	2	N-NS V-LS S	1	R-HS V-NS cc	1	R-MS V-NS mod	1	V-NS V-LS cd	1	V-NS V-NS v	1	
+S	A-HS A-HS s.a	2	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS V-LS suj	1	
+S	A-NS V-MS atr	1	N-MS V-MS suj	1	N-NS V-MS S	1	
+S	A-HS R-HS spec	1	N-NS A-HS s.a	1	N-NS V-MS atr	1	N-NS V-NS S	1	R-HS V-NS cc	1	
+S	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS N-NS S	1	N-NS V-HS suj	2	N-NS V-NS cd	2	R-HS V-NS ao	1	V-NS V-NS cc	1	
+S	A-HS A-HS S	1	A-HS R-NS cc	1	A-HS R-NS spec	1	A-HS V-NS S	1	N-NS A-HS S	1	N-NS A-HS s.a	2	N-NS A-NS s.a	1	N-NS N-NS sn	1	N-NS V-LS suj	2	R-HS V-LS cc	1	R-HS V-NS cc	1	
+S	A-HS A-HS S	2	A-HS V-MS atr	1	N-LS V-NS cd	1	N-NS A-HS s.a	2	N-NS A-NS s.a	1	N-NS V-MS atr	1	R-HS V-MS mod	1	
+S	A-HS V-LS cpred	1	N-HS A-HS s.a	1	N-LS A-HS s.a	1	N-NS N-LS s.a	1	V-NS V-LS v	1	
+S	A-HS A-HS sn	1	A-NS A-HS sn	1	N-HS V-NS cd	1	N-NS A-HS s.a	3	N-NS N-NS sn	1	N-NS V-HS cd	1	N-NS V-NS cd	2	R-HS R-HS neg	1	R-HS V-NS cc	1	V-NS V-HS cc	1	V-NS V-HS v	1	
+S	A-HS V-NS cpred	1	N-NS A-HS s.a	1	N-NS V-MS atr	1	R-HS V-NS mod	1	V-NS V-NS S	1	
+S	A-HS R-HS cc	1	N-LS R-HS coord	1	N-NS N-NS sn	1	N-NS R-HS coord	1	
+S	A-HS V-MS atr	1	N-LS A-HS s.a	1	N-NS A-MS s.a	1	N-NS A-NS s.a	1	
+S	A-HS A-HS S	1	A-HS R-HS mod	1	A-HS V-MS v	2	A-NS A-HS s.a	2	N-NS A-HS suj	1	
+S	A-HS V-MS atr	2	N-NS V-MS suj	1	R-HS V-HS mod	1	R-HS V-MS mod	1	V-MS V-HS S	1	V-MS V-MS S	1	V-NS V-MS suj	1	
+S	A-HS R-LS spec	1	N-HS A-HS S	1	N-HS V-LS cd	1	N-MS A-HS s.a	1	N-MS V-LS suj	1	N-NS A-HS s.a	1	N-NS A-MS s.a	1	N-NS A-NS s.a	1	N-NS N-HS sn	1	N-NS V-NS cd	1	N-NS V-NS suj	1	V-NS V-LS S	1	
+S	N-HS V-NS suj	1	N-LS V-NS cd	1	N-NS A-HS s.a	2	R-HS V-NS cc	1	
+S	A-HS R-NS spec	1	N-HS V-NS cd	1	N-NS A-HS s.a	1	N-NS V-MS atr	1	R-HS V-NS mod	1	V-NS V-MS cd	1	V-NS V-NS S	1	
+S	N-HS V-NS S	1	N-HS V-NS cd	1	N-LS A-LS s.a	1	N-LS V-NS suj	1	V-NS V-NS ao	1	
+S	N-MS A-HS s.a	1	N-MS V-HS cd	1	N-MS V-NS S	1	N-NS A-HS s.a	1	N-NS V-LS cd	1	N-NS V-LS suj	2	V-NS V-LS cd	1	
+S	N-LS A-LS s.a	1	
+S	N-NS A-HS s.a	1	N-NS V-NS cd	1	N-NS V-NS suj	1	R-HS R-HS spec	1	R-HS V-NS cc	2	R-NS R-HS grup.adv	1	R-NS R-HS spec	1	R-NS V-NS S	1	V-NS V-MS S	2	V-NS V-NS v	1	
+S	N-HS A-HS s.a	1	N-HS V-NS suj	1	N-NS V-MS S	1	N-NS V-NS S	1	N-NS V-NS cd	1	N-NS V-NS suj	1	V-NS V-NS S	1	
+S	N-HS A-HS s.a	2	N-NS A-HS s.a	1	N-NS V-MS atr	1	N-NS V-NS S	1	N-NS V-NS cd	1	R-NS V-NS cc	1	
+S	N-NS A-HS s.a	1	N-NS A-LS s.a	1	N-NS A-NS s.a	1	N-NS V-NS S	1	N-NS V-NS cd	1	
+S	A-HS V-NS cpred	1	N-HS A-LS s.a	1	N-HS V-MS cd	1	N-MS N-MS sn	1	N-NS A-HS s.a	1	N-NS V-MS cd	2	N-NS V-NS S	1	R-NS V-NS cc	2	
+S	N-HS A-HS s.a	1	N-HS V-NS cd	1	R-HS V-NS mod	1	
+S	A-HS V-LS S	1	N-LS N-LS sn	1	N-NS A-HS s.a	1	N-NS N-LS sn	1	R-HS V-LS cc	1	
+S	
+S	A-LS V-MS atr	1	N-HS N-HS sn	1	N-LS V-MS suj	1	R-HS V-MS mod	1	R-HS V-NS cc	1	R-NS V-MS cc	1	V-MS V-MS atr	1	V-NS V-MS S	1	V-NS V-MS infinitiu	1	V-NS V-NS v	1	
+S	N-HS V-NS cd	2	N-NS V-NS cd	1	R-HS V-NS mod	3	V-NS V-NS S	1	V-NS V-NS cc	1	
+S	N-HS V-NS S	1	N-LS A-HS s.a	1	N-NS N-HS sn	1	N-NS V-HS cc	1	V-LS V-HS atr	1	V-MS V-HS S	1	
+S	A-HS A-HS s.a	1	N-NS A-HS s.a	3	
+S	A-MS A-HS grup.a	1	N-NS A-HS s.a	1	N-NS A-MS s.a	1	N-NS V-HS S	1	N-NS V-NS cd	1	N-NS V-NS suj	1	R-HS V-HS cc	1	V-NS V-NS cd	1	
+S	N-HS A-MS s.a	1	N-HS V-NS cd	1	N-LS N-HS grup.nom	1	N-LS V-LS S	1	N-LS V-NS cd	1	N-NS V-HS suj	1	N-NS V-NS cd	1	R-HS V-LS mod	1	V-NS V-HS cd	1	V-NS V-LS cd	1	
+S	
+S	A-HS A-HS grup.a	1	N-HS A-NS s.a	1	N-NS A-HS s.a	2	N-NS V-MS atr	1	N-NS V-NS S	1	N-NS V-NS cd	1	R-HS V-LS cc	1	R-HS V-NS cc	1	R-HS V-NS mod	1	V-NS V-LS S	1	V-NS V-LS suj	1	
+S	N-HS A-HS s.a	1	N-HS V-NS cd	1	N-NS A-HS s.a	1	
+S	A-HS V-MS atr	1	N-NS A-NS s.a	1	N-NS V-MS suj	1	N-NS V-NS S	1	N-NS V-NS cd	1	
+S	A-HS R-HS spec	1	N-HS N-HS sn	1	N-HS V-NS cd	1	N-MS V-NS cd	1	N-NS A-HS s.a	1	N-NS N-HS sn	1	N-NS N-MS sn	1	N-NS V-NS S	1	R-NS V-LS cc	1	V-NS V-LS S	1	
+S	A-HS R-HS spec	1	N-HS V-NS S	1	N-HS V-NS suj	1	N-LS A-HS s.a	1	N-NS A-HS s.a	1	N-NS N-NS sn	1	R-HS V-NS mod	1	
+S	A-HS A-HS grup.a	1	A-HS R-HS sadv	1	N-NS A-HS s.a	3	N-NS V-NS S	1	N-NS V-NS cd	1	R-HS V-NS cc	1	R-NS R-HS spec	1	
+S	N-MS N-MS sn	1	N-MS V-LS cd	1	N-NS A-HS s.a	2	N-NS N-NS s.a	1	N-NS V-LS suj	1	N-NS V-MS S	1	N-NS V-MS atr	1	
+S	A-HS R-HS spec	1	N-NS A-HS s.a	1	N-NS V-HS S	1	N-NS V-LS cd	1	R-HS R-HS r	1	R-NS V-LS cc	1	
+S	N-HS A-HS s.a	1	R-LS V-NS cc	1	
+S	A-HS A-HS grup.a	1	N-NS A-HS s.a	3	
+S	N-MS R-LS sadv	1	N-MS V-NS suj	1	N-NS A-HS s.a	1	N-NS V-MS atr	1	N-NS V-MS suj	1	N-NS V-NS S	1	N-NS V-NS suj	1	R-HS V-NS cc	1	V-NS V-MS cc	1	V-NS V-MS cd	1	V-NS V-MS v	1	
+S	N-NS A-HS s.a	1	N-NS V-LS suj	1	N-NS V-NS S	1	
+S	A-HS A-HS grup.a	1	A-HS R-MS spec	1	A-NS A-HS grup.a	1	N-HS A-LS s.a	1	N-HS N-HS grup.nom	2	N-NS A-HS s.a	2	N-NS V-MS cd	1	N-NS V-NS cd	1	N-NS V-NS suj	1	
+S	A-HS V-MS atr	1	A-NS R-HS spec	1	N-NS A-HS s.a	1	N-NS A-NS s.a	2	N-NS V-MS suj	2	
+S	A-HS R-NS spec	1	N-NS A-HS grup.a	1	N-NS A-HS s.a	1	N-NS N-NS s.a	1	N-NS R-LS sadv	1	N-NS V-MS atr	1	N-NS V-NS cd	2	V-NS V-MS S	1	
+S	A-HS A-HS grup.a	1	A-HS R-HS spec	1	A-HS V-MS atr	1	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS V-MS suj	2	N-NS V-NS S	1	N-NS V-NS suj	3	
+S	N-NS A-HS s.a	1	
+S	A-HS V-NS cpred	1	N-HS A-HS s.a	1	N-LS A-HS s.a	2	N-LS N-HS sn	1	N-LS V-NS S	1	N-NS A-HS s.a	1	N-NS V-NS S	1	V-LS V-HS S	1	V-NS V-HS S	1	
+S	N-HS A-HS grup.nom	1	N-NS A-HS s.a	2	N-NS V-NS cd	1	N-NS V-NS suj	1	
+S	N-HS A-LS s.a	1	N-HS V-NS cd	1	N-HS V-NS suj	1	N-NS A-HS s.a	2	N-NS R-NS S	1	N-NS V-LS S	1	N-NS V-LS cd	1	R-NS R-HS spec	1	R-NS V-LS cc	1	V-NS V-LS v	1	V-NS V-NS atr	1	
+S	N-HS V-NS cd	1	N-NS A-NS s.a	1	
+S	N-MS V-NS suj	1	N-NS V-LS suj	1	N-NS V-NS cd	1	N-NS V-NS suj	1	
+S	A-HS R-NS spec	1	N-HS A-HS S	1	N-MS A-NS s.a	1	V-NS V-MS v	1	
+S	N-LS A-HS s.a	1	N-NS A-HS s.a	3	N-NS N-LS S	1	N-NS V-MS ao	1	N-NS V-MS atr	1	
+S	N-HS R-HS neg	1	N-HS R-HS s.a	1	N-HS V-MS suj	1	N-HS V-NS cd	1	N-LS N-HS sn	1	N-NS A-NS s.a	2	R-NS V-NS sadv	1	V-NS V-MS ao	1	
+S	A-HS R-HS spec	1	N-NS A-HS s.a	2	N-NS V-HS S	1	R-HS V-HS cc	1	
+S	A-HS V-NS cpred	1	N-MS A-HS s.a	1	N-NS A-HS s.a	1	R-HS V-NS mod	1	V-NS V-MS S	1	V-NS V-MS atr	1	V-NS V-MS cd	1	V-NS V-MS suj	1	
+S	A-MS V-MS atr	1	N-NS A-HS s.a	1	N-NS N-NS sn	1	N-NS V-NS S	1	N-NS V-NS cd	1	R-HS V-MS mod	1	R-HS V-NS mod	1	V-LS V-MS suj	1	V-NS V-LS cd	1	
+S	N-HS V-NS cd	1	N-NS V-MS cd	1	N-NS V-NS S	2	N-NS V-NS cd	1	N-NS V-NS suj	1	R-LS V-NS cc	1	R-MS V-MS cc	1	V-NS V-NS S	1	V-NS V-NS cd	1	
+S	A-LS A-HS grup.a	1	N-NS A-HS s.a	1	N-NS A-LS s.a	1	N-NS A-NS s.a	1	
+S	A-HS R-HS spec	1	A-HS R-NS spec	1	A-HS V-MS atr	1	N-NS A-HS s.a	1	N-NS N-NS sn	1	N-NS V-MS atr	1	N-NS V-NS suj	1	R-HS V-NS mod	1	V-NS V-MS S	1	
+S	A-HS R-NS S	1	N-HS A-NS s.a	1	N-NS A-HS S	1	N-NS A-HS s.a	2	N-NS A-NS s.a	1	N-NS N-HS sn	1	N-NS V-MS atr	1	N-NS V-MS suj	1	N-NS V-NS cd	3	V-NS V-MS suj	1	
+S	A-HS V-MS atr	1	N-HS A-HS s.a	1	N-HS N-HS sn	1	N-HS V-NS cd	1	N-LS A-NS s.a	1	N-NS V-MS suj	1	V-NS V-MS S	1	
+S	N-NS A-HS S	1	N-NS V-NS S	1	V-NS V-LS S	1	
+S	N-HS A-HS s.a	1	N-HS V-NS S	1	N-HS V-NS cd	1	N-NS A-NS s.a	2	N-NS N-HS sn	1	V-NS V-LS S	1	
+S	N-LS V-NS cd	1	N-NS N-HS s.a	1	N-NS N-LS grup.nom	1	V-HS V-HS v	1	V-NS V-HS cd	1	
+S	A-HS R-HS spec	1	A-HS V-MS atr	1	N-LS A-HS s.a	1	N-MS V-MS suj	1	N-NS A-HS atr	1	N-NS A-HS sa	1	N-NS N-LS sn	1	N-NS N-MS S	1	N-NS N-MS s.a	1	N-NS V-HS suj	1	V-MS V-HS cd	1	
+S	R-HS V-NS cc	2	V-NS V-NS S	1	
+S	A-HS R-HS spec	1	A-MS A-HS grup.a	1	N-NS A-HS s.a	2	N-NS A-MS s.a	1	N-NS R-HS sn	1	N-NS V-NS S	1	N-NS V-NS cd	1	N-NS V-NS suj	1	R-HS V-NS sadv	1	V-NS V-NS cd	1	
+S	A-HS R-NS spec	1	A-LS R-NS spec	1	A-LS V-MS atr	1	N-LS V-MS S	1	N-NS A-HS S	1	N-NS A-HS s.a	1	N-NS N-LS S	1	N-NS V-MS suj	1	N-NS V-NS cd	1	V-NS V-MS v	1	
+S	A-HS A-HS grup.a	1	A-HS R-HS spec	1	A-HS V-MS atr	1	N-NS V-MS suj	1	N-NS V-NS cd	2	R-NS V-MS et	1	
+S	A-HS A-HS s.a	1	A-HS R-NS sadv	1	A-NS A-HS grup.a	1	A-NS V-LS suj	1	N-NS A-HS s.a	1	N-NS V-NS suj	2	R-HS V-LS cc	1	R-NS R-HS spec	1	R-NS V-LS mod	1	V-NS V-LS S	2	
+S	A-HS V-MS atr	1	N-MS A-HS s.a	1	N-MS V-NS cd	1	N-NS A-HS s.a	1	N-NS A-NS s.a	1	N-NS N-MS sn	1	N-NS V-HS S	1	R-HS V-MS atr	1	R-HS V-NS mod	1	V-MS V-MS S	1	V-NS V-MS suj	1	
+S	A-HS R-NS cc	1	N-LS V-HS S	1	N-NS R-HS s.a	1	N-NS V-NS S	1	
+S	A-MS V-NS cpred	1	N-NS A-HS s.a	2	N-NS V-NS S	1	
+S	A-HS A-HS S	1	A-HS R-NS spec	1	A-LS A-HS s.a	1	N-LS A-HS s.a	1	N-LS V-NS suj	1	N-NS A-HS s.a	2	
+S	A-HS A-HS grup.a	2	A-HS A-HS s.a	1	A-HS R-LS spec	1	N-NS N-HS grup.nom	1	
+S	A-MS V-LS cpred	1	N-HS V-HS S	1	N-HS V-NS atr	1	N-HS V-NS suj	1	N-LS N-MS grup.nom	1	N-MS R-HS neg	1	N-MS V-HS suj	1	N-NS A-NS s.a	1	N-NS V-LS S	1	N-NS V-NS suj	1	R-HS V-NS mod	1	V-NS V-LS S	1	V-NS V-NS atr	1	V-NS V-NS cd	1	
+S	A-HS R-NS spec	1	A-HS V-NS atr	1	V-NS V-NS cc	1	
+S	N-NS A-HS s.a	1	N-NS A-NS s.a	2	N-NS V-HS S	1	N-NS V-HS atr	1	
+S	A-HS R-NS cc	1	A-NS R-HS spec	1	N-HS A-NS s.a	1	N-HS N-HS grup.nom	1	N-NS A-NS s.a	2	R-HS V-LS et	1	V-LS V-MS cc	1	
+S	A-HS R-HS neg	1	N-LS A-LS s.a	1	N-NS V-HS suj	1	
+S	A-HS V-NS v	1	N-LS V-NS suj	1	N-NS A-HS s.a	1	N-NS A-LS s.a	1	N-NS V-NS cd	1	N-NS V-NS suj	1	R-NS V-NS et	1	V-NS V-NS v	1	
+S	N-HS N-HS sn	1	N-NS A-HS s.a	1	N-NS N-HS sn	1	N-NS R-HS sadv	1	N-NS V-LS S	1	R-HS V-NS cc	1	V-NS V-LS v	1	
+S	N-NS A-HS s.a	1	N-NS R-HS sadv	1	N-NS V-NS S	1	R-HS V-NS cc	1	R-HS V-NS mod	1	

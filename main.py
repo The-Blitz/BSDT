@@ -264,6 +264,12 @@ def normAndRed(trainData,testData,trainTarget):
 	ex_trainData,ex_testData=dimReduction(norm_train,norm_test,trainTarget)	
 	return ex_trainData,ex_testData
 	
+def decidedFunction(X_test,X_train,Y_test,Y_train):
+	svc = svm.SVC()
+	parameters={'C': [0.01],	'kernel': ['linear'],'gamma' : [0.001],'random_state':[0] , 'probability':[True]}
+	prob=test_clasif('svm',svc,X_test,X_train,Y_test,Y_train,parameters,['objective','subjective'])	
+	
+		
 def clasif_results():
 	trainFile1S  = 'Semcor/featSemcor.txt'
 	trainFile2S  = 'Semcor/wordSemcor.txt'
@@ -272,31 +278,32 @@ def clasif_results():
 	testFile1   = 'Results/Test/featList1.txt'
 	testFile2   = 'Results/Test/wordList1.txt'
 	
-	#trainData,trainTarget=readData(trainFile1A)
+	#trainData,trainTarget=readData(trainFile1S)
 	#testData,testTarget=readData(testFile1)	
-	#trainData,trainTarget=readData2(trainFile2A)
+	#trainData,trainTarget=readData2(trainFile2S)
 	#testData,testTarget=readData2(testFile2)	
-	#trainData,trainTarget=readData3(trainFile1A,trainFile2A)
+	#trainData,trainTarget=readData3(trainFile1S,trainFile2S)
 	#testData,testTarget=readData3(testFile1,testFile2)
 	
-	trainData1,trainTarget1=readData3(trainFile1S,trainFile2S)
-	trainData2,trainTarget2=readData3(trainFile1A,trainFile2A)
-	testData,testTarget=readData3(testFile1,testFile2)	
+	#trainData1,trainTarget1=readData3(trainFile1S,trainFile2S)
+	#trainData2,trainTarget2=readData3(trainFile1A,trainFile2A)
+	#testData,testTarget=readData3(testFile1,testFile2)	
 	
-	trainData   = np.concatenate((trainData1,trainData2))
-	trainTarget = trainTarget1 + trainTarget2	
+	#trainData   = np.concatenate((trainData1,trainData2))
+	#trainTarget = trainTarget1 + trainTarget2	
 	
 	X_test = testData 
 	X_train = trainData
 	Y_test = testTarget
 	Y_train = trainTarget
 	
-	#X_train,X_test=normalization(X_train,X_test)
+	X_train,X_test=normalization(X_train,X_test)
 	#X_train,X_test=dimReduction(X_train,X_test,Y_train)
 	#X_train,X_test=normAndRed(X_train,X_test,Y_train)
 	
 	#searchParameters(X_test,X_train,Y_test,Y_train)
-	showResults(X_test,X_train,Y_test,Y_train)
+	#showResults(X_test,X_train,Y_test,Y_train)
+	decidedFunction(X_test,X_train,Y_test,Y_train)
 
 def init_clasif():
 	trainFile  = 'Semcor/featSemcor.txt'
