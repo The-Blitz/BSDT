@@ -413,4 +413,36 @@ def corpusExcel():
 	
 	cg.generateExcelCorpus(objProcSentences,subjProcSentences)
 	
+def generateWordList(): #List of relevant words of sentences (Nouns, Verbs, Adjectives, adveRbs)
+	fileName  = 'Corpus/objTest.txt'
+	objFile = s.readFile(fileName,'utf-8')
+	fileName  = 'Corpus/subjTest.txt'
+	subjFile  =s.readFile(fileName,'utf-8')
 
+	f = open('testReleW.txt','a+')
+
+	for i in range(201,451):
+		words,wordSet,sentences  = procTextFile(objFile[i-1],0)
+		for j in range(0,len(words)):
+			wo = words[j][0]
+			le = words[j][1]
+			tg = words[j][2]
+			for k in range(1,len(wo) + 1):
+				if( ( le[k-1] +" "+ str(k) ) in wordSet[j] ):
+					f.write("%d %d %s %s %s\n" % (i,k,wo[k-1],le[k-1],tg[k-1][0]) )
+		print("Oración", i ,"objetiva procesada" )
+		
+	for i in range(201,451):
+		words,wordSet,sentences  = procTextFile(subjFile[i-1],0)
+		for j in range(0,len(words)):
+			wo = words[j][0]
+			le = words[j][1]
+			tg = words[j][2]
+			for k in range(1,len(wo) + 1):
+				if( ( le[k-1] +" "+ str(k) ) in wordSet[j] ):
+					f.write("%d %d %s %s %s\n" % (i,k,wo[k-1],le[k-1],tg[k-1][0]) )
+		print("Oración", i ,"subjetiva procesada" )			
+
+	f.close()
+
+generateWordList()		
