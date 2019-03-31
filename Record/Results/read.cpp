@@ -13,10 +13,10 @@ vector<pair<string, string> > read (string filename) {
 	while (getline(file, line)){
 		istringstream iss(line);
 		iss>>ind>>pos>>lemma>>offset>>subj;
-		//res.push_back(make_pair((ind+" "+lemma+" "+pos),subj));
-		string aux="";
-		aux = aux + char(offset[offset.size()-1] - 32)+"-"+ subj;
-		res.push_back(make_pair((ind+" "+lemma+"-"+pos), aux ));
+		res.push_back(make_pair((ind+" "+lemma+" "+pos),subj));
+		//string aux="";
+		//aux = aux + char(offset[offset.size()-1] - 32)+"-"+ subj;
+		//res.push_back(make_pair((ind+" "+lemma+"-"+pos), aux ));
 	}
 	file.close();
 	return res;
@@ -71,15 +71,16 @@ void readRela(string filename){
 }
 
 int main(){
-	/*
+	
 	vector<pair<string, string> > vect1 = read("result-A.txt");
 	vector<pair<string, string> > vect2 = read("result-J.txt");
-	vector<pair<string, string> > vect3 = read("result-S.txt");	
+	vector<pair<string, string> > vect3 = read("result-S.txt");
+	vector<pair<string, string> > vect4 = read("result-Freq.txt");		
 	int cont=0;
 
 	int equal=0;
 	int found=0;
-	*/
+	
 	// compare data with right values ( juntos.txt vs anotacion.txt)
 	
 	/*for(int i=0; i<vect2.size();i++){
@@ -120,11 +121,31 @@ int main(){
 		if(cont1<vect1.size())	cont=cont1;
 	}*/		
 	
+	// compare data with right values ( sentidosFrecuentes.txt vs anotacion.txt)
+	
+	/*for(int i=0; i<vect4.size();i++){
+		string s1=vect4[i].first; string s2=vect4[i].second;
+		int cont1=cont;
+		while(cont1<vect1.size()){
+			string s3=vect1[cont1].first; string s4=vect1[cont1].second;
+			cont1++;
+			if(s3==s1){
+				found++;
+				if(s2==s4)equal++;
+				else{
+					cout<<s1<<" "<<s2<<" "<<s3<<" "<<s4<<"\n";
+				}		
+				break;
+			}
+		}
+		if(cont1<vect1.size())	cont=cont1;
+	}*/	
+	
 	//cout<<found<<" "<<equal<<endl;
 	
 	//readDiff("diffSA.txt");
 	
-	readRela("relations3.txt");
+	//readRela("relations3.txt");
 	return 0;
 }
 	

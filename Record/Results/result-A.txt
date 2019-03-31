@@ -533,7 +533,7 @@
 47 3 siglo spa-30-15205532-n LS
 47 7 chicos spa-30-10285313-n LS
 47 9 embarcan spa-30-02373336-v LS
-47 12 primer spa-30-01009206-a NS
+47 12 primer spa-30-01009206-a HS
 47 13 viaje spa-30-00306426-n NS
 47 16 océano spa-30-09376198-n NS
 47 18 naufragan spa-30-02111625-v NS
@@ -568,7 +568,7 @@
 50 23 llamado spa-30-00792011-v NS
 50 25 tareas spa-30-00719705-n NS
 50 26 más spa-30-00111609-r NS
-50 27 altas spa-30-01210854-a MS
+50 27 altas spa-30-01210854-a HS
 50 30 compromiso spa-30-07228211-n NS
 50 32 maría spa-30-11161412-n NS
 50 35 anunciación spa-30-06747190-n NS
@@ -813,7 +813,7 @@
 69 20 infancia spa-30-15147097-n NS
 69 23 muerte spa-30-07355491-n NS
 70 4 joven spa-30-10285313-n LS
-70 5 idealista spa-30-02745284-a NS
+70 5 idealista spa-30-02745284-a HS
 70 7 comienza spa-30-00345761-v NS
 70 9 trabajar spa-30-02410855-v NS
 70 12 fábrica spa-30-03316406-n NS
@@ -917,7 +917,7 @@
 79 11 serie spa-30-05044822-n NS
 79 13 espectros spa-30-09545976-n LS
 79 14 comienzan spa-30-00345761-v NS
-79 16 molestar spa-30-01789514-v LS
+79 16 molestar spa-30-01789514-v HS
 81 1 dividida spa-30-02467662-v NS
 81 4 historias spa-30-06369829-n NS
 81 7 niñera spa-30-09829305-n NS
@@ -1214,7 +1214,7 @@
 112 16 tipo spa-30-05839024-n NS
 112 18 movimiento spa-30-07309781-n NS
 112 20 expresión spa-30-04679738-n NS
-112 24 realizadas spa-30-01640855-v NS
+112 24 realizadas spa-30-01640855-v HS
 112 27 pie spa-30-05563266-n NS
 112 28 izquierdo spa-30-02032953-a NS
 112 31 consiguió spa-30-02526085-v HS
@@ -1279,7 +1279,7 @@
 119 14 corredores spa-30-10502576-n NS
 119 18 tienen spa-30-02204692-v NS
 119 19 coches spa-30-02958343-n NS
-119 21 alta spa-30-01210854-a MS
+119 21 alta spa-30-01210854-a HS
 119 22 gama spa-30-04728068-n HS
 119 23 muy spa-30-00014285-r HS
 119 24 veloces spa-30-00976508-a HS
@@ -2110,7 +2110,7 @@
 198 19 reunir spa-30-01291069-v NS
 198 23 misterioso spa-30-00968522-a HS
 198 24 fan spa-30-10639925-n LS
-198 26 lucha spa-30-00447540-n NS
+198 26 lucha spa-30-00447540-n HS
 199 2 película spa-30-06613686-n NS
 199 3 muestra spa-30-00943837-v NS
 199 4 romanos spa-30-09717047-n NS
@@ -2637,7 +2637,7 @@
 41 5 escena spa-30-06614729-n NS
 41 6 en_pedazos spa-30-00180944-r NS
 41 9 más spa-30-00111609-r NS
-41 10 simple spa-30-02174896-a MS
+41 10 simple spa-30-02174896-a HS
 41 13 frases spa-30-06285090-n NS
 41 16 desgreñado spa-30-02425220-a HS
 41 17 cómico spa-30-09940146-n NS
@@ -2738,7 +2738,7 @@
 49 4 es spa-30-02604760-v MS
 49 6 modestia spa-30-04787154-n HS
 49 9 al_mismo_tiempo spa-30-00167702-r NS
-49 14 sencilla spa-30-02174896-a MS
+49 14 sencilla spa-30-02174896-a HS
 49 15 desnudez spa-30-04697819-n HS
 49 18 proyecto spa-30-00795720-n NS
 49 3 faltaría spa-30-02632353-v LS
@@ -2938,8 +2938,8 @@
 63 11 películas spa-30-06613686-n NS
 63 12 anteriores spa-30-00127137-a NS
 64 2 documental spa-30-06616806-n NS
-64 3 simple spa-30-02174896-a MS
-64 5 directo spa-30-00763901-a NS
+64 3 simple spa-30-02174896-a HS
+64 5 directo spa-30-00763901-a HS
 64 7 demuestra spa-30-00820976-v NS
 64 8 silenciosamente spa-30-00462520-r MS
 64 11 vida spa-30-15140405-n NS
@@ -3647,7 +3647,7 @@
 118 5 originalidad spa-30-04800359-n HS
 118 2 pareja spa-30-07985628-n LS
 118 3 protagonista spa-30-10172793-n NS
-118 6 química spa-30-13840958-n NS
+118 6 química spa-30-13840958-n HS
 118 9 espléndida spa-30-00219389-a HS
 118 1 acaba spa-30-02610845-v NS
 118 2 resultando spa-30-00343898-v LS
@@ -4043,7 +4043,7 @@
 152 20 distintivos spa-30-00357556-a HS
 152 23 estilo spa-30-04928903-n NS
 152 26 escritor spa-30-10794014-n NS
-153 3 finalmente spa-30-00047903-r NS
+153 3 finalmente spa-30-00047903-r HS
 153 4 consigue spa-30-02210855-v LS
 153 6 largometraje spa-30-06615026-n NS
 153 9 acerque spa-30-02665282-v HS
@@ -4409,7 +4409,7 @@
 184 2 dibuja spa-30-01690294-v NS
 184 4 personajes spa-30-05929008-n NS
 184 6 trazos spa-30-04683136-n NS
-184 7 simples spa-30-02174896-a MS
+184 7 simples spa-30-02174896-a HS
 184 9 gruesos spa-30-02410393-a HS
 184 1 situaciones spa-30-13920835-n NS
 184 2 construidas spa-30-01655505-v NS
@@ -4449,7 +4449,7 @@
 186 16 interés spa-30-05682950-n NS
 187 2 película spa-30-06613686-n NS
 187 3 compleja spa-30-02177584-a HS
-187 5 densa spa-30-00539009-a NS
+187 5 densa spa-30-00539009-a HS
 187 7 casi spa-30-00073033-r HS
 187 8 siempre spa-30-00019339-r NS
 187 9 absorbente spa-30-00167829-a HS
@@ -4522,7 +4522,7 @@
 193 4 influencias spa-30-05194151-n HS
 193 7 trabajo spa-30-04599396-n NS
 193 9 vuela spa-30-01894520-v LS
-193 10 alto spa-30-01210854-a MS
+193 10 alto spa-30-01210854-a HS
 193 13 demuestra spa-30-00820976-v NS
 193 15 no spa-30-00024073-r HS
 193 16 son spa-30-02620587-v NS

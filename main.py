@@ -32,7 +32,7 @@ from tkinter import messagebox
 import warnings
 warnings.filterwarnings('ignore')
 
-np.set_printoptions(threshold=np.nan) #show full dataset
+#np.set_printoptions(threshold=np.nan) #show full dataset
 
 def readData(fileName): # relations as features
 	data=[]
@@ -278,8 +278,8 @@ def clasif_results():
 	testFile1   = 'Results/Test/featList1.txt'
 	testFile2   = 'Results/Test/wordList1.txt'
 	
-	#trainData,trainTarget=readData(trainFile1S)
-	#testData,testTarget=readData(testFile1)	
+	trainData,trainTarget=readData(trainFile1S)
+	testData,testTarget=readData(testFile1)	
 	#trainData,trainTarget=readData2(trainFile2S)
 	#testData,testTarget=readData2(testFile2)	
 	#trainData,trainTarget=readData3(trainFile1S,trainFile2S)

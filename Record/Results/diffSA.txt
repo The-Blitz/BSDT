@@ -88,14 +88,13 @@
 46 metafísico 8 MS 46 metafísico 8 HS
 47 chicos 7 NS 47 chicos 7 LS
 47 embarcan 9 NS 47 embarcan 9 LS
-47 primer 12 LS 47 primer 12 NS
+47 primer 12 LS 47 primer 12 HS
 48 muestra 1 NS 48 muestra 1 HS
 49 fue 23 NS 49 fue 23 MS
 50 siendo 1 NS 50 siendo 1 MS
 50 augusto 7 LS 50 augusto 7 NS
 50 es 22 NS 50 es 22 MS
 50 más 26 HS 50 más 26 NS
-50 altas 27 HS 50 altas 27 MS
 51 abandona 14 NS 51 abandona 14 LS
 51 polo 36 NS 51 polo 36 LS
 51 opuesto 37 LS 51 opuesto 37 HS
@@ -144,7 +143,6 @@
 69 realizada 13 HS 69 realizada 13 NS
 69 abarcando 17 LS 69 abarcando 17 HS
 70 joven 4 NS 70 joven 4 LS
-70 idealista 5 HS 70 idealista 5 NS
 71 corazón 13 NS 71 corazón 13 LS
 72 diablo 6 MS 72 diablo 6 HS
 74 joven 12 LS 74 joven 12 NS
@@ -166,7 +164,7 @@
 78 enamorada 15 MS 78 enamorada 15 HS
 78 es 32 NS 78 es 32 MS
 79 cambia 7 NS 79 cambia 7 LS
-79 molestar 16 NS 79 molestar 16 LS
+79 molestar 16 NS 79 molestar 16 HS
 81 son 28 NS 81 son 28 MS
 81 nubes 30 LS 81 nubes 30 NS
 81 celos 45 LS 81 celos 45 HS
@@ -232,7 +230,7 @@
 118 ladrón 24 HS 118 ladrón 24 NS
 118 envuelto 25 NS 118 envuelto 25 HS
 119 conocidos 11 NS 119 conocidos 11 MS
-119 alta 21 NS 119 alta 21 MS
+119 alta 21 NS 119 alta 21 HS
 119 gama 22 NS 119 gama 22 HS
 119 picadas 32 MS 119 picadas 32 NS
 121 chico 2 NS 121 chico 2 LS
@@ -459,7 +457,6 @@
 41 clave 3 NS 41 clave 3 HS
 41 aplastar 3 NS 41 aplastar 3 LS
 41 más 9 HS 41 más 9 NS
-41 simple 10 HS 41 simple 10 MS
 41 desgreñado 16 NS 41 desgreñado 16 HS
 41 resulta 18 NS 41 resulta 18 LS
 42 funcionan 5 NS 42 funcionan 5 HS
@@ -476,7 +473,6 @@
 48 tensión 18 NS 48 tensión 18 LS
 48 humor 21 NS 48 humor 21 HS
 49 sorprende 3 NS 49 sorprende 3 LS
-49 sencilla 14 HS 49 sencilla 14 MS
 49 es 6 NS 49 es 6 MS
 50 consigue 13 HS 50 consigue 13 LS
 51 ir 8 NS 51 ir 8 MS
@@ -517,8 +513,7 @@
 63 presunto 7 LS 63 presunto 7 HS
 63 logra 1 HS 63 logra 1 LS
 63 perturbadora 7 MS 63 perturbadora 7 HS
-64 simple 3 HS 64 simple 3 MS
-64 directo 5 MS 64 directo 5 NS
+64 directo 5 MS 64 directo 5 HS
 64 silenciosamente 8 NS 64 silenciosamente 8 MS
 64 enfrentas 18 NS 64 enfrentas 18 MS
 65 madre 2 NS 65 madre 2 HS
@@ -733,7 +728,6 @@
 152 determinación 5 NS 152 determinación 5 MS
 152 compasión 8 HS 152 compasión 8 MS
 152 son 17 NS 152 son 17 MS
-153 finalmente 3 HS 153 finalmente 3 NS
 153 consigue 4 HS 153 consigue 4 LS
 153 acerque 9 NS 153 acerque 9 HS
 154 iconos 10 NS 154 iconos 10 HS
@@ -811,7 +805,6 @@
 182 sensación 17 LS 182 sensación 17 MS
 182 final 18 HS 182 final 18 NS
 182 sea 19 NS 182 sea 19 MS
-184 simples 7 HS 184 simples 7 MS
 184 previsible 18 NS 184 previsible 18 HS
 185 más 14 HS 185 más 14 NS
 185 siendo 25 NS 185 siendo 25 MS
@@ -820,7 +813,6 @@
 186 afortunadamente 1 HS 186 afortunadamente 1 NS
 186 interpretación 4 LS 186 interpretación 4 NS
 186 mantener 14 MS 186 mantener 14 NS
-187 densa 5 HS 187 densa 5 NS
 187 impresionaban 11 NS 187 impresionaban 11 LS
 187 última 2 LS 187 última 2 NS
 188 marear 11 NS 188 marear 11 HS
@@ -832,7 +824,6 @@
 192 peso 8 HS 192 peso 8 NS
 193 son 1 MS 193 son 1 NS
 193 vuela 9 NS 193 vuela 9 LS
-193 alto 10 HS 193 alto 10 MS
 193 límites 23 NS 193 límites 23 HS
 193 involucran 37 MS 193 involucran 37 HS
 194 es 1 MS 194 es 1 NS
@@ -852,4 +843,4 @@
 199 plagada 22 HS 199 plagada 22 LS
 199 ego 30 MS 199 ego 30 HS
 200 defrauda 1 HS 200 defrauda 1 LS
-3713 2859
+3713 2868

@@ -278,7 +278,7 @@
 46 mágico-12 tren-11 A-HS N-NS
 47 chicos-7 embarcan-9 N-LS V-LS
 47 naufragan-18 embarcan-9 V-NS V-LS
-47 primer-12 viaje-13 A-NS N-NS
+47 primer-12 viaje-13 A-HS N-NS
 47 tropical-22 isla-21 A-NS N-NS
 49 comandante-2 investiga-8 N-NS V-NS
 49 asesinato-10 investiga-8 N-MS V-NS
@@ -290,9 +290,9 @@
 50 augusto-7 rey-3 N-NS N-NS
 50 llamado-23 sobrinos-19 V-NS N-NS
 50 es-22 llamado-23 V-MS V-NS
-50 altas-27 tareas-25 A-MS N-NS
+50 altas-27 tareas-25 A-HS N-NS
 50 compromiso-30 tareas-25 N-NS N-NS
-50 más-26 altas-27 R-NS A-MS
+50 más-26 altas-27 R-NS A-HS
 50 anunciación-35 compromiso-30 N-NS N-NS
 50 viaje-43 compromiso-30 N-NS N-NS
 50 exilio-51 compromiso-30 N-NS N-NS
@@ -421,7 +421,7 @@
 69 realizada-13 vida-9 V-NS N-NS
 69 abarcando-17 realizada-13 V-HS V-NS
 70 comienza-7 trabajar-9 V-NS V-NS
-70 idealista-5 joven-4 A-NS N-LS
+70 idealista-5 joven-4 A-HS N-LS
 70 de_vino-13 fábrica-12 A-NS N-NS
 70 estatal-14 fábrica-12 A-NS N-NS
 70 descubre-17 fábrica-12 V-NS N-NS
@@ -474,9 +474,9 @@
 78 tan-33 fácil-34 R-HS A-HS
 79 vida-2 cambia-7 N-NS V-LS
 79 radicalmente-8 cambia-7 R-HS V-LS
-79 molestar-16 cambia-7 V-LS V-LS
-79 serie-11 molestar-16 N-NS V-LS
-79 comienzan-14 molestar-16 V-NS V-LS
+79 molestar-16 cambia-7 V-HS V-LS
+79 serie-11 molestar-16 N-NS V-HS
+79 comienzan-14 molestar-16 V-NS V-HS
 79 joven-5 pareja-6 A-HS N-LS
 81 niñera-7 historias-4 N-NS N-NS
 81 monstruo-12 niñera-7 N-NS N-NS
@@ -662,7 +662,7 @@
 119 muy-23 veloces-24 R-HS A-HS
 119 peligrosas-31 picadas-32 A-HS N-NS
 119 ilegales-33 picadas-32 A-NS N-NS
-119 alta-21 gama-22 A-MS N-HS
+119 alta-21 gama-22 A-HS N-HS
 121 chico-2 comparte-12 N-LS V-HS
 121 vida-14 comparte-12 N-NS V-HS
 121 vive-7 chico-2 V-NS N-LS
@@ -1359,7 +1359,7 @@
 41 siempre-22 impredecible-20 R-NS A-HS
 41 escena-5 aplastar-3 N-NS V-LS
 41 en_pedazos-6 escena-5 R-NS N-NS
-41 más-9 simple-10 R-NS A-MS
+41 más-9 simple-10 R-NS A-HS
 42 no-1 funcionan-5 R-HS V-HS
 42 interpretaciones-4 funcionan-5 N-LS V-HS
 42 todo_el_tiempo-6 funcionan-5 R-HS V-HS
@@ -1422,7 +1422,7 @@
 48 humor-21 acción-15 N-HS N-MS
 49 sorprende-3 es-4 V-LS V-MS
 49 modestia-6 es-4 N-HS V-MS
-49 sencilla-14 desnudez-15 A-MS N-HS
+49 sencilla-14 desnudez-15 A-HS N-HS
 49 faltaría-3 es-6 V-LS V-MS
 49 conflicto-7 es-6 N-NS V-MS
 49 tema-14 conflicto-7 N-NS N-NS
@@ -1540,10 +1540,10 @@
 63 perturbadora-7 atmósfera-4 A-HS N-NS
 63 inédita-8 perturbadora-7 A-LS A-HS
 63 anteriores-12 películas-11 A-NS N-NS
-64 simple-3 documental-2 A-MS N-NS
+64 simple-3 documental-2 A-HS N-NS
 64 demuestra-7 documental-2 V-NS N-NS
 64 creciendo-13 documental-2 V-NS N-NS
-64 directo-5 simple-3 A-NS A-MS
+64 directo-5 simple-3 A-HS A-HS
 64 silenciosamente-8 demuestra-7 R-MS V-NS
 64 vida-11 creciendo-13 N-NS V-NS
 64 continúa-12 creciendo-13 V-NS V-NS
@@ -2184,7 +2184,7 @@
 152 son-17 personajes-14 V-MS N-NS
 152 elementos-19 son-17 N-NS V-MS
 152 distintivos-20 elementos-19 A-HS N-NS
-153 finalmente-3 consigue-4 R-NS V-LS
+153 finalmente-3 consigue-4 R-HS V-LS
 153 largometraje-6 consigue-4 N-NS V-LS
 153 acerque-9 largometraje-6 V-HS N-NS
 153 riguroso-19 documental-16 A-HS N-NS
@@ -2397,8 +2397,8 @@
 183 increíblemente-12 hace-11 R-HS V-NS
 183 bien-13 hace-11 R-HS V-NS
 184 personajes-4 dibuja-2 N-NS V-NS
-184 simples-7 trazos-6 A-MS N-NS
-184 gruesos-9 simples-7 A-HS A-MS
+184 simples-7 trazos-6 A-HS N-NS
+184 gruesos-9 simples-7 A-HS A-HS
 184 caprichosamente-5 hace-9 R-HS V-NS
 184 desarrolle-14 hace-9 V-NS V-NS
 184 situaciones-1 caprichosamente-5 N-NS R-HS
@@ -2425,7 +2425,7 @@
 186 más-10 suficiente-12 R-HS A-HS
 186 interés-16 mantener-14 N-NS V-NS
 187 compleja-3 película-2 A-HS N-NS
-187 densa-5 compleja-3 A-NS A-HS
+187 densa-5 compleja-3 A-HS A-HS
 187 absorbente-9 compleja-3 A-HS A-HS
 187 siempre-8 absorbente-9 R-NS A-HS
 187 casi-7 siempre-8 R-HS R-NS
@@ -2470,7 +2470,7 @@
 193 tercer-10 hombre-11 A-NS N-NS
 193 influencias-4 son-1 N-HS V-NS
 193 vuela-9 trabajo-7 V-LS N-NS
-193 alto-10 vuela-9 A-MS V-LS
+193 alto-10 vuela-9 A-HS V-LS
 193 demuestra-13 vuela-9 V-NS V-LS
 193 son-16 demuestra-13 V-NS V-NS
 193 no-15 son-16 R-HS V-NS

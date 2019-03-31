@@ -445,4 +445,4 @@ def generateWordList(): #List of relevant words of sentences (Nouns, Verbs, Adje
 
 	f.close()
 
-generateWordList()		
+#generateWordList()		

@@ -98,7 +98,7 @@
 46 metafísico 8 MS 46 metafísico 8 HS
 47 chicos 7 NS 47 chicos 7 LS
 47 embarcan 9 NS 47 embarcan 9 LS
-47 primer 12 LS 47 primer 12 NS
+47 primer 12 LS 47 primer 12 HS
 48 muestra 1 NS 48 muestra 1 HS
 48 cámaras 4 LS 48 cámaras 4 NS
 49 fue 23 NS 49 fue 23 MS
@@ -107,7 +107,6 @@
 50 es 22 NS 50 es 22 MS
 50 llamado 23 LS 50 llamado 23 NS
 50 más 26 HS 50 más 26 NS
-50 altas 27 HS 50 altas 27 MS
 50 magos 46 LS 50 magos 46 NS
 51 abandona 14 NS 51 abandona 14 LS
 51 polo 36 NS 51 polo 36 LS
@@ -167,7 +166,6 @@
 69 vida 9 HS 69 vida 9 NS
 69 muerte 23 LS 69 muerte 23 NS
 70 joven 4 NS 70 joven 4 LS
-70 idealista 5 HS 70 idealista 5 NS
 70 estado 22 LS 70 estado 22 NS
 71 corazón 13 NS 71 corazón 13 LS
 72 diablo 6 MS 72 diablo 6 HS
@@ -192,7 +190,7 @@
 79 vida 2 HS 79 vida 2 NS
 79 cambia 7 NS 79 cambia 7 LS
 79 espectros 13 NS 79 espectros 13 LS
-79 molestar 16 NS 79 molestar 16 LS
+79 molestar 16 NS 79 molestar 16 HS
 81 son 28 NS 81 son 28 MS
 81 celos 45 NS 81 celos 45 HS
 82 ilustradas 25 MS 82 ilustradas 25 NS
@@ -245,6 +243,7 @@
 112 poetisa 4 MS 112 poetisa 4 LS
 112 impedía 14 LS 112 impedía 14 NS
 112 movimiento 18 LS 112 movimiento 18 NS
+112 realizadas 24 NS 112 realizadas 24 HS
 112 adiestrar 32 MS 112 adiestrar 32 NS
 112 comunicar 35 NS 112 comunicar 35 LS
 114 amarga 15 LS 114 amarga 15 MS
@@ -258,7 +257,6 @@
 118 ladrón 24 HS 118 ladrón 24 NS
 118 envuelto 25 NS 118 envuelto 25 HS
 119 conocidos 11 NS 119 conocidos 11 MS
-119 alta 21 HS 119 alta 21 MS
 119 gama 22 NS 119 gama 22 HS
 119 picadas 32 MS 119 picadas 32 NS
 121 chico 2 NS 121 chico 2 LS
@@ -425,6 +423,7 @@
 198 exiliado 6 LS 198 exiliado 6 NS
 198 ve 11 MS 198 ve 11 NS
 198 obligado 12 NS 198 obligado 12 HS
+198 lucha 26 NS 198 lucha 26 HS
 199 más 12 HS 199 más 12 NS
 199 parados 19 NS 199 parados 19 HS
 199 está 41 MS 199 está 41 NS
@@ -550,7 +549,6 @@
 41 clave 3 NS 41 clave 3 HS
 41 aplastar 3 NS 41 aplastar 3 LS
 41 más 9 HS 41 más 9 NS
-41 simple 10 HS 41 simple 10 MS
 41 desgreñado 16 NS 41 desgreñado 16 HS
 41 resulta 18 NS 41 resulta 18 LS
 42 funcionan 5 NS 42 funcionan 5 HS
@@ -570,7 +568,6 @@
 48 tensión 18 NS 48 tensión 18 LS
 49 sorprende 3 MS 49 sorprende 3 LS
 49 es 4 NS 49 es 4 MS
-49 sencilla 14 HS 49 sencilla 14 MS
 49 desnudez 15 MS 49 desnudez 15 HS
 49 es 6 NS 49 es 6 MS
 50 consigue 13 HS 50 consigue 13 LS
@@ -619,8 +616,6 @@
 63 presunto 7 LS 63 presunto 7 HS
 63 logra 1 HS 63 logra 1 LS
 63 perturbadora 7 MS 63 perturbadora 7 HS
-64 simple 3 HS 64 simple 3 MS
-64 directo 5 HS 64 directo 5 NS
 64 silenciosamente 8 NS 64 silenciosamente 8 MS
 64 vida 11 HS 64 vida 11 NS
 64 enfrentas 18 NS 64 enfrentas 18 MS
@@ -786,6 +781,7 @@
 117 elaborada 3 NS 117 elaborada 3 HS
 117 cómic 12 NS 117 cómic 12 LS
 117 es 2 NS 117 es 2 MS
+118 química 6 NS 118 química 6 HS
 118 acaba 1 MS 118 acaba 1 NS
 118 resultando 2 NS 118 resultando 2 LS
 118 entretenida 3 LS 118 entretenida 3 HS
@@ -896,7 +892,6 @@
 152 dolor 11 HS 152 dolor 11 LS
 152 son 17 NS 152 son 17 MS
 152 elementos 19 MS 152 elementos 19 NS
-153 finalmente 3 HS 153 finalmente 3 NS
 153 consigue 4 HS 153 consigue 4 LS
 153 acerque 9 NS 153 acerque 9 HS
 153 formalmente 17 NS 153 formalmente 17 HS
@@ -989,7 +984,6 @@
 182 sorprender 15 MS 182 sorprender 15 LS
 182 voluntad 10 NS 182 voluntad 10 LS
 182 sea 19 NS 182 sea 19 MS
-184 simples 7 HS 184 simples 7 MS
 184 previsible 18 NS 184 previsible 18 HS
 185 entretenida 5 LS 185 entretenida 5 HS
 185 vida 8 HS 185 vida 8 NS
@@ -1001,7 +995,6 @@
 186 afortunadamente 1 HS 186 afortunadamente 1 NS
 186 interpretación 4 LS 186 interpretación 4 NS
 186 es 7 NS 186 es 7 MS
-187 densa 5 HS 187 densa 5 NS
 187 absorbente 9 NS 187 absorbente 9 HS
 187 latir 2 NS 187 latir 2 HS
 188 marear 11 NS 188 marear 11 HS
@@ -1012,7 +1005,6 @@
 189 enamorado 5 MS 189 enamorado 5 HS
 190 boquiabiertos 11 LS 190 boquiabiertos 11 MS
 193 vuela 9 NS 193 vuela 9 LS
-193 alto 10 HS 193 alto 10 MS
 193 límites 23 NS 193 límites 23 HS
 193 involucran 37 MS 193 involucran 37 HS
 196 más 3 HS 196 más 3 NS
@@ -1028,4 +1020,4 @@
 199 plagada 22 HS 199 plagada 22 LS
 200 defrauda 1 HS 200 defrauda 1 LS
 200 públicos 14 HS 200 públicos 14 NS
-4620 3590
+4620 3598
